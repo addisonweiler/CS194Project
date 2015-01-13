@@ -2,4 +2,4 @@
 CS194 Winter Quarter 2015
 
 Group members:
-Sean Scott
+Sean Scott, Addison Weiler, April Yu
