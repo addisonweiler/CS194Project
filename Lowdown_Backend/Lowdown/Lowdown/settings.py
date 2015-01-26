@@ -27,6 +27,7 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 
+FANDJANGO_SITE_URL = ""
 # Application definition
 
 INSTALLED_APPS = (
@@ -36,11 +37,13 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'fandjango',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'fandjango.middleware.FacebookMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
@@ -51,7 +54,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'Lowdown.urls'
 
 WSGI_APPLICATION = 'Lowdown.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -81,3 +83,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#Facebook Stuff
+FACEBOOK_APPLICATION_ID = '578996548904671'
+FACEBOOK_APPLICATION_SECRET_KEY = '0d30c8516c93306cc60d555052f77adc'
+FACEBOOK_APPLICATION_NAMESPACE = 'lowdown_quiz_app'
