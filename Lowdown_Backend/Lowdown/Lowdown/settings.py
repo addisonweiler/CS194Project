@@ -109,3 +109,57 @@ STATIC_URL = '/static/'
 TEMPLATE_DIRS = (       
     os.path.join(BASE_DIR, 'Facebook_App/templates'),
 )
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'django': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/home/ubuntu/Lowdown_Backend/Lowdown/django.log',
+            'formatter': 'verbose'
+        },
+       'our_scripts': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/home/ubuntu/Lowdown_Backend/Lowdown/our_scripts.log',
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers':['django'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+        'Facebook_App': {
+            'handlers': ['our_scripts'],
+            'level': 'DEBUG',
+        },
+    }
+}
+
+'''
+#Https Stuff
+# secure proxy SSL header and secure cookies
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# session expire at browser close
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# wsgi scheme
+os.environ['wsgi.url_scheme'] = 'https'
+'''
+
