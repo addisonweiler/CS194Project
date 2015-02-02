@@ -10,6 +10,11 @@
      <li>
        <a>Hello {{ user }}{#{{ user.get_full_name|default:user.username }}#}!</a>
      </li>
+     {% for friend, pic in friends.iteritems %}
+     <li>
+       {{ friend }}: <img src="{{ pic }}" alt="testing">
+     </li>
+     {% endfor %}
      <li>
        <a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
      </li>

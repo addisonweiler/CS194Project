@@ -101,6 +101,14 @@ LOGIN_REDIRECT_URL = '/'
 SOCIAL_AUTH_FACEBOOK_KEY = '578996548904671'
 SOCIAL_AUTH_FACEBOOK_SECRET = '0d30c8516c93306cc60d555052f77adc'
 
+SOCIAL_AUTH_FACEBOOK_SCOPE = [
+    'email',
+    'user_friends',
+    'user_birthday',
+    'user_about_me',
+    'user_photos',
+]
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
@@ -126,13 +134,13 @@ LOGGING = {
         'django': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/home/ubuntu/Lowdown_Backend/Lowdown/django.log',
+            'filename': '/home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/django.log',
             'formatter': 'verbose'
         },
        'our_scripts': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/home/ubuntu/Lowdown_Backend/Lowdown/our_scripts.log',
+            'filename': '/home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/our_scripts.log',
             'formatter': 'verbose'
         },
     },
