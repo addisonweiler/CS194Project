@@ -38,16 +38,18 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'social.apps.django_app.default',
     'Facebook_App',
+    'fb_iframe',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'fb_iframe.middleware.FacebookMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -134,13 +136,13 @@ LOGGING = {
         'django': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/django.log',
+            'filename': '/home/ubuntu/Lowdown_Backend/Lowdown/django.log',
             'formatter': 'verbose'
         },
        'our_scripts': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/our_scripts.log',
+            'filename': '/home/ubuntu/Lowdown_Backend/Lowdown/our_scripts.log',
             'formatter': 'verbose'
         },
     },
@@ -157,17 +159,7 @@ LOGGING = {
     }
 }
 
-'''
-#Https Stuff
-# secure proxy SSL header and secure cookies
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
-# session expire at browser close
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-
-# wsgi scheme
-os.environ['wsgi.url_scheme'] = 'https'
-'''
-
+#Facebook Stuff
+FACEBOOK_APPLICATION_ID = "578996548904671"
+FACEBOOK_APPLICATION_SECRET_KEY = "0d30c8516c93306cc60d555052f77adc"
+FACEBOOK_APPLICATION_NAMESPACE = "lowdown_quiz_app"
