@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div>
+    <h1>Which of the following is NOT one of my statuses?</h1>
+
+    <div>
+        {% if question %}
+            <form>
+                <input type="radio" name="correct"> {{question.correctAnswer}}
+                {% for answer in question.wrongAnswers.iteritems %}
+                    <input type="radio" name="incorrect">{{answer}} 
+                {% endfor %}
+
+                <input type="submit" value="submit" />
+            </form>
+        {% else %}
+            <p>
+                Your question was rendered incorrectly.   
+            </p>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}
