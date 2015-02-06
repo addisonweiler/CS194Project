@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django import forms
 import logging
+import random
 import requests
 import urllib2
 import json
@@ -55,13 +56,13 @@ def home(request):
 
 #     return render(request, 'quiz.html', {'form': form})
 
-class MultipleChoiceQuestion(Question):
-    def __init__(self):
-        self.correctAnswer = None
-        self.wrongAnswers = []
-
 class Question(object):
     pass
+
+class MultipleChoiceQuestion(Question):
+    def __init__(self, correctAnswer, wrongAnswers):
+        self.correctAnswer = correctAnswer
+        self.wrongAnswers = wrongAnswers
 
 # # TODO: need to fill in options from Facebook data
 # class statusMCQuestionForm(forms.Form):
@@ -90,9 +91,13 @@ class Question(object):
 
 def quiz(request, friend_id):
    statuses = get_data(request, friend_id, 'statuses')
+   messages = [status['message'] for status in statuses['statuses']['data']]
+   question = MultipleChoiceQuestion("I love Sean and April so much",
+                                     random.sample(messages, 3))
    context = RequestContext(request,
                             {'request': request,
                              'statuses': statuses,
+                             'question': question,
                             })
    return render_to_response('quiz.html', context_instance=context)
 

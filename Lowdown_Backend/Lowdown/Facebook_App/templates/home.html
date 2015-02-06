@@ -6,9 +6,9 @@
 
  <p>
    <ul>
-   {% if user and not user.is_anonymous %}
+   {% if request.user and not request.user.is_anonymous %}
      <li>
-       <a>Hello {{ user }}{#{{ user.get_full_name|default:user.username }}#}!</a>
+       <a>Hello {{ request.user }}{#{{ request.user.get_full_name|default:request.user.username }}#}!</a>
      </li>
      {% for friend in friends %}
      <li>
