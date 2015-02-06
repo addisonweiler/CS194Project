@@ -10,9 +10,9 @@
      <li>
        <a>Hello {{ user }}{#{{ user.get_full_name|default:user.username }}#}!</a>
      </li>
-     {% for friend, pic in friends.iteritems %}
+     {% for friend in friends %}
      <li>
-       {{ friend }}: <img src="{{ pic }}" alt="testing">
+       {{ friend.name }}: <img src="{{ friend.picture.data.url }}" alt="testing">
      </li>
      {% endfor %}
      <li>
