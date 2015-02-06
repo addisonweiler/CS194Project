@@ -11,8 +11,9 @@
        <a>Hello {{ request.user }}{#{{ request.user.get_full_name|default:request.user.username }}#}!</a>
      </li>
      {% for friend in friends %}
+     {% url 'Facebook_App.views.quiz' friend.id as friend_quiz_url %}
      <li>
-       {{ friend.name }}: <img src="{{ friend.picture.data.url }}" alt="testing">
+       <a href="{{ friend_quiz_url }}">{{ friend.name }}</a> <img src="{{ friend.picture.data.url }}" alt="testing">
      </li>
      {% endfor %}
      <li>
