@@ -1,0 +1,41 @@
+sudo apt-get update; sudo apt-get install apache2 libapache2-mod-wsgi; sudo apt-get install python-pip; sudo pip install django; sudo apt-get install mysql-server python-mysqldb; sudo apt-get install git; sudo pip install python-social-auth;
+
+sudo vim /etc/apache2/sites-enabled/Lowdown.conf
+
+######################################################
+
+WSGIScriptAlias / /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/Lowdown/wsgi.py
+WSGIPythonPath /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown 
+<Directory /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/Lowdown>
+    <Files wsgi.py>
+        Order deny,allow
+        Require all granted
+    </Files>
+</Directory>
+
+<Directory /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/static>
+    Require all granted
+</Directory>
+
+<Directory /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/media>
+    Require all granted
+</Directory> 
+
+######################################################
+
+git clone https://github.com/addisonweiler/CS194Project.git
+
+#Create log files
+sudo touch /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/django.log;
+chmod 666 /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/django.log;
+
+sudo touch /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/our_scripts.log;
+chmod 666 /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/our_scripts.log;
+
+
+python manage.py migrate
+
+
+sudo service apache2 restart
+
+
