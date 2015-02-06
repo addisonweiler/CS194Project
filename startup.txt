@@ -34,6 +34,14 @@ sudo chmod 666 /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/our_scripts.log
 
 cd ~/CS194Project/Lowdown_Backend/Lowdown; 
 mv ../../idconfig.py Lowdown/;
+chmod 666 db.sqlite3;
+cd ../;
+chmod 777 Lowdown/;
+cd ../;
+chmod 777 Lowdown_Backend;
+cd ../;
+chmod 777 CS194Project;
+
 
 python manage.py migrate;
 
