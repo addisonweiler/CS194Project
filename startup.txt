@@ -35,9 +35,7 @@ sudo chmod 666 /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/our_scripts.log
 cd ~/CS194Project/Lowdown_Backend/Lowdown; 
 mv ../../idconfig.py Lowdown/;
 
-python manage.py migrate
+python manage.py migrate;
 
 
-sudo service apache2 restart
-
-
+sudo service apache2 restart;
