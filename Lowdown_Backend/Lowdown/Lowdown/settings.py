@@ -124,7 +124,7 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = [
     'user_hometown',
     'user_interests',
     'user_likes',
-    'user_location'
+    'user_location',
     'user_photos',
     'user_relationship_details',
     'user_relationships',
