@@ -27,11 +27,13 @@ git clone https://github.com/addisonweiler/CS194Project.git
 
 #Create log files
 sudo touch /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/django.log;
-chmod 666 /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/django.log;
+sudo chmod 666 /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/django.log;
 
 sudo touch /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/our_scripts.log;
-chmod 666 /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/our_scripts.log;
+sudo chmod 666 /home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/our_scripts.log;
 
+cd ~/CS194Project/Lowdown_Backend/Lowdown; 
+mv ../../idconfig.py Lowdown/;
 
 python manage.py migrate
 
