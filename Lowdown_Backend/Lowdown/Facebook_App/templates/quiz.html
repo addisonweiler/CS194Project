@@ -7,7 +7,7 @@
             <form>
                 {% for q in questions %}
                     {% if q.image %}
-                        <img src="{{q.image}}" alt="image">
+                        <img src="{{q.image}}" alt="image" style="max-width: 100%;">
                     {% endif %}
                     <h1>{{q.question}}</h1>
                     <input type="radio" name="correct"> {{q.correctAnswer}}<br>

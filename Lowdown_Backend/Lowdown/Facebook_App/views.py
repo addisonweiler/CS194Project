@@ -98,7 +98,7 @@ def quiz(request, friend_id):
    messages = [status['message'] for status in statuses['statuses']['data']]
 
    question1 = MultipleChoiceQuestion("Which of the following is NOT one of my statuses?",
-                                     None,
+                                     "https://fbcdn-sphotos-c-a.akamaihd.net/hphotos-ak-xpa1/t31.0-8/10264085_10205719358565250_1727936397614712389_o.jpg",
                                      "I love Sean and April so much",
                                      random.sample(messages, 3))
    context = RequestContext(request,
