@@ -2,17 +2,18 @@
 
 {% block main %}
  <div>
- <h1>Third-party authentication demo</h1>
+ <h1>Lowdown Brodown</h1>
 
  <p>
    <ul>
-   {% if user and not user.is_anonymous %}
+   {% if request.user and not request.user.is_anonymous %}
      <li>
-       <a>Hello {{ user }}{#{{ user.get_full_name|default:user.username }}#}!</a>
+       <a>Hello {{ request.user }}{#{{ request.user.get_full_name|default:request.user.username }}#}!</a>
      </li>
-     {% for friend, pic in friends.iteritems %}
+     {% for friend in friends %}
+     {% url 'Facebook_App.views.quiz' friend.id as friend_quiz_url %}
      <li>
-       {{ friend }}: <img src="{{ pic }}" alt="testing">
+       <a href="{{ friend_quiz_url }}">{{ friend.name }}</a> <img src="{{ friend.picture.data.url }}" alt="testing">
      </li>
      {% endfor %}
      <li>

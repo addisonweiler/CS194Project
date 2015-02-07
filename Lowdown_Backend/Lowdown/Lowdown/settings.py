@@ -41,13 +41,13 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'social.apps.django_app.default',
     'Facebook_App',
-    # 'fb_iframe',
+#    'fb_iframe',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'fb_iframe.middleware.FacebookMiddleware',
+#    'fb_iframe.middleware.FacebookMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
@@ -124,7 +124,7 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = [
     'user_hometown',
     'user_interests',
     'user_likes',
-    'user_location'
+    'user_location',
     'user_photos',
     'user_relationship_details',
     'user_relationships',
