@@ -9,18 +9,25 @@
                     {% if q.image %}
                         <img src="{{q.image}}" alt="image" style="max-width: 50%;">
                     {% endif %}
-                    <h1>{{q.question}}</h1>
-                    <input type="radio" name="question_{{forloop.counter}}"> {{q.correctAnswer}}<br>
-                    {% for answer in q.wrongAnswers %}
-                        <input type="radio" name="question_{{forloop.parentloop.counter}}">{{answer}}<br>
+                    <h2>{{q.QUESTION_TEXT}}</h2>
+                    {% with question_number=forloop.counter %}
+                    {% for wrong_answer in q.wrong_answers %}
+                        {% if forloop.counter == q.random_index %}
+                    <input type="radio" name="question_{{ question_number }}" value="{{ q.correct_answer }}">{{ q.correct_answer }}<br>
+                        {% endif %}
+                        <input type="radio" name="question_{{ question_number }}" value="{{ wrong_answer }}">{{ wrong_answer }}<br>
                     {% endfor %}
+                    {% if q.random_index > q.wrong_answers|length %}
+                        <input type="radio" name="question_{{ question_number }}" value="{{ q.correct_answer }}">{{ q.correct_answer }}<br>
+                    {% endif %}
                     <br>
+                    {% endwith %}
                 {% endfor %}   
                 <input type="submit" value="submit" />            
             </form>
         {% else %}
             <p>
-                Your question was rendered incorrectly.   
+                Error fetching quiz data for this friend.
             </p>
         {% endif %}
         </div>
