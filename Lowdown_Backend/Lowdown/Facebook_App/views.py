@@ -98,13 +98,17 @@ def quiz(request, friend_id):
    messages = [status['message'] for status in statuses['statuses']['data']]
 
    question1 = MultipleChoiceQuestion("Which of the following is NOT one of my statuses?",
-                                     "https://fbcdn-sphotos-c-a.akamaihd.net/hphotos-ak-xpa1/t31.0-8/10264085_10205719358565250_1727936397614712389_o.jpg",
+                                     None,
                                      "I love Sean and April so much",
+                                     random.sample(messages, 3))
+   question2 = MultipleChoiceQuestion("Which of the following is the caption for the above picture?",
+                                     "https://fbcdn-sphotos-c-a.akamaihd.net/hphotos-ak-xpa1/t31.0-8/10264085_10205719358565250_1727936397614712389_o.jpg",
+                                     "I love goats",
                                      random.sample(messages, 3))
    context = RequestContext(request,
                             {'request': request,
                              'statuses': statuses,
-                             'questions': [question1],
+                             'questions': [question1, question2],
                             })
    return render_to_response('quiz.html', context_instance=context)
 
