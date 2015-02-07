@@ -59,8 +59,12 @@ def home(request):
 class Question(object):
     pass
 
+#APRIL: MultipleChoiceQuestion now takes 4 parameters in the following order:
+#APRIL: question, image (None if not applicable), correct answer, 3 wrong answers
 class MultipleChoiceQuestion(Question):
-    def __init__(self, correctAnswer, wrongAnswers):
+    def __init__(self, question, image, correctAnswer, wrongAnswers):
+        self.question = question
+        self.image = image
         self.correctAnswer = correctAnswer
         self.wrongAnswers = wrongAnswers
 
@@ -88,16 +92,19 @@ class MultipleChoiceQuestion(Question):
 #                                       choices=choices, widget=forms.RadioSelect)
 #         return super(QuizForm, self).__init__(data, *args, **kwargs)
 
-
+#APRIL: quiz template now takes questions array of type MultipleChoiceQuestion
 def quiz(request, friend_id):
    statuses = get_data(request, friend_id, 'statuses')
    messages = [status['message'] for status in statuses['statuses']['data']]
-   question = MultipleChoiceQuestion("I love Sean and April so much",
+
+   question1 = MultipleChoiceQuestion("Which of the following is NOT one of my statuses?",
+                                     None,
+                                     "I love Sean and April so much",
                                      random.sample(messages, 3))
    context = RequestContext(request,
                             {'request': request,
                              'statuses': statuses,
-                             'question': question,
+                             'questions': [question1],
                             })
    return render_to_response('quiz.html', context_instance=context)
 

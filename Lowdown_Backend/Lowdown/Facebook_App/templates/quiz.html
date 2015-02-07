@@ -2,17 +2,21 @@
 
 {% block main %}
 <div>
-    <h1>Which of the following is NOT one of my statuses?</h1>
-
     <div>
-        {% if question %}
+        {% if questions %}
             <form>
-                <input type="radio" name="correct"> {{question.correctAnswer}}<br>
-                {% for answer in question.wrongAnswers %}
-                    <input type="radio" name="incorrect">{{answer}}<br>
-                {% endfor %}
+                {% for q in questions %}
+                    {% if q.image %}
+                        <img src="{{q.image}}" alt="image">
+                    {% endif %}
+                    <h1>{{q.question}}</h1>
+                    <input type="radio" name="correct"> {{q.correctAnswer}}<br>
+                    {% for answer in q.wrongAnswers %}
+                        <input type="radio" name="incorrect">{{answer}}<br>
+                    {% endfor %}
 
-                <input type="submit" value="submit" />
+                    <input type="submit" value="submit" />
+                {% endfor %}               
             </form>
         {% else %}
             <p>
