@@ -14,9 +14,9 @@
                     {% for answer in q.wrongAnswers %}
                         <input type="radio" name="incorrect">{{answer}}<br>
                     {% endfor %}
-                    <br>
-                {% endfor %}   
-                <input type="submit" value="submit" />            
+
+                    <input type="submit" value="submit" />
+                {% endfor %}               
             </form>
         {% else %}
             <p>
