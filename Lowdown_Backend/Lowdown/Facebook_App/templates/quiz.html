@@ -4,19 +4,19 @@
 <div>
     <div>
         {% if questions %}
-            <form>
+            <form action="/Facebook_App/quiz_grade" method="post"> {%csrf_token%}
                 {% for q in questions %}
                     {% if q.image %}
-                        <img src="{{q.image}}" alt="image" style="max-width: 100%;">
+                        <img src="{{q.image}}" alt="image" style="max-width: 50%;">
                     {% endif %}
                     <h1>{{q.question}}</h1>
-                    <input type="radio" name="correct"> {{q.correctAnswer}}<br>
+                    <input type="radio" name="question_{{forloop.counter}}"> {{q.correctAnswer}}<br>
                     {% for answer in q.wrongAnswers %}
-                        <input type="radio" name="incorrect">{{answer}}<br>
+                        <input type="radio" name="question_{{forloop.parentloop.counter}}">{{answer}}<br>
                     {% endfor %}
-
-                    <input type="submit" value="submit" />
-                {% endfor %}               
+                    <br>
+                {% endfor %}   
+                <input type="submit" value="submit" />            
             </form>
         {% else %}
             <p>
