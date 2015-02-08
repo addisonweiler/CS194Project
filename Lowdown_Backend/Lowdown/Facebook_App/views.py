@@ -72,12 +72,31 @@ def get_captioned_photo(photos):
         if get_caption(photo):
             return photo
     return None
+
+def get_liked_and_unliked_statuses(self_statuses_data, friend_id):
+    status_data = dict()
+
+    for status in self_statuses_data:
+        if 'likes' in status:
+            status_data[status['message']] = get_paged_data(status, 'likes')
+
+    liked_statuses = []
+    unliked_statuses = []
+
+    for k,v in status_data.iteritems():
+        if friend_id in v:
+            liked_statuses.append(k)
+        else:
+            unliked_statuses.append(k)
+
+    return liked_statuses, unliked_statuses
  
 def quiz(request, friend_id):
     friend_data = get_data(request, friend_id, 'statuses,name,photos')
-    self_data = get_data(request, "me", 'statuses')
+    self_data = get_data(request, 'me', 'statuses')
+    self_statuses_data = get_paged_data(self_data, 'statuses')
     self_statuses = [status['message'] 
-                for status in get_paged_data(self_data, 'statuses')]
+                for status in self_statuses_data]
 
     statuses = [status['message']
                 for status in get_paged_data(friend_data, 'statuses')]
@@ -90,6 +109,9 @@ def quiz(request, friend_id):
     question2 = ImageCaptionQuestion(get_sized_photo(photo),
                                      caption,
                                      get_captions(photos, caption))
+
+    liked_statuses, unliked_statuses = get_liked_and_unliked_statuses(self_statuses_data, friend_id)
+    question3 = LikedStatusQuestion(liked_statuses, unliked_statuses)
     questions = [question1, question2]
     context = RequestContext(request,
                              {'request': request,
