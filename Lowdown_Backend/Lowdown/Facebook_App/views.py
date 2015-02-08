@@ -75,9 +75,14 @@ def get_captioned_photo(photos):
  
 def quiz(request, friend_id):
     friend_data = get_data(request, friend_id, 'statuses,name,photos')
+    self_data = get_data(request, "me", 'statuses')
+    self_statuses = [status['message'] 
+                for status in get_paged_data(self_data, 'statuses')]
+
     statuses = [status['message']
                 for status in get_paged_data(friend_data, 'statuses')]
-    question1 = StatusQuestion(statuses)
+
+    question1 = StatusQuestion(statuses, self_statuses)
     
     photos = get_paged_data(friend_data, 'photos')
     photo = get_captioned_photo(photos)
