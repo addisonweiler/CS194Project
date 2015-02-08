@@ -38,16 +38,28 @@ def home(request):
                              })
     return render_to_response('home.html', context_instance=context)
 
-def get_paged_data(user_data, field_name, max_pages=20):
+def get_paged_data(user_data, field_name):
     """Returns all the data for a given field, scrolling through up to max_pages
     of data.
 
     Args:
         user_data: the main JSON blob returned by Facebook.
         field_name: the name of the field to return the data for.
-        max_pages: the maximum number of requests to make to the server to
-            get all the pages. Note that these are issued sequentially and so
-            have a linear runtime cost.
+
+    Returns:
+        An array of dicts that the paged field contains. That is, for statuses,
+        this method would return
+        [
+            {
+                "id":       "2157624",
+                "from":     { ... },
+                "message":  "Status message here.",
+                "likes":    { paged data here },
+            },
+            {
+                ...
+            },
+        ]
     """
     # TODO: actually implement paging.
     return user_data[field_name]['data']
@@ -75,7 +87,7 @@ def get_captioned_photo(photos):
  
 def quiz(request, friend_id):
     friend_data = get_data(request, friend_id, 'statuses,name,photos')
-    self_data = get_data(request, "me", 'statuses')
+    self_data = get_data(request, 'me', 'statuses')
     self_statuses = [status['message'] 
                 for status in get_paged_data(self_data, 'statuses')]
 
