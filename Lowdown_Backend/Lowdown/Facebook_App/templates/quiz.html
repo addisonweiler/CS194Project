@@ -11,15 +11,10 @@
                     {% endif %}
                     <h2>{{q.QUESTION_TEXT}}</h2>
                     {% with question_number=forloop.counter %}
-                    {% for wrong_answer in q.wrong_answers %}
-                        {% if forloop.counter == q.random_index %}
-                    <input type="radio" name="question_{{ question_number }}" value="{{ q.correct_answer }}">{{ q.correct_answer }}<br>
-                        {% endif %}
-                        <input type="radio" name="question_{{ question_number }}" value="{{ wrong_answer }}">{{ wrong_answer }}<br>
+                    {% for answer in q.questionArr %}
+                        <input type="radio" name="question_{{ question_number }}" value="{{ forloop.counter }}">{{ answer }}<br>
                     {% endfor %}
-                    {% if q.random_index > q.wrong_answers|length %}
-                        <input type="radio" name="question_{{ question_number }}" value="{{ q.correct_answer }}">{{ q.correct_answer }}<br>
-                    {% endif %}
+    
                     <br>
                     {% endwith %}
                 {% endfor %}   

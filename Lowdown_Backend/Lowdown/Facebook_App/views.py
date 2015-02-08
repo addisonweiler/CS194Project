@@ -112,17 +112,43 @@ def quiz(request, friend_id):
 
     liked_statuses, unliked_statuses = get_liked_and_unliked_statuses(self_statuses_data, friend_id)
     question3 = LikedStatusQuestion(liked_statuses, unliked_statuses)
-    questions = [question1, question2]
+
+    questions = [question1, question2, question3]
+    
+    answers = []
+    for q in questions:
+      answers.append(q.random_index)
+
+    request.session['answers'] = answers
+
     context = RequestContext(request,
                              {'request': request,
                               'questions': questions,
                              })
+
     return render_to_response('quiz.html', context_instance=context)
 
 
 def quiz_grade(request):
+    correctAnswers = 0
+    incorrectAnswers = 0
+    answers = request.session.get('answers')
+
+    arr = []
+    for field in request.POST:
+      if "question" in str(field):
+        index = int(str(field[-1]))
+        if int(answers[index-1]) == int(request.POST[field]):
+          correctAnswers+=1
+        else:
+          incorrectAnswers+=1
+
+
     context = RequestContext(request,
                              {'results': request.POST,
+                              'answers': answers,
+                              'correct': correctAnswers,
+                              'incorrect': incorrectAnswers
                              })
     return render_to_response('quiz_score.html', context_instance=context)
 
