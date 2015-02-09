@@ -6,6 +6,7 @@ import logging
 import requests
 import urllib2
 import json
+import operator
 
 logger = logging.getLogger(__name__)
 
@@ -105,6 +106,23 @@ def get_liked_and_unliked_statuses(self_statuses_data, friend_id):
                 unliked_statuses.append(key)
 
     return liked_statuses, unliked_statuses
+
+def get_words(words, exclude=None):
+    return list(set(filter(lambda x: x is not None and x != exclude, words)))
+
+def get_word_count(statuses, captions):
+    word_count = dict()
+    statuses_and_captions = statuses + captions
+    for s in statuses_and_captions:
+        words = s.split()
+        for w in words:
+            w = w.lower()
+            if w in word_count.keys():
+                word_count[w] += 1
+            else:
+                word_count[w] = 1
+    return word_count
+
  
 def quiz(request, friend_id):
     friend_data = get_data(request, friend_id, 'statuses,name,photos')
@@ -116,30 +134,32 @@ def quiz(request, friend_id):
     statuses = [status['message']
                 for status in get_paged_data(friend_data, 'statuses')]
 
-    '''Add Questions'''
-    questions = []
-    questions.append(StatusQuestion(statuses, self_statuses))
-
+    question1 = StatusQuestion(statuses, self_statuses)
+    
     photos = get_paged_data(friend_data, 'photos')
     photo = get_captioned_photo(photos)
     caption = get_caption(photo)
-
-    questions.append(ImageCaptionQuestion(get_sized_photo(photo),
-        caption, get_captions(photos, caption)))
-    
+    question2 = ImageCaptionQuestion(get_sized_photo(photo),
+                                     caption,
+                                     get_captions(photos, caption))
 
     liked_statuses, unliked_statuses = get_liked_and_unliked_statuses(self_statuses_data, friend_id)
+
+    questions = [question1, question2]
+
     if len(liked_statuses) > 0 and len(unliked_statuses) > 0:
         question3 = LikedStatusQuestion(liked_statuses, unliked_statuses)
         questions.append(question3)
 
-    random.shuffle(questions)
+    #word_count = get_word_count(statuses, get_captions(photos))
+    #max_word = max(word_count.iteritems(), key=operator.itemgetter(1))[0]
 
-    # request.session['questions'] = questions
-    '''Save answers'''
+    #question4 = MostUsedWordQuestion(max_word, get_words(word_count.keys(), max_word))
+    #questions.append(question4)
+    
     answers = []
     for q in questions:
-        answers.append(q.correct_index)
+      answers.append(q.random_index)
 
     request.session['answers'] = answers
 
@@ -156,23 +176,23 @@ def quiz_grade(request):
     incorrectAnswers = 0
     answers = request.session.get('answers')
 
+    arr = []
     for field in request.POST:
-        if "question" in str(field):
-            index = int(str(field)[9:])
-            if int(answers[index]) == int(request.POST[field]):
-                correctAnswers+=1
-            else:
-                incorrectAnswers+=1
+      if "question" in str(field):
+        index = int(str(field[-1]))
+        if int(answers[index-1]) == int(request.POST[field]):
+          correctAnswers+=1
+        else:
+          incorrectAnswers+=1
+
 
     context = RequestContext(request,
-                             {'answers': answers,
+                             {'results': request.POST,
+                              'answers': answers,
                               'correct': correctAnswers,
-                              'incorrect': incorrectAnswers,
-                              'request':request.POST,
+                              'incorrect': incorrectAnswers
                              })
     return render_to_response('quiz_score.html', context_instance=context)
-
-
 
 
 # # TODO: need to fill in options from Facebook data

@@ -7,11 +7,9 @@ class MultipleChoiceQuestion(Question):
     QUESTION_TEXT = "Must override this class and field"
     NUM_WRONG_ANSWERS = 3
     def __init__(self, correct_answer, wrong_answers):
-        self.correct_index = random.randint(0, self.NUM_WRONG_ANSWERS)
-        wrong_answers = random.sample(wrong_answers, self.NUM_WRONG_ANSWERS)
-        self.questionArr = wrong_answers
-        self.questionArr.insert(self.correct_index, correct_answer)
-
+        self.correct_answer = correct_answer
+        self.wrong_answers = random.sample(wrong_answers, self.NUM_WRONG_ANSWERS)
+        self.random_index = random.randint(1, self.NUM_WRONG_ANSWERS + 1)
 
 class StatusQuestion(MultipleChoiceQuestion):
     QUESTION_TEXT = "Which of the following is NOT one of my statuses?"
@@ -30,3 +28,8 @@ class LikedStatusQuestion(MultipleChoiceQuestion):
     def __init__(self, liked_statuses, other_statuses):
         liked_status = random.choice(liked_statuses)
         super(LikedStatusQuestion, self).__init__(liked_status, other_statuses)
+
+class MostUsedWordQuestion(MultipleChoiceQuestion):
+    QUESTION_TEXT = "What is my most used word?"
+    def __init__(self, max_word, other_words):
+        super(MostUsedWordQuestion, self).__init__(max_word, other_words)
