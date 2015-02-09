@@ -6,6 +6,7 @@ import logging
 import requests
 import urllib2
 import json
+import operator
 import pickle
 
 logger = logging.getLogger(__name__)
@@ -23,6 +24,7 @@ def get_data(request, target, fields):
     url = 'https://graph.facebook.com/%s' % target
     r = requests.get(url, params=payload)
     logger.debug(r.url)
+    logger.debug(r.json())
     return r.json()
  
 def home(request):
@@ -79,10 +81,11 @@ def get_caption(photo):
     return photo['name'] if 'name' in photo else None
 
 def get_captioned_photo(photos): 
-    for _ in range(len(photos)):
+    while True:
         photo = random.choice(photos)
         if get_caption(photo):
             return photo
+    return None
 
 def get_liked_and_unliked_statuses(self_statuses_data, friend_id):
     status_data = dict()
@@ -96,12 +99,31 @@ def get_liked_and_unliked_statuses(self_statuses_data, friend_id):
 
     for key,val in status_data.iteritems():
         for v in val:
+            logger.debug(v['id'])
+            logger.debug(friend_id)
             if v['id'] == friend_id:
                 liked_statuses.append(key)
             else:
                 unliked_statuses.append(key)
 
     return liked_statuses, unliked_statuses
+
+def get_words(words, exclude=None):
+    return list(set(filter(lambda x: x is not None and x != exclude, words)))
+
+def get_word_count(statuses, captions):
+    word_count = dict()
+    statuses_and_captions = statuses + captions
+    for s in statuses_and_captions:
+        words = s.split()
+        for w in words:
+            w = w.lower()
+            if w in word_count.keys():
+                word_count[w] += 1
+            else:
+                word_count[w] = 1
+    return word_count
+
  
 def quiz(request, friend_id):
     friend_data = get_data(request, friend_id, 'statuses.limit(500){message},name,photos.limit(500){name,images}')
@@ -129,17 +151,23 @@ def quiz(request, friend_id):
     
     #Question 3: Status Likes
     liked_statuses, unliked_statuses = get_liked_and_unliked_statuses(self_statuses_data, friend_id)
+
     if len(liked_statuses) > 0 and len(unliked_statuses) > 0:
         question3 = LikedStatusQuestion(liked_statuses, unliked_statuses)
         questions.append(question3)
 
+    word_count = get_word_count(statuses, get_captions(photos))
+    max_word = max(word_count.iteritems(), key=operator.itemgetter(1))[0]
+
+    questions.append(MostUsedWordQuestion(max_word, get_words(word_count.keys(), max_word)))
+    
     #Mix up the questions
     random.shuffle(questions)
 
     '''Save answers'''
     answers = []
     for q in questions:
-        answers.append(q.correct_index)
+      answers.append(q.correct_index)
 
     request.session['answers'] = answers
     request.session['questions'] = [pickle.dumps(q) for q in questions]
@@ -162,20 +190,22 @@ def quiz_grade(request):
         questions.append(pickle.loads(q))
     
 
+    arr = []
     for field in request.POST:
-        if "question" in str(field):
-            index = int(str(field)[9:])
-            if int(answers[index]) == int(request.POST[field]):
-                correctAnswers+=1
-            else:
-                incorrectAnswers+=1
+      if "question" in str(field):
+        index = int(str(field[-1]))
+        if int(answers[index-1]) == int(request.POST[field]):
+          correctAnswers+=1
+        else:
+          incorrectAnswers+=1
+
 
     context = RequestContext(request,
-                             {'answers': answers,
+                             {'results': request.POST,
+                              'answers': answers,
                               'correct': correctAnswers,
                               'incorrect': incorrectAnswers,
                               'request':request.POST,
                               'questions': questions,
                              })
     return render_to_response('quiz_score.html', context_instance=context)
-
