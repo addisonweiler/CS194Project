@@ -95,11 +95,14 @@ def get_liked_and_unliked_statuses(self_statuses_data, friend_id):
     liked_statuses = []
     unliked_statuses = []
 
-    for k,v in status_data.iteritems():
-        if friend_id in v:
-            liked_statuses.append(k)
-        else:
-            unliked_statuses.append(k)
+    for key,val in status_data.iteritems():
+        for v in val:
+            logger.debug(v['id'])
+            logger.debug(friend_id)
+            if v['id'] == friend_id:
+                liked_statuses.append(key)
+            else:
+                unliked_statuses.append(key)
 
     return liked_statuses, unliked_statuses
  
