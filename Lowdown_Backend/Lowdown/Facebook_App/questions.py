@@ -1,4 +1,5 @@
 import random
+import json
 
 class Question(object):
     pass
@@ -12,7 +13,6 @@ class MultipleChoiceQuestion(Question):
         self.questionArr = wrong_answers
         self.questionArr.insert(self.correct_index, correct_answer)
 
-
 class StatusQuestion(MultipleChoiceQuestion):
     QUESTION_TEXT = "Which of the following is NOT one of my statuses?"
     def __init__(self, statuses, self_statuses):
@@ -25,8 +25,3 @@ class ImageCaptionQuestion(MultipleChoiceQuestion):
         self.image = image
         super(ImageCaptionQuestion, self).__init__(caption, other_captions)
 
-class LikedStatusQuestion(MultipleChoiceQuestion):
-    QUESTION_TEXT = "Which of the following statuses did I like?"
-    def __init__(self, liked_statuses, other_statuses):
-        liked_status = random.choice(liked_statuses)
-        super(LikedStatusQuestion, self).__init__(liked_status, other_statuses)
