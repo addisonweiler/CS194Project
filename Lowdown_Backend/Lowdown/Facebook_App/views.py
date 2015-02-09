@@ -1,3 +1,4 @@
+from collections import defaultdict
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django import forms
@@ -10,6 +11,7 @@ import urllib2
 import json
 import operator
 import pickle
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -127,18 +129,13 @@ def is_number(s):
     return False
 
 def get_word_count(statuses, captions):
-    word_count = dict()
-    statuses_and_captions = statuses + captions
-    for s in statuses_and_captions:
-        words = s.split()
+    word_count = defaultdict(int)
+    for s in statuses + captions:
+        words = re.findall(r"[\w']+", s)
         for w in words:
-            w = w.rstrip('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~').lstrip('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~')
             w = w.lower()
-            if w in stopwords or is_number(w): continue
-            if w in word_count.keys():
-                word_count[w] += 1
-            else:
-                word_count[w] = 1
+            if w in stopwords or is_number(w) or len(w) < 2: continue
+            word_count[w] += 1
     return word_count
 
  
