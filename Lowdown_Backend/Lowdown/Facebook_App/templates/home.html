@@ -1,32 +1,40 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block main %}
- <div>
- <h1>Lowdown Quiz Application</h1>
+<link rel="stylesheet" type="text/css" href="{% static 'home.css' %}" />
+<div>
+ {% if request.user and not request.user.is_anonymous %}
 
- <p>
-   <ul>
-   {% if request.user and not request.user.is_anonymous %}
-     <li>
-       <a>Hello {{ request.user }}{#{{ request.user.get_full_name|default:request.user.username }}#}!</a>
-     </li>
+
+ <p id="greeting"> Hello {{ request.user.get_full_name.split.0 |default:request.user.username }}, thanks for using Lowdown! Here are the available friends you can be quizzed on:</p>
+
+ <table>
+  <tr>
      {% for friend in friends %}
      {% url 'Facebook_App.views.quiz' friend.id as friend_quiz_url %}
-     <li>
-       <a href="{{ friend_quiz_url }}">
-       <img src="{{ friend.picture.data.url }}" alt="testing"> 
-       {{ friend.name }}</a>
-     </li>
-     {% endfor %}
-     <li>
-       <a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
-     </li>
-   {% else %}
-     <li>
-       <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
-     </li>
-   {% endif %}
-   </ul>
- </p>
- </div>
+     <td id="friendcell">
+         <a href="{{ friend_quiz_url }}"><img src="{{ friend.picture.data.url }}" alt="testing"></a> 
+         <br>
+         <a href="{{ friend_quiz_url }}">{{ friend.name }}</a>
+       </td>
+       {% endfor %}
+
+   </tr>
+</table>
+
+
+<div id="logout">
+   All done? <a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a> here!
+</div>
+
+{% else %}
+<div>
+    <p id="explanation"> Hello, and welcome to Lowdown! Lowdown is an quiz application that allows you to take a quiz on your Facebook friends. It works by automatically generating questions based on your friend's Facebook Profile, and then quizzing you to see how well you know them! </p>
+</div>
+<div>
+    <p id="login"> Simply <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a> to get started! </p>
+</div>
+
+{% endif %}
+</div>
 {% endblock %}

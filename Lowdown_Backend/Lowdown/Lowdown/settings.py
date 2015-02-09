@@ -142,6 +142,7 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = [
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/ubuntu/CS194Project/Lowdown_Backend/Lowdown/static/'
 
 TEMPLATE_DIRS = (       
     os.path.join(BASE_DIR, 'Facebook_App/templates'),
