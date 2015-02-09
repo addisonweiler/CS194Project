@@ -6,11 +6,8 @@ import logging
 import requests
 import urllib2
 import json
-<<<<<<< HEAD
 import operator
-=======
 import pickle
->>>>>>> 9e5c16643e801cdf03413993bcd9e146250651ab
 
 logger = logging.getLogger(__name__)
 
@@ -27,6 +24,7 @@ def get_data(request, target, fields):
     url = 'https://graph.facebook.com/%s' % target
     r = requests.get(url, params=payload)
     logger.debug(r.url)
+    logger.debug(r.json())
     return r.json()
  
 def home(request):
@@ -83,10 +81,11 @@ def get_caption(photo):
     return photo['name'] if 'name' in photo else None
 
 def get_captioned_photo(photos): 
-    for _ in range(len(photos)):
+    while True:
         photo = random.choice(photos)
         if get_caption(photo):
             return photo
+    return None
 
 def get_liked_and_unliked_statuses(self_statuses_data, friend_id):
     status_data = dict()
@@ -100,6 +99,8 @@ def get_liked_and_unliked_statuses(self_statuses_data, friend_id):
 
     for key,val in status_data.iteritems():
         for v in val:
+            logger.debug(v['id'])
+            logger.debug(friend_id)
             if v['id'] == friend_id:
                 liked_statuses.append(key)
             else:
@@ -151,17 +152,14 @@ def quiz(request, friend_id):
     #Question 3: Status Likes
     liked_statuses, unliked_statuses = get_liked_and_unliked_statuses(self_statuses_data, friend_id)
 
-    questions = [question1, question2]
-
     if len(liked_statuses) > 0 and len(unliked_statuses) > 0:
         question3 = LikedStatusQuestion(liked_statuses, unliked_statuses)
         questions.append(question3)
 
-    #word_count = get_word_count(statuses, get_captions(photos))
-    #max_word = max(word_count.iteritems(), key=operator.itemgetter(1))[0]
+    word_count = get_word_count(statuses, get_captions(photos))
+    max_word = max(word_count.iteritems(), key=operator.itemgetter(1))[0]
 
-    #question4 = MostUsedWordQuestion(max_word, get_words(word_count.keys(), max_word))
-    #questions.append(question4)
+    questions.append(MostUsedWordQuestion(max_word, get_words(word_count.keys(), max_word)))
     
     #Mix up the questions
     random.shuffle(questions)
@@ -169,7 +167,7 @@ def quiz(request, friend_id):
     '''Save answers'''
     answers = []
     for q in questions:
-      answers.append(q.random_index)
+      answers.append(q.correct_index)
 
     request.session['answers'] = answers
     request.session['questions'] = [pickle.dumps(q) for q in questions]
