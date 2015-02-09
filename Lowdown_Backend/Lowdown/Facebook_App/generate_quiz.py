@@ -108,10 +108,10 @@ def generate_quiz(request, friend_id):
     '''Add Questions'''
     questions = []
 
-    #Question1: Status Question
+    '''Question1: Status Question'''
     questions.append(StatusQuestion(statuses, fake_statuses))
 
-    #Question2: ImageCaption
+    '''Question2: ImageCaption'''
     photos = get_paged_data(friend_data, 'photos')
     photo = get_captioned_photo(photos)
     caption = get_caption(photo)
@@ -119,7 +119,7 @@ def generate_quiz(request, friend_id):
     questions.append(ImageCaptionQuestion(get_sized_photo(photo),
         caption, get_captions(photos, caption)))
 
-    #Question 3: Status Likes
+    '''Question 3: Status Likes'''
     liked_statuses, unliked_statuses = get_liked_and_unliked_statuses(self_statuses_data, friend_id)
 
     if len(liked_statuses) > 0 and len(unliked_statuses) > 0:
