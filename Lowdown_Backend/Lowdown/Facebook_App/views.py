@@ -31,7 +31,7 @@ def get_data(request, target, fields):
 def home(request):
     friends = []
     try:
-        r = get_data(request, None, 'friends{name,id,picture}')
+        r = get_data(request, None, 'friends.limit(500){name,id,picture}')
         friends = r['friends']['data']
     except AttributeError:
         logger.debug('Anonymous user')
@@ -144,8 +144,8 @@ def get_word_count(statuses, captions):
 
  
 def quiz(request, friend_id):
-    friend_data = get_data(request, friend_id, 'statuses,name,photos')
-    self_data = get_data(request, 'me', 'statuses')
+    friend_data = get_data(request, friend_id, 'statuses.limit(500){message},name,photos.limit(500){name,images}')
+    self_data = get_data(request, 'me', 'statuses.limit(500){message,likes.limit(500)}')
     self_statuses_data = get_paged_data(self_data, 'statuses')
     self_statuses = [status['message'] 
                 for status in self_statuses_data]
@@ -202,20 +202,22 @@ def quiz_grade(request):
     correctAnswers = 0
     incorrectAnswers = 0
     answers = request.session.get('answers')
+    submitted_answers = []
+
     question_arr = request.session.get('questions')
     questions = []
     for q in question_arr:
         questions.append(pickle.loads(q))
-    
 
     arr = []
     for field in request.POST:
       if "question" in str(field):
-        index = int(str(field[-1]))
-        if int(answers[index-1]) == int(request.POST[field]):
+        index = int(str(field)[9:])  
+        if int(answers[index]) == int(request.POST[field]):
           correctAnswers+=1
         else:
           incorrectAnswers+=1
+        questions[index].checked = int(request.POST[field])
 
 
     context = RequestContext(request,
@@ -223,7 +225,6 @@ def quiz_grade(request):
                               'answers': answers,
                               'correct': correctAnswers,
                               'incorrect': incorrectAnswers,
-                              'request':request.POST,
                               'questions': questions,
                              })
     return render_to_response('quiz_score.html', context_instance=context)
