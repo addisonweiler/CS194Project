@@ -96,11 +96,14 @@ def get_liked_and_unliked_statuses(self_statuses_data, friend_id):
     liked_statuses = []
     unliked_statuses = []
 
-    for k,v in status_data.iteritems():
-        if friend_id in v:
-            liked_statuses.append(k)
-        else:
-            unliked_statuses.append(k)
+    for key,val in status_data.iteritems():
+        for v in val:
+            logger.debug(v['id'])
+            logger.debug(friend_id)
+            if v['id'] == friend_id:
+                liked_statuses.append(key)
+            else:
+                unliked_statuses.append(key)
 
     return liked_statuses, unliked_statuses
  
@@ -140,7 +143,7 @@ def quiz(request, friend_id):
     '''Save answers'''
     answers = []
     for q in questions:
-      answers.append(q.correct_index)
+        answers.append(q.correct_index)
 
     request.session['answers'] = answers
     request.session['questions'] = [pickle.dumps(q) for q in questions]
@@ -164,13 +167,12 @@ def quiz_grade(request):
     
 
     for field in request.POST:
-      if "question" in str(field):
-        index = int(str(field)[9:])
-        if int(answers[index]) == int(request.POST[field]):
-          correctAnswers+=1
-        else:
-          incorrectAnswers+=1
-
+        if "question" in str(field):
+            index = int(str(field)[9:])
+            if int(answers[index]) == int(request.POST[field]):
+                correctAnswers+=1
+            else:
+                incorrectAnswers+=1
 
     context = RequestContext(request,
                              {'answers': answers,
