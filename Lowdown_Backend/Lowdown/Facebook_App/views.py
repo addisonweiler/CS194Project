@@ -25,7 +25,6 @@ def get_data(request, target, fields):
     url = 'https://graph.facebook.com/%s' % target
     r = requests.get(url, params=payload)
     logger.debug(r.url)
-    logger.debug(r.json())
     return r.json()
  
 def home(request):
@@ -133,18 +132,17 @@ def get_word_count(statuses, captions):
         words = s.split()
         for w in words:
             w = w.rstrip('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~').lstrip('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~')
-            if w in stopwords or is_number(w): continue
             w = w.lower()
+            if w in stopwords or is_number(w): continue
             if w in word_count.keys():
                 word_count[w] += 1
             else:
                 word_count[w] = 1
-    logger.debug(word_count)
     return word_count
 
  
 def quiz(request, friend_id):
-    friend_data = get_data(request, friend_id, 'statuses.limit(500){message},name,photos.limit(500){name,images}')
+    friend_data = get_data(request, friend_id, 'statuses.limit(500){message},name,photos.limit(500){name,images},first_name')
     self_data = get_data(request, 'me', 'statuses.limit(500){message,likes.limit(500)}')
     self_statuses_data = get_paged_data(self_data, 'statuses')
     self_statuses = [status['message'] 
@@ -181,6 +179,9 @@ def quiz(request, friend_id):
     
     #Mix up the questions
     random.shuffle(questions)
+
+    for q in questions:
+        q.set_name(friend_data['first_name'])
 
     '''Save answers'''
     answers = []
