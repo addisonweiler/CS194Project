@@ -13,7 +13,9 @@
      {% for friend in friends %}
      {% url 'Facebook_App.views.quiz' friend.id as friend_quiz_url %}
      <li>
-       <a href="{{ friend_quiz_url }}">{{ friend.name }}</a> <img src="{{ friend.picture.data.url }}" alt="testing">
+       <a href="{{ friend_quiz_url }}">
+       <img src="{{ friend.picture.data.url }}" alt="testing"> 
+       {{ friend.name }}</a>
      </li>
      {% endfor %}
      <li>

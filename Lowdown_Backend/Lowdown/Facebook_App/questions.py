@@ -8,6 +8,7 @@ class MultipleChoiceQuestion(Question):
     QUESTION_TEXT = "Must override this class and field"
     NUM_WRONG_ANSWERS = 3
     def __init__(self, correct_answer, wrong_answers):
+        self.checked = -1
         self.correct_index = random.randint(0, self.NUM_WRONG_ANSWERS)
         wrong_answers = random.sample(wrong_answers, self.NUM_WRONG_ANSWERS)
         self.questionArr = wrong_answers

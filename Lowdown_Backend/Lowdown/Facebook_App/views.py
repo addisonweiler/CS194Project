@@ -96,14 +96,11 @@ def get_liked_and_unliked_statuses(self_statuses_data, friend_id):
     liked_statuses = []
     unliked_statuses = []
 
-    for key,val in status_data.iteritems():
-        for v in val:
-            logger.debug(v['id'])
-            logger.debug(friend_id)
-            if v['id'] == friend_id:
-                liked_statuses.append(key)
-            else:
-                unliked_statuses.append(key)
+    for k,v in status_data.iteritems():
+        if friend_id in v:
+            liked_statuses.append(k)
+        else:
+            unliked_statuses.append(k)
 
     return liked_statuses, unliked_statuses
  
@@ -143,7 +140,7 @@ def quiz(request, friend_id):
     '''Save answers'''
     answers = []
     for q in questions:
-        answers.append(q.correct_index)
+      answers.append(q.correct_index)
 
     request.session['answers'] = answers
     request.session['questions'] = [pickle.dumps(q) for q in questions]
@@ -160,25 +157,26 @@ def quiz_grade(request):
     correctAnswers = 0
     incorrectAnswers = 0
     answers = request.session.get('answers')
+    submitted_answers = []
+
     question_arr = request.session.get('questions')
     questions = []
     for q in question_arr:
         questions.append(pickle.loads(q))
-    
 
     for field in request.POST:
-        if "question" in str(field):
-            index = int(str(field)[9:])
-            if int(answers[index]) == int(request.POST[field]):
-                correctAnswers+=1
-            else:
-                incorrectAnswers+=1
+      if "question" in str(field):
+        index = int(str(field)[9:])  
+        if int(answers[index]) == int(request.POST[field]):
+          correctAnswers+=1
+        else:
+          incorrectAnswers+=1
+        questions[index].checked = int(request.POST[field])
 
     context = RequestContext(request,
                              {'answers': answers,
                               'correct': correctAnswers,
                               'incorrect': incorrectAnswers,
-                              'request':request.POST,
                               'questions': questions,
                              })
     return render_to_response('quiz_score.html', context_instance=context)
