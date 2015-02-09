@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django import forms
 from questions import *
+from stopwords import stopwords
 import logging
 import requests
 import urllib2
@@ -94,22 +95,36 @@ def get_liked_and_unliked_statuses(self_statuses_data, friend_id):
         if 'likes' in status:
             status_data[status['message']] = get_paged_data(status, 'likes')
 
-    liked_statuses = []
-    unliked_statuses = []
+    liked_statuses = set()
+    unliked_statuses = set()
 
     for key,val in status_data.iteritems():
         for v in val:
-            logger.debug(v['id'])
-            logger.debug(friend_id)
             if v['id'] == friend_id:
-                liked_statuses.append(key)
+                liked_statuses.add(key)
             else:
-                unliked_statuses.append(key)
+                unliked_statuses.add(key)
 
-    return liked_statuses, unliked_statuses
+    return list(liked_statuses), list(unliked_statuses)
 
 def get_words(words, exclude=None):
     return list(set(filter(lambda x: x is not None and x != exclude, words)))
+
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        pass
+
+    try:
+        import unicodedata
+        unicodedata.numeric(s)
+        return True
+    except (TypeError, ValueError):
+        pass
+
+    return False
 
 def get_word_count(statuses, captions):
     word_count = dict()
@@ -117,11 +132,14 @@ def get_word_count(statuses, captions):
     for s in statuses_and_captions:
         words = s.split()
         for w in words:
+            w = w.rstrip('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~').lstrip('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~')
+            if w in stopwords or is_number(w): continue
             w = w.lower()
             if w in word_count.keys():
                 word_count[w] += 1
             else:
                 word_count[w] = 1
+    logger.debug(word_count)
     return word_count
 
  
