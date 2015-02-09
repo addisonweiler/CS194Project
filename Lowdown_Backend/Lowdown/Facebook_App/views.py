@@ -123,9 +123,12 @@ def quiz(request, friend_id):
                                      get_captions(photos, caption))
 
     liked_statuses, unliked_statuses = get_liked_and_unliked_statuses(self_statuses_data, friend_id)
-    question3 = LikedStatusQuestion(liked_statuses, unliked_statuses)
 
-    questions = [question1, question2, question3]
+    questions = [question1, question2]
+
+    if len(liked_statuses) > 0 and len(unliked_statuses) > 0:
+        question3 = LikedStatusQuestion(liked_statuses, unliked_statuses)
+        questions.append(question3)
     
     answers = []
     for q in questions:
