@@ -24,8 +24,8 @@ class MultipleChoiceQuestion(Question):
 
 class StatusQuestion(MultipleChoiceQuestion):
     QUESTION_TEXT = "Which of the following is NOT one of %s's statuses?"
-    def __init__(self, statuses, self_statuses):
-        wrong_status = random.choice(self_statuses)
+    def __init__(self, statuses, wrong_statuses):
+        wrong_status = random.choice(wrong_statuses)
         super(StatusQuestion, self).__init__(wrong_status, statuses)
 
 class ImageCaptionQuestion(MultipleChoiceQuestion):

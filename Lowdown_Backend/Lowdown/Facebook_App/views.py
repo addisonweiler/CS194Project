@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 from django import forms
+from fake_statuses import fake_statuses
 from questions import *
 from stopwords import stopwords
 import logging
@@ -155,7 +156,7 @@ def quiz(request, friend_id):
     questions = []
 
     #Question1: Status Question
-    questions.append(StatusQuestion(statuses, self_statuses))
+    questions.append(StatusQuestion(statuses, fake_statuses))
 
     #Question2: ImageCaption
     photos = get_paged_data(friend_data, 'photos')
