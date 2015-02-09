@@ -26,3 +26,13 @@ class ImageCaptionQuestion(MultipleChoiceQuestion):
         self.image = image
         super(ImageCaptionQuestion, self).__init__(caption, other_captions)
 
+class LikedStatusQuestion(MultipleChoiceQuestion):
+    QUESTION_TEXT = "Which of the following statuses did I like?"
+    def __init__(self, liked_statuses, other_statuses):
+        liked_status = random.choice(liked_statuses)
+        super(LikedStatusQuestion, self).__init__(liked_status, other_statuses)
+
+class MostUsedWordQuestion(MultipleChoiceQuestion):
+    QUESTION_TEXT = "What is my most used word?"
+    def __init__(self, max_word, other_words):
+        super(MostUsedWordQuestion, self).__init__(max_word, other_words)

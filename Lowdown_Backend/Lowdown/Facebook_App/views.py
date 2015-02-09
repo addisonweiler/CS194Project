@@ -6,6 +6,7 @@ import logging
 import requests
 import urllib2
 import json
+import operator
 import pickle
 
 logger = logging.getLogger(__name__)
@@ -103,6 +104,23 @@ def get_liked_and_unliked_statuses(self_statuses_data, friend_id):
             unliked_statuses.append(k)
 
     return liked_statuses, unliked_statuses
+
+def get_words(words, exclude=None):
+    return list(set(filter(lambda x: x is not None and x != exclude, words)))
+
+def get_word_count(statuses, captions):
+    word_count = dict()
+    statuses_and_captions = statuses + captions
+    for s in statuses_and_captions:
+        words = s.split()
+        for w in words:
+            w = w.lower()
+            if w in word_count.keys():
+                word_count[w] += 1
+            else:
+                word_count[w] = 1
+    return word_count
+
  
 def quiz(request, friend_id):
     friend_data = get_data(request, friend_id, 'statuses,name,photos')
@@ -130,10 +148,16 @@ def quiz(request, friend_id):
     
     #Question 3: Status Likes
     liked_statuses, unliked_statuses = get_liked_and_unliked_statuses(self_statuses_data, friend_id)
+
     if len(liked_statuses) > 0 and len(unliked_statuses) > 0:
         question3 = LikedStatusQuestion(liked_statuses, unliked_statuses)
         questions.append(question3)
 
+    word_count = get_word_count(statuses, get_captions(photos))
+    max_word = max(word_count.iteritems(), key=operator.itemgetter(1))[0]
+
+    questions.append(MostUsedWordQuestion(max_word, get_words(word_count.keys(), max_word)))
+    
     #Mix up the questions
     random.shuffle(questions)
 
@@ -164,6 +188,7 @@ def quiz_grade(request):
     for q in question_arr:
         questions.append(pickle.loads(q))
 
+    arr = []
     for field in request.POST:
       if "question" in str(field):
         index = int(str(field)[9:])  
@@ -173,11 +198,12 @@ def quiz_grade(request):
           incorrectAnswers+=1
         questions[index].checked = int(request.POST[field])
 
+
     context = RequestContext(request,
-                             {'answers': answers,
+                             {'results': request.POST,
+                              'answers': answers,
                               'correct': correctAnswers,
                               'incorrect': incorrectAnswers,
                               'questions': questions,
                              })
     return render_to_response('quiz_score.html', context_instance=context)
-
