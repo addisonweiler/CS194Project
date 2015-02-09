@@ -126,9 +126,9 @@ def quiz(request, friend_id):
     
 
     liked_statuses, unliked_statuses = get_liked_and_unliked_statuses(self_statuses_data, friend_id)
-     if len(liked_statuses) > 0 and len(unliked_statuses) > 0:
+    if len(liked_statuses) > 0 and len(unliked_statuses) > 0:
         question3 = LikedStatusQuestion(liked_statuses, unliked_statuses)
-         questions.append(question3)
+        questions.append(question3)
 
     random.shuffle(questions)
 
@@ -136,7 +136,7 @@ def quiz(request, friend_id):
     '''Save answers'''
     answers = []
     for q in questions:
-      answers.append(q.correct_index)
+        answers.append(q.correct_index)
 
     request.session['answers'] = answers
 
@@ -154,13 +154,12 @@ def quiz_grade(request):
     answers = request.session.get('answers')
 
     for field in request.POST:
-      if "question" in str(field):
-        index = int(str(field)[9:])
-        if int(answers[index]) == int(request.POST[field]):
-          correctAnswers+=1
-        else:
-          incorrectAnswers+=1
-
+        if "question" in str(field):
+            index = int(str(field)[9:])
+            if int(answers[index]) == int(request.POST[field]):
+                correctAnswers+=1
+            else:
+                incorrectAnswers+=1
 
     context = RequestContext(request,
                              {'answers': answers,
