@@ -10,9 +10,9 @@
                         <img src="{{q.image}}" alt="image" style="max-width: 50%;">
                     {% endif %}
                     <h2>{{q.QUESTION_TEXT}}</h2>
-                    {% with question_number=forloop.counter %}
+                    {% with question_number=forloop.counter0 %}
                     {% for answer in q.questionArr %}
-                        <input type="radio" name="question_{{ question_number }}" value="{{ forloop.counter }}">{{ answer }}<br>
+                        <input type="radio" name="question_{{ question_number }}" value="{{ forloop.counter0 }}">{{ answer }}<br>
                     {% endfor %}
     
                     <br>
