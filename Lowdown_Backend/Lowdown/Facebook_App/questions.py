@@ -24,3 +24,9 @@ class ImageCaptionQuestion(MultipleChoiceQuestion):
     def __init__(self, image, caption, other_captions):
         self.image = image
         super(ImageCaptionQuestion, self).__init__(caption, other_captions)
+
+class LikedStatusQuestion(MultipleChoiceQuestion):
+    QUESTION_TEXT = "Which of the following statuses did I like?"
+    def __init__(self, liked_statuses, other_statuses):
+        liked_status = random.choice(liked_statuses)
+        super(LikedStatusQuestion, self).__init__(liked_status, other_statuses)

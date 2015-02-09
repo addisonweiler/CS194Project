@@ -38,16 +38,28 @@ def home(request):
                              })
     return render_to_response('home.html', context_instance=context)
 
-def get_paged_data(user_data, field_name, max_pages=20):
+def get_paged_data(user_data, field_name):
     """Returns all the data for a given field, scrolling through up to max_pages
     of data.
 
     Args:
         user_data: the main JSON blob returned by Facebook.
         field_name: the name of the field to return the data for.
-        max_pages: the maximum number of requests to make to the server to
-            get all the pages. Note that these are issued sequentially and so
-            have a linear runtime cost.
+
+    Returns:
+        An array of dicts that the paged field contains. That is, for statuses,
+        this method would return
+        [
+            {
+                "id":       "2157624",
+                "from":     { ... },
+                "message":  "Status message here.",
+                "likes":    { paged data here },
+            },
+            {
+                ...
+            },
+        ]
     """
     # TODO: actually implement paging.
     return user_data[field_name]['data']
@@ -72,12 +84,31 @@ def get_captioned_photo(photos):
         if get_caption(photo):
             return photo
     return None
+
+def get_liked_and_unliked_statuses(self_statuses_data, friend_id):
+    status_data = dict()
+
+    for status in self_statuses_data:
+        if 'likes' in status:
+            status_data[status['message']] = get_paged_data(status, 'likes')
+
+    liked_statuses = []
+    unliked_statuses = []
+
+    for k,v in status_data.iteritems():
+        if friend_id in v:
+            liked_statuses.append(k)
+        else:
+            unliked_statuses.append(k)
+
+    return liked_statuses, unliked_statuses
  
 def quiz(request, friend_id):
     friend_data = get_data(request, friend_id, 'statuses,name,photos')
-    self_data = get_data(request, "me", 'statuses')
+    self_data = get_data(request, 'me', 'statuses')
+    self_statuses_data = get_paged_data(self_data, 'statuses')
     self_statuses = [status['message'] 
-                for status in get_paged_data(self_data, 'statuses')]
+                for status in self_statuses_data]
 
     statuses = [status['message']
                 for status in get_paged_data(friend_data, 'statuses')]
@@ -89,11 +120,17 @@ def quiz(request, friend_id):
     photos = get_paged_data(friend_data, 'photos')
     photo = get_captioned_photo(photos)
     caption = get_caption(photo)
+
     questions.append(ImageCaptionQuestion(get_sized_photo(photo),
         caption, get_captions(photos, caption)))
     
+
+    liked_statuses, unliked_statuses = get_liked_and_unliked_statuses(self_statuses_data, friend_id)
+     if len(liked_statuses) > 0 and len(unliked_statuses) > 0:
+        question3 = LikedStatusQuestion(liked_statuses, unliked_statuses)
+         questions.append(question3)
+
     random.shuffle(questions)
-    
 
     # request.session['questions'] = questions
     '''Save answers'''
