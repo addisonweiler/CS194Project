@@ -8,5 +8,4 @@ urlpatterns = patterns('',
     url(r'^Facebook_App/', include('Facebook_App.urls')),
     url(r'^admin/', include(admin.site.urls)),
 	url(r'^$', include('Facebook_App.urls')),
-	url(r'^index.html', include('Facebook_App.urls')),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
