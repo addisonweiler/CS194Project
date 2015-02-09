@@ -6,7 +6,11 @@ import logging
 import requests
 import urllib2
 import json
+<<<<<<< HEAD
 import operator
+=======
+import pickle
+>>>>>>> 9e5c16643e801cdf03413993bcd9e146250651ab
 
 logger = logging.getLogger(__name__)
 
@@ -134,15 +138,21 @@ def quiz(request, friend_id):
     statuses = [status['message']
                 for status in get_paged_data(friend_data, 'statuses')]
 
-    question1 = StatusQuestion(statuses, self_statuses)
-    
+    '''Add Questions'''
+    questions = []
+
+    #Question1: Status Question
+    questions.append(StatusQuestion(statuses, self_statuses))
+
+    #Question2: ImageCaption
     photos = get_paged_data(friend_data, 'photos')
     photo = get_captioned_photo(photos)
     caption = get_caption(photo)
-    question2 = ImageCaptionQuestion(get_sized_photo(photo),
-                                     caption,
-                                     get_captions(photos, caption))
 
+    questions.append(ImageCaptionQuestion(get_sized_photo(photo),
+        caption, get_captions(photos, caption)))
+    
+    #Question 3: Status Likes
     liked_statuses, unliked_statuses = get_liked_and_unliked_statuses(self_statuses_data, friend_id)
 
     questions = [question1, question2]
@@ -157,11 +167,16 @@ def quiz(request, friend_id):
     #question4 = MostUsedWordQuestion(max_word, get_words(word_count.keys(), max_word))
     #questions.append(question4)
     
+    #Mix up the questions
+    random.shuffle(questions)
+
+    '''Save answers'''
     answers = []
     for q in questions:
       answers.append(q.random_index)
 
     request.session['answers'] = answers
+    request.session['questions'] = [pickle.dumps(q) for q in questions]
 
     context = RequestContext(request,
                              {'request': request,
@@ -175,6 +190,11 @@ def quiz_grade(request):
     correctAnswers = 0
     incorrectAnswers = 0
     answers = request.session.get('answers')
+    question_arr = request.session.get('questions')
+    questions = []
+    for q in question_arr:
+        questions.append(pickle.loads(q))
+    
 
     arr = []
     for field in request.POST:
@@ -190,51 +210,8 @@ def quiz_grade(request):
                              {'results': request.POST,
                               'answers': answers,
                               'correct': correctAnswers,
-                              'incorrect': incorrectAnswers
+                              'incorrect': incorrectAnswers,
+                              'request':request.POST,
+                              'questions': questions,
                              })
     return render_to_response('quiz_score.html', context_instance=context)
-
-
-# # TODO: need to fill in options from Facebook data
-# class statusMCQuestionForm(forms.Form):
-#     OPTIONS = (
-#             ("a", "A"),
-#             ("b", "B"),
-#             )
-#     MCquestion = forms.MultipleChoiceField(widget=forms.RadioSelect,
-#                                          choices=OPTIONS)
-
-# #assumes question is a model with an auto-generated primary key (pk)
-# #currently not being used
-# class QuizForm(forms.Form):
-#     def __init__(self, questions):
-#         self.questions = questions
-#         for question in questions:
-#             field_name = "question_%d" % question.pk
-#             choices = []
-#             for answer in question.answer_set().all():
-#                 choices.append((answer.pk, answer.answer,))
-#             ## May need to pass some initial data, etc:
-#             field = forms.ChoiceField(label=question.question, required=True, 
-#                                       choices=choices, widget=forms.RadioSelect)
-#         return super(QuizForm, self).__init__(data, *args, **kwargs)
-
-# def get_mc_question(request):
-#     # if this is a POST request we need to process the form data
-#     if request.method == 'POST':
-#         # create a form instance and populate it with data from the request:
-#         form = statusMCQuestionForm(request.POST)
-#         # check whether it's valid:
-#         if form.is_valid():
-#             # process the data in form.cleaned_data as required
-#             # ...
-#             # redirect to a new URL:
-#             return HttpResponseRedirect('/thanks/')
-
-#     # if a GET (or any other method) we'll create a blank form
-#     else:
-#         form = statusMCQuestionForm()
-
-#     return render(request, 'quiz.html', {'form': form})
-
-

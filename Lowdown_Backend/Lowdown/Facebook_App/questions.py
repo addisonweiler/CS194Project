@@ -1,4 +1,5 @@
 import random
+import json
 
 class Question(object):
     pass
@@ -7,9 +8,10 @@ class MultipleChoiceQuestion(Question):
     QUESTION_TEXT = "Must override this class and field"
     NUM_WRONG_ANSWERS = 3
     def __init__(self, correct_answer, wrong_answers):
-        self.correct_answer = correct_answer
-        self.wrong_answers = random.sample(wrong_answers, self.NUM_WRONG_ANSWERS)
-        self.random_index = random.randint(1, self.NUM_WRONG_ANSWERS + 1)
+        self.correct_index = random.randint(0, self.NUM_WRONG_ANSWERS)
+        wrong_answers = random.sample(wrong_answers, self.NUM_WRONG_ANSWERS)
+        self.questionArr = wrong_answers
+        self.questionArr.insert(self.correct_index, correct_answer)
 
 class StatusQuestion(MultipleChoiceQuestion):
     QUESTION_TEXT = "Which of the following is NOT one of my statuses?"
