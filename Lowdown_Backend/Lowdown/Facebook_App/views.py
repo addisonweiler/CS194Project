@@ -27,7 +27,6 @@ def get_data(request, target, fields):
     url = 'https://graph.facebook.com/%s' % target
     r = requests.get(url, params=payload)
     logger.debug(r.url)
-    logger.debug(r.json())
     return r.json()
  
 def home(request):
@@ -84,11 +83,10 @@ def get_caption(photo):
     return photo['name'] if 'name' in photo else None
 
 def get_captioned_photo(photos): 
-    while True:
+    for _ in range(len(photos)):
         photo = random.choice(photos)
         if get_caption(photo):
             return photo
-    return None
 
 def get_liked_and_unliked_statuses(self_statuses_data, friend_id):
     status_data = dict()
@@ -102,8 +100,6 @@ def get_liked_and_unliked_statuses(self_statuses_data, friend_id):
 
     for key,val in status_data.iteritems():
         for v in val:
-            logger.debug(v['id'])
-            logger.debug(friend_id)
             if v['id'] == friend_id:
                 liked_statuses.append(key)
             else:
