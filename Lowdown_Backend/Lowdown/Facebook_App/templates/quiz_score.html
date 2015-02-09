@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'quiz.css' %}" />
+
 <div>
     <div>
     	<h2> CORRECT: {{ correct }} </h2>
@@ -11,14 +13,14 @@
 		{% if q.image %}
 			<img src="{{ q.image }}" alt="image" style="max-width: 50%;">
 		{% endif %}
-		<h2>{{ q.question_text }}</h2>
+		<h2>{{forloop.counter}}. {{ q.question_text }}</h2>
 		
 		{% with question_number=forloop.counter0 %}
 			{% for answer in q.questionArr %}
 				{% if forloop.counter0 == q.correct_index %}
-					<div style="background-color: green"> <input type="radio" name="question_{{ question_number }}" disabled {% if forloop.counter0 == q.checked %} checked {% endif %} value="{{ forloop.counter0 }}">{{ answer }} <br> </div>
+					<div id="correct_answer"> <input type="radio" name="question_{{ question_number }}" disabled {% if forloop.counter0 == q.checked %} checked {% endif %} value="{{ forloop.counter0 }}">{{ answer }} <br> </div>
 				{% else %}
-					<div {% if forloop.counter0 == q.checked %} style="background-color: red" {% endif %}> <input type="radio" name="question_{{ question_number }}" disabled {% if forloop.counter0 == q.checked %} checked {% endif %} value="{{ forloop.counter0 }}">{{ answer }}<br> </div>
+					<div {% if forloop.counter0 == q.checked %} id="incorrect_answer" {% endif %}> <input type="radio" name="question_{{ question_number }}" disabled {% if forloop.counter0 == q.checked %} checked {% endif %} value="{{ forloop.counter0 }}">{{ answer }}<br> </div>
 				{% endif %}
 			{% endfor %}
 			<br>

@@ -1,9 +1,45 @@
+#question {
+	border-bottom: double 2px black;
+	border-left: solid 2px black;
+	border-right: solid 2px black;
+	border-top: solid 2px black;
+	font: normal 'Cambria';
+	margin: 0px 0px 20px 0px;
+	padding: 10px 10px 15px 15px;
+	border-radius: 5px;
+}
+
+#submit{
+	width:100%;
+	padding: 50px 0px 50px 20px;
+	text-align:center;
+}
+
+
+input[type=submit]{
+    height: 35px;
+    line-height: 35px;
+    font: normal 'Cambria';
+    font-size:8000%;
+}
+
+
+#correct_answer{
+	background-color:green;
+}
+
+#incorrect_answer{
+	background-color:red;
+}
+
+
+/*
 #explanation{
 	font: italic normal 100% 'Cambria', Times, serif;
 	margin: 0px 0px 20px 5px;
 	padding: 10px 10px 10px 10px;
 	line-height: 150%;
-	text-align: center;
+	t
 }
 
 #greeting{
@@ -43,7 +79,7 @@
 	color:black;
 }
 
-
+*/
 /*#header {
 	background: #778899;
 	border-bottom: double 2px black;

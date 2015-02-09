@@ -1,30 +1,37 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+
 
 {% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'quiz.css' %}" />
 <div>
     <div>
         {% if questions %}
-            <form action="/Facebook_App/quiz_grade" method="post"> {%csrf_token%}
-                {% for q in questions %}
-                    {% if q.image %}
-                        <img src="{{q.image}}" alt="image" style="max-width: 50%;">
-                    {% endif %}
-                    <h2>{{ q.question_text }}</h2>
-                    {% with question_number=forloop.counter0 %}
-                    {% for answer in q.questionArr %}
-                        <input type="radio" name="question_{{ question_number }}" value="{{ forloop.counter0 }}">{{ answer }}<br>
-                    {% endfor %}
-    
-                    <br>
-                    {% endwith %}
-                {% endfor %}   
-                <input type="submit" value="submit" />            
-            </form>
+        <form action="/Facebook_App/quiz_grade" method="post"> {%csrf_token%}
+            {% for q in questions %}
+            
+            <div id="question">
+                {% if q.image %}
+                <img src="{{q.image}}" alt="image" style="max-width: 50%;">
+                {% endif %}
+                <h2>{{forloop.counter}}. {{ q.question_text }}</h2>
+                {% with question_number=forloop.counter0 %}
+                {% for answer in q.questionArr %}
+                <input type="radio" name="question_{{ question_number }}" value="{{ forloop.counter0 }}">{{ answer }}<br>
+                {% endfor %}
+                {% endwith %}
+            </div>
+
+            {% endfor %}  
+            <div id="submit"> 
+                <input type="submit" value="Get the Lowdown on {{questions.0.name}}!" />          
+            </div>  
+        </form>
         {% else %}
-            <p>
-                Error fetching quiz data for this friend.
-            </p>
+        <p>
+            Error fetching quiz data for this friend.
+        </p>
         {% endif %}
-        </div>
     </div>
+</div>
 {% endblock %}
