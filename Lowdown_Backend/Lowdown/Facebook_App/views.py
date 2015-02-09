@@ -28,7 +28,7 @@ def get_data(request, target, fields):
 def home(request):
     friends = []
     try:
-        r = get_data(request, None, 'friends{name,id,picture}')
+        r = get_data(request, None, 'friends.limit(500){name,id,picture}')
         friends = r['friends']['data']
     except AttributeError:
         logger.debug('Anonymous user')
@@ -104,8 +104,8 @@ def get_liked_and_unliked_statuses(self_statuses_data, friend_id):
     return liked_statuses, unliked_statuses
  
 def quiz(request, friend_id):
-    friend_data = get_data(request, friend_id, 'statuses,name,photos')
-    self_data = get_data(request, 'me', 'statuses')
+    friend_data = get_data(request, friend_id, 'statuses.limit(500){message},name,photos.limit(500){name,images}')
+    self_data = get_data(request, 'me', 'statuses.limit(500){message,likes.limit(500)}')
     self_statuses_data = get_paged_data(self_data, 'statuses')
     self_statuses = [status['message'] 
                 for status in self_statuses_data]
