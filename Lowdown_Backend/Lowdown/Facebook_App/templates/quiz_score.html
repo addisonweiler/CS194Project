@@ -3,15 +3,15 @@
 {% block main %}
 <div>
     <div>
-    	<h2> CORRECT: {{correct}} </h2>
-    	<h2> INCORRECT: {{incorrect}} </h2>
+    	<h2> CORRECT: {{ correct }} </h2>
+    	<h2> INCORRECT: {{ incorrect }} </h2>
     </div>
     <div>
 	{% for q in questions %}
 		{% if q.image %}
-			<img src="{{q.image}}" alt="image" style="max-width: 50%;">
+			<img src="{{ q.image }}" alt="image" style="max-width: 50%;">
 		{% endif %}
-		<h2>{{q.QUESTION_TEXT}}</h2>
+		<h2>{{ q.question_text }}</h2>
 		
 		{% with question_number=forloop.counter0 %}
 			{% for answer in q.questionArr %}

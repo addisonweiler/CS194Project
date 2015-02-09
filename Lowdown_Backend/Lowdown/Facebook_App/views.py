@@ -204,22 +204,18 @@ def quiz_grade(request):
     correctAnswers = 0
     incorrectAnswers = 0
     answers = request.session.get('answers')
-    submitted_answers = []
 
-    question_arr = request.session.get('questions')
-    questions = []
-    for q in question_arr:
-        questions.append(pickle.loads(q))
+    questions = [pickle.loads(q) for q in request.session.get('questions')]
 
     arr = []
     for field in request.POST:
-      if "question" in str(field):
-        index = int(str(field)[9:])  
-        if int(answers[index]) == int(request.POST[field]):
-          correctAnswers+=1
-        else:
-          incorrectAnswers+=1
-        questions[index].checked = int(request.POST[field])
+        if "question" in str(field):
+            index = int(str(field)[9:])  
+            if int(answers[index]) == int(request.POST[field]):
+                correctAnswers+=1
+            else:
+                incorrectAnswers+=1
+            questions[index].checked = int(request.POST[field])
 
 
     context = RequestContext(request,
