@@ -1,6 +1,8 @@
 import random
 import json
 
+from utils import QuestionNotFeasibleException
+
 class Question(object):
     @classmethod
     def gen(cls, self_data, friend_data):
@@ -10,6 +12,8 @@ class MultipleChoiceQuestion(Question):
     QUESTION_TEXT = "Must override this class and field"
     NUM_WRONG_ANSWERS = 3
     def __init__(self, correct_answer, wrong_answers):
+        if len(wrong_answers) < self.NUM_WRONG_ANSWERS:
+            raise QuestionNotFeasibleException()
         self.checked = -1
         self.correct_index = random.randint(0, self.NUM_WRONG_ANSWERS)
         self.questionArr = random.sample(wrong_answers, self.NUM_WRONG_ANSWERS)

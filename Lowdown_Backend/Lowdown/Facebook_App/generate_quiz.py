@@ -7,6 +7,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
 from questions.image_caption_question import ImageCaptionQuestion
+from questions.liked_pages_question import LikedPagesQuestion
 from questions.liked_status_question import LikedStatusQuestion
 from questions.most_used_word_question import MostUsedWordQuestion
 from questions.status_question import StatusQuestion
@@ -16,6 +17,7 @@ logger = logging.getLogger(__name__)
 
 QUESTION_AMOUNTS = {
     ImageCaptionQuestion : 1,
+    LikedPagesQuestion : 1,
     LikedStatusQuestion : 1,
     MostUsedWordQuestion : 1,
     StatusQuestion : 1,
@@ -28,6 +30,7 @@ def generate_quiz(request, friend_id):
         ','.join([
             'first_name',
             'id',
+            'likes.limit(%s){name}',
             'name',
             'photos.limit(%s){name,images}',
             'statuses.limit(%s){message}',
