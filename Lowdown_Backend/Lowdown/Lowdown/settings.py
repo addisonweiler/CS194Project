@@ -167,10 +167,10 @@ LOGGING = {
             'filename': idconfig.GIT_ROOT + 'Lowdown_Backend/Lowdown/django.log',
             'formatter': 'verbose'
         },
-       'our_scripts': {
+       'Facebook_App': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': idconfig.GIT_ROOT + 'Lowdown_Backend/Lowdown/our_scripts.log',
+            'filename': idconfig.GIT_ROOT + 'Lowdown_Backend/Lowdown/lowdown.log',
             'formatter': 'verbose'
         },
     },
@@ -181,7 +181,7 @@ LOGGING = {
             'level':'DEBUG',
         },
         'Facebook_App': {
-            'handlers': ['our_scripts'],
+            'handlers': ['Facebook_App'],
             'level': 'DEBUG',
         },
     }
