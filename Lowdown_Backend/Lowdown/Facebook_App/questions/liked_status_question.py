@@ -24,7 +24,7 @@ def get_liked_and_unliked_statuses(self_data, friend_id):
     return list(liked_statuses), list(unliked_statuses)
 
 class LikedStatusQuestion(MultipleChoiceQuestion):
-    QUESTION_TEXT = "Which of the following statuses did %s like?"
+    QUESTION_TEXT = "Which of the following statuses you posted did %s like?"
     def __init__(self, liked_statuses, other_statuses):
         liked_status = random.choice(liked_statuses)
         super(LikedStatusQuestion, self).__init__(liked_status, other_statuses)

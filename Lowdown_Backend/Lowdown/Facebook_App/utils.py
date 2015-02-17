@@ -9,6 +9,9 @@ def get_data(request, target, fields):
     ).first()
     if target is None:
          target = social_user.uid
+    # TODO: this sets the fetch limit to 500. Going forward we should check the
+    # result and reduce this if the server denies the request.
+    fields = fields.replace("%s", "500")
     payload = {
          'fields': fields,
          'access_token': social_user.extra_data['access_token'],

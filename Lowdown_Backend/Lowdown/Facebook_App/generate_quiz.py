@@ -26,18 +26,18 @@ def generate_quiz(request, friend_id):
         request,
         friend_id,
         ','.join([
+            'first_name',
             'id',
             'name',
-            'first_name',
-            'statuses.limit(500){message}',
-            'photos.limit(500){name,images}',
+            'photos.limit(%s){name,images}',
+            'statuses.limit(%s){message}',
         ])
     )
     self_data = get_data(
         request,
         'me',
         ','.join([
-            'statuses.limit(500){message,likes.limit(500)}',
+            'statuses.limit(%s){message,likes.limit(%s)}',
         ])
     )
 
