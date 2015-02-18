@@ -1,6 +1,7 @@
 import logging
 import pickle
 import random
+from time import time
 import traceback
 
 from django.shortcuts import render_to_response
@@ -32,6 +33,7 @@ QUESTION_AMOUNTS = {
 } 
 
 def generate_quiz(request, friend_id):
+    time_start = time()
     friend_data = get_data(
         request,
         friend_id,
@@ -50,6 +52,7 @@ def generate_quiz(request, friend_id):
             + '}',
         ])
     )
+    time_friend_data = time()
     self_data = get_data(
         request,
         'me',
@@ -57,10 +60,15 @@ def generate_quiz(request, friend_id):
             'statuses.limit(%s){message,likes.limit(%s)}',
         ])
     )
+    time_self_data = time()
+    logger.debug("TIME: friend_data fetch: %sms" %
+                 round(1000 * (time_friend_data - time_start)))
+    logger.debug("TIME: self_data fetch: %sms" %
+                 round(1000 * (time_self_data - time_friend_data)))
 
     questions = []
     for question_class, amt in QUESTION_AMOUNTS.iteritems():
-        for _ in range(amt):
+        for i in range(amt):
             try:
                 questions.append(question_class.gen(self_data, friend_data))
             except Exception as e:
@@ -85,5 +93,7 @@ def generate_quiz(request, friend_id):
                               'questions': questions,
                              })
 
+    logger.debug("TIME: all preprocessing: %sms"
+                     % round(1000 * (time() - time_start)))
     return render_to_response('quiz.html', context_instance=context)
 
