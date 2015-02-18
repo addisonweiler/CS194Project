@@ -7,6 +7,7 @@ from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
 from questions.age_question import AgeQuestion
+from questions.birthday_question import BirthdayQuestion
 from questions.image_caption_question import ImageCaptionQuestion
 from questions.liked_pages_question import LikedPagesQuestion
 from questions.liked_status_question import LikedStatusQuestion
@@ -18,6 +19,7 @@ logger = logging.getLogger(__name__)
 
 QUESTION_AMOUNTS = {
     AgeQuestion : 1,
+    BirthdayQuestion : 1,
     ImageCaptionQuestion : 1,
     LikedPagesQuestion : 1,
     LikedStatusQuestion : 1,
