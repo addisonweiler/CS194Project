@@ -12,8 +12,8 @@ class MultipleChoiceQuestion(Question):
     QUESTION_TEXT = "Must override this class and field"
     NUM_WRONG_ANSWERS = 3
     def __init__(self, correct_answers, wrong_answers):
-        wrong_answers = \
-                filter(lambda a: a not in correct_answers, wrong_answers)
+        wrong_answers = list(set(filter(
+            lambda a: a not in correct_answers, wrong_answers)))
         if len(wrong_answers) < self.NUM_WRONG_ANSWERS:
             raise QuestionNotFeasibleException()
         if type(correct_answers) is not list:

@@ -1,21 +1,14 @@
 import random
 
 from questions import MultipleChoiceQuestion
-from utils import get_paged_data, get_captions, get_caption
+from utils import get_paged_data, get_captions, get_caption, get_sized_photo, QuestionNotFeasibleException
 
 def get_captioned_photo(photos):  
-    while True: 
+    for _ in range(100):
         photo = random.choice(photos) 
         if get_caption(photo): 
             return photo 
-    return None 
-
-def get_sized_photo(photo): 
-    """Returns a photo url appropriate for the quiz window size.""" 
-    for img in photo['images']: 
-        if img['height'] < 400 and img['width'] < 600: 
-            return img['source'] 
-    return ''
+    raise QuestionNotFeasibleException()
 
 class ImageCaptionQuestion(MultipleChoiceQuestion): 
     QUESTION_TEXT = "Which of the following is the caption for the above picture?" 

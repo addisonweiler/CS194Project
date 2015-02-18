@@ -31,5 +31,12 @@ def get_captions(photos, exclude=None):
 def get_caption(photo): 
     return photo['name'] if 'name' in photo else None
 
+def get_sized_photo(photo):
+    """Returns a photo url appropriate for the quiz window size."""
+    for img in photo['images']:
+        if img['height'] < 400 and img['width'] < 600:
+            return img['source']
+    return ''
+
 class QuestionNotFeasibleException(Exception):
     pass

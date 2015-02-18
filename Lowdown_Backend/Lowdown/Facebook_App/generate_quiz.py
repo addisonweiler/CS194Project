@@ -12,6 +12,7 @@ from questions.image_caption_question import ImageCaptionQuestion
 from questions.liked_pages_question import LikedPagesQuestion
 from questions.liked_status_question import LikedStatusQuestion
 from questions.most_used_word_question import MostUsedWordQuestion
+from questions.photo_location_question import PhotoLocationQuestion
 from questions.status_question import StatusQuestion
 from questions.color_shirt_question import ColorShirtQuestion
 from utils import get_data
@@ -26,6 +27,7 @@ QUESTION_AMOUNTS = {
     LikedPagesQuestion : 1,
     LikedStatusQuestion : 1,
     MostUsedWordQuestion : 1,
+    PhotoLocationQuestion : 1,
     StatusQuestion : 1,
 } 
 
@@ -40,7 +42,12 @@ def generate_quiz(request, friend_id):
             'likes.limit(%s){name}',
             'name',
             'statuses.limit(500){message}',
-            'photos.limit(500){name,images,tags}',
+            'photos.limit(500){'
+                + 'images,'
+                + 'name,'
+                + 'place{name,location{latitude,longitude}},'
+                + 'tags'
+            + '}',
         ])
     )
     self_data = get_data(
