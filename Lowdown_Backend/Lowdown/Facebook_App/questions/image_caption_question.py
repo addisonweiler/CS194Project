@@ -21,7 +21,7 @@ class ImageCaptionQuestion(MultipleChoiceQuestion):
     QUESTION_TEXT = "Which of the following is the caption for the above picture?" 
     def __init__(self, image, caption, other_captions): 
         self.image = image 
-        super(ImageCaptionQuestion, self).__init__(caption, other_captions) 
+        super(ImageCaptionQuestion, self).__init__([caption], other_captions) 
 
     @classmethod
     def gen(cls, self_data, friend_data):

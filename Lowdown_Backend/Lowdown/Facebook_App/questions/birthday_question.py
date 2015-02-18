@@ -11,7 +11,7 @@ class BirthdayQuestion(MultipleChoiceQuestion):
                           .strftime(self.FORMAT)
                       for _ in range(5)]
         birthday = birthday.strftime(self.FORMAT)
-        super(BirthdayQuestion, self).__init__(birthday, fake_dates)
+        super(BirthdayQuestion, self).__init__([birthday], fake_dates)
 
     @classmethod
     def gen(cls, self_data, friend_data):

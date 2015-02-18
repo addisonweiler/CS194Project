@@ -7,8 +7,7 @@ from utils import get_paged_data
 class StatusQuestion(MultipleChoiceQuestion):
     QUESTION_TEXT = "Which of the following is NOT one of %s's statuses?"
     def __init__(self, statuses, wrong_statuses):
-        wrong_status = random.choice(wrong_statuses)
-        super(StatusQuestion, self).__init__(wrong_status, statuses)
+        super(StatusQuestion, self).__init__(wrong_statuses, statuses)
 
     @classmethod
     def gen(cls, self_data, friend_data):
