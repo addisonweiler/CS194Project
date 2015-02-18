@@ -22,7 +22,7 @@ def get_words(words, exclude=None):
 class MostUsedWordQuestion(MultipleChoiceQuestion):
     QUESTION_TEXT = "What is %s's most used word?"
     def __init__(self, max_word, other_words):
-        super(MostUsedWordQuestion, self).__init__(max_word, other_words)
+        super(MostUsedWordQuestion, self).__init__([max_word], other_words)
 
 
     @classmethod

@@ -53,7 +53,7 @@ def get_photo_arr_with_tags(photos, friend_id):
 class ColorShirtQuestion(MultipleChoiceQuestion): 
     QUESTION_TEXT = "Of these colors, which is %s most likely to wear?" 
     def __init__(self, caption, other_captions): 
-        super(ColorShirtQuestion, self).__init__(caption, other_captions) 
+        super(ColorShirtQuestion, self).__init__([caption], other_captions) 
 
     @classmethod
     def gen(cls, self_data, friend_data):
