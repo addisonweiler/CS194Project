@@ -10,6 +10,7 @@ from questions.image_caption_question import ImageCaptionQuestion
 from questions.liked_status_question import LikedStatusQuestion
 from questions.most_used_word_question import MostUsedWordQuestion
 from questions.status_question import StatusQuestion
+from questions.color_shirt_question import ColorShirtQuestion
 from utils import get_data
 
 logger = logging.getLogger(__name__)
@@ -19,6 +20,7 @@ QUESTION_AMOUNTS = {
     LikedStatusQuestion : 1,
     MostUsedWordQuestion : 1,
     StatusQuestion : 1,
+    ColorShirtQuestion : 1,
 } 
 
 def generate_quiz(request, friend_id):
@@ -30,7 +32,7 @@ def generate_quiz(request, friend_id):
             'name',
             'first_name',
             'statuses.limit(500){message}',
-            'photos.limit(500){name,images}',
+            'photos.limit(500){name,images,tags}',
         ])
     )
     self_data = get_data(
