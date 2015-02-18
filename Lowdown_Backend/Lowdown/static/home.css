@@ -43,6 +43,10 @@
 	color:black;
 }
 
+.hidden {
+	display: none;
+}
+
 
 /*#header {
 	background: #778899;
