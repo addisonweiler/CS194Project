@@ -8,10 +8,10 @@ from django.template.context import RequestContext
 
 from questions.age_question import AgeQuestion
 from questions.birthday_question import BirthdayQuestion
-from questions.image_caption_question import ImageCaptionQuestion
 from questions.liked_pages_question import LikedPagesQuestion
 from questions.liked_status_question import LikedStatusQuestion
 from questions.most_used_word_question import MostUsedWordQuestion
+from questions.photo_caption_question import PhotoCaptionQuestion
 from questions.photo_location_question import PhotoLocationQuestion
 from questions.status_question import StatusQuestion
 from questions.color_shirt_question import ColorShirtQuestion
@@ -23,10 +23,10 @@ QUESTION_AMOUNTS = {
     AgeQuestion : 1,
     BirthdayQuestion : 1,
     ColorShirtQuestion : 1,
-    ImageCaptionQuestion : 1,
     LikedPagesQuestion : 1,
     LikedStatusQuestion : 1,
     MostUsedWordQuestion : 1,
+    PhotoCaptionQuestion : 1,
     PhotoLocationQuestion : 1,
     StatusQuestion : 1,
 } 
