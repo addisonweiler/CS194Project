@@ -24,7 +24,6 @@ class MostUsedWordQuestion(MultipleChoiceQuestion):
     def __init__(self, max_word, other_words):
         super(MostUsedWordQuestion, self).__init__([max_word], other_words)
 
-
     @classmethod
     def gen(cls, self_data, friend_data):
         statuses = [status['message']

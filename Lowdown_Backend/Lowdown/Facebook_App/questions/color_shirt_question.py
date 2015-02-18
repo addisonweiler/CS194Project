@@ -1,14 +1,14 @@
+import logging
+import random
+import requests
+
+from PIL import Image
+from StringIO import StringIO
+
+import point_cluster
 from questions import MultipleChoiceQuestion
 from utils import get_paged_data, get_captions, get_caption
 
-import requests
-from PIL import Image
-from StringIO import StringIO
-import random
-
-import Point_Cluster
-
-import logging
 logger = logging.getLogger(__name__)
 
 def get_shirt_color(photo_url, tag_coords):
