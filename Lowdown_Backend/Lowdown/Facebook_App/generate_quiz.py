@@ -6,7 +6,10 @@ import traceback
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
 
+from questions.age_question import AgeQuestion
+from questions.birthday_question import BirthdayQuestion
 from questions.image_caption_question import ImageCaptionQuestion
+from questions.liked_pages_question import LikedPagesQuestion
 from questions.liked_status_question import LikedStatusQuestion
 from questions.most_used_word_question import MostUsedWordQuestion
 from questions.status_question import StatusQuestion
@@ -16,7 +19,10 @@ from utils import get_data
 logger = logging.getLogger(__name__)
 
 QUESTION_AMOUNTS = {
+    AgeQuestion : 1,
+    BirthdayQuestion : 1,
     ImageCaptionQuestion : 1,
+    LikedPagesQuestion : 1,
     LikedStatusQuestion : 1,
     MostUsedWordQuestion : 1,
     StatusQuestion : 1,
@@ -28,9 +34,11 @@ def generate_quiz(request, friend_id):
         request,
         friend_id,
         ','.join([
-            'id',
-            'name',
+            'birthday',
             'first_name',
+            'id',
+            'likes.limit(%s){name}',
+            'name',
             'statuses.limit(500){message}',
             'photos.limit(500){name,images,tags}',
         ])
@@ -39,7 +47,7 @@ def generate_quiz(request, friend_id):
         request,
         'me',
         ','.join([
-            'statuses.limit(500){message,likes.limit(500)}',
+            'statuses.limit(%s){message,likes.limit(%s)}',
         ])
     )
 
