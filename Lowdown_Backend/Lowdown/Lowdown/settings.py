@@ -136,6 +136,8 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = [
     'user_work_history',
     # Extended
     'read_friendlists',
+    #Publish actions
+    'publish_actions',
 ]
 
 # Static files (CSS, JavaScript, Images)

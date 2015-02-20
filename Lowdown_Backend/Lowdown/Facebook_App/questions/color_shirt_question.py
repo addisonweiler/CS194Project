@@ -70,7 +70,7 @@ class ColorShirtQuestion(MultipleChoiceQuestion):
             color = get_shirt_color(photo, tag_coords)
             color_arr.append(color)
 
-        colors, score = Point_Cluster.cluster(color_arr)
+        colors, score = point_cluster.cluster(color_arr)
         correctAnswer = colors[score.index(max(score))]
         colors.remove(correctAnswer)
         incorrectAnswers = colors
