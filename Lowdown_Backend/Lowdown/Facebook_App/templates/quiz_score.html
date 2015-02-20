@@ -1,24 +1,40 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block scripts %}
-<script type="text/javascript" src="/static/quiz_score.js"></script>
 <script type="text/javascript">
-(function(){
-	"use strict";
-	$(document).ready(function(){
-		$(".share_btn").click(function(){
-			FB.ui({
-				method: 'feed',
-				name: "Lowdown Friend Quiz",
-				link: '{{full_url}}',
-				caption: '',
-				to: '{{friend_id}}',
-				description: '{{share_message}}', //Lowdown is an auto-generated Facebook Friend Quiz! How well do you REALLY know your friends?',
-				picture: 'http://revelationnow.net/wp-content/gallery/beyonce_demon_dance_face/01_angry_beyonce.jpg',
-			}, function(response){});
-		})
-	});
-}());
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId      : '{{app_id}}',
+			xfbml      : true,
+			version    : 'v2.1'
+		});
+	};
+
+	(function(d, s, id){
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+</script>
+<script type="text/javascript">
+	(function(){
+		"use strict";
+		$(document).ready(function(){
+			$(".share_btn").click(function(){
+				FB.ui({
+					method: 'feed',
+					name: "Lowdown Friend Quiz",
+					link: '{{full_url}}',
+					caption: 'Lowdown: The auto-generated Facebook Quiz!',
+					to: '{{friend_id}}',
+					description: '{{share_message}}',
+					picture: 'http://revelationnow.net/wp-content/gallery/beyonce_demon_dance_face/01_angry_beyonce.jpg',
+				}, function(response){});
+			})
+		});
+	}());
 </script>
 {% endblock %}
 
@@ -33,7 +49,7 @@
 		{%endif%}
 	</div>
 	<button class="share_btn"> Share Results </button> 
-    <!-- <div>
+    <div>
 	{% for q in questions %}
 		{% if q.image %}
 			<img src="{{ q.image }}" alt="image" style="max-width: 50%;">
@@ -51,6 +67,6 @@
 			<br>
 		{% endwith %}
 	{% endfor %}   
-</div> -->
+</div>
 </div>
 {% endblock %}
