@@ -7,8 +7,6 @@ from questions import MultipleChoiceQuestion
 from stopwords import STOPWORDS
 from utils import get_paged_data, get_captions
 
-logger = logging.getLogger(__name__)
-
 def get_word_count(statuses, captions):
     word_count = defaultdict(int)
     for s in statuses + captions:

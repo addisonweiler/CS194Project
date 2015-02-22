@@ -1,6 +1,8 @@
+import logging
 from datetime import date, datetime
-
 from questions import MultipleChoiceQuestion
+
+logger = logging.getLogger(__name__)
 
 class AgeQuestion(MultipleChoiceQuestion):
     QUESTION_TEXT = "How old is %s?"
@@ -10,6 +12,7 @@ class AgeQuestion(MultipleChoiceQuestion):
 
     @classmethod
     def gen(cls, self_data, friend_data):
+        logger.warning(friend_data['birthday'])
         born = datetime.strptime(friend_data['birthday'], '%m/%d/%Y').date()
         today = date.today()
         return cls(today.year - born.year -
