@@ -13,6 +13,7 @@ from questions.liked_pages_question import LikedPagesQuestion
 from questions.liked_status_question import LikedStatusQuestion
 from questions.most_used_word_question import MostUsedWordQuestion
 from questions.photo_caption_question import PhotoCaptionQuestion
+from questions.photo_comment_question import PhotoCommentQuestion
 from questions.photo_location_question import PhotoLocationQuestion
 from questions.status_question import StatusQuestion
 from questions.color_shirt_question import ColorShirtQuestion
@@ -29,6 +30,7 @@ QUESTION_AMOUNTS = {
     LikedStatusQuestion : (1, "default.html"),
     MostUsedWordQuestion : (1, "default.html"),
     PhotoCaptionQuestion : (1, "default.html"),
+    PhotoCommentQuestion : (1, "default.html"),
     PhotoLocationQuestion : (1, "default.html"),
     StatusQuestion : (1, "status_question.html"),
     MutualFriendsQuestion : (0, "default.html"),
@@ -49,6 +51,7 @@ def generate_quiz(request, friend_id):
             'context.limit(500){mutual_friends}',
             'friends',
             'photos.limit(500){'
+                + 'comments.limit(500){message,from},'
                 + 'images,'
                 + 'name,'
                 + 'place{name,location{latitude,longitude}},'

@@ -31,6 +31,13 @@ def get_captions(photos, exclude=None):
     all_captions = [get_caption(photo) for photo in photos] 
     return list(set(filter(lambda x: x is not None and x != exclude, all_captions)))
 
+def get_photo_comments(photo): 
+    if 'comments' not in photo:
+        return []
+    comments = get_paged_data(photo, 'comments')
+    return ['"%s" -%s' % (comment['message'], comment['from']['name'])
+            for comment in comments]
+
 def get_caption(photo): 
     return photo['name'] if 'name' in photo else None
 
