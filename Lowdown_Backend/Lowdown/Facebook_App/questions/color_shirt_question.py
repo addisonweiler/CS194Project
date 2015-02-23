@@ -1,6 +1,7 @@
 import logging
 import random
 import requests
+from time import time
 
 from PIL import Image
 from StringIO import StringIO
@@ -9,20 +10,16 @@ import point_cluster
 from questions import MultipleChoiceQuestion
 from utils import get_paged_data, get_captions, get_caption
 
+NUM_PICTURES = 100
+
 logger = logging.getLogger(__name__)
 
-def get_shirt_color(photo_url, tag_coords):
+def get_shirt_color(photo, tag_coords):
     x, y = tag_coords
-
     PERCENT_OFFSET_Y = 15
-
-    #Grab file from url, open it as a string
-    response = requests.get(photo_url)
-    img = Image.open(StringIO(response.content))
-    img = img.convert('RGB', palette=Image.ADAPTIVE, colors=256)
     
+    img = photo.convert('RGB', palette=Image.ADAPTIVE, colors=256)
     rows, cols = img.size
-
     x = (x / 100) * cols
     y = ((y+PERCENT_OFFSET_Y) / 100) * rows
 
@@ -57,24 +54,35 @@ class ColorShirtQuestion(MultipleChoiceQuestion):
 
     @classmethod
     def gen(cls, self_data, friend_data):
+        time_start = time()
         photos = get_paged_data(friend_data, 'photos')
         photos = get_photo_arr_with_tags(photos, friend_data['id'])
 
-        correctAnswer = "HI"
-        photo_url = None
-
         random.shuffle(photos)
-        color_arr = []
-        for photo, tag_coords in photos[:100]:
+        length = min(len(photos), NUM_PICTURES)
+        photo_arr = []
+
+        #Pull down photos
+        session = requests.Session()
+        for photo_url, tag_coords in photos[:length]:
             if not tag_coords: continue
+            response = session.get(photo_url)
+            img = Image.open(StringIO(response.content))
+            photo_arr.append((img, tag_coords))
+
+        #Grab colors
+        color_arr = []
+        for photo, tag_coords in photo_arr:
             color = get_shirt_color(photo, tag_coords)
-            color_arr.append(color)
+            if color:
+                color_arr.append(color)
 
         colors, score = point_cluster.cluster(color_arr)
         correctAnswer = colors[score.index(max(score))]
         colors.remove(correctAnswer)
         incorrectAnswers = colors
 
+        logger.debug("TIME: Pictures fetch: %sms" %round(1000 * (time() - time_start)))
         return cls(
             correctAnswer,
             incorrectAnswers,

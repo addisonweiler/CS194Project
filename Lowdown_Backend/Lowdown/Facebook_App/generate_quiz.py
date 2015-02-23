@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 QUESTION_AMOUNTS = {
     AgeQuestion : 1,
     BirthdayQuestion : 1,
-    ColorShirtQuestion : 0,
+    ColorShirtQuestion : 1,
     LikedPagesQuestion : 1,
     LikedStatusQuestion : 1,
     MostUsedWordQuestion : 1,
