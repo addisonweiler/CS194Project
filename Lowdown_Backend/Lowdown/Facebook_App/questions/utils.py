@@ -24,6 +24,9 @@ def get_paged_data(user_data, field_name):
     # TODO: actually implement paging. 
     return user_data[field_name]['data']
 
+def get_context_data(user_data, field_name):
+    return user_data[field_name]['mutual_friends']['data']
+
 def get_captions(photos, exclude=None): 
     all_captions = [get_caption(photo) for photo in photos] 
     return list(set(filter(lambda x: x is not None and x != exclude, all_captions)))

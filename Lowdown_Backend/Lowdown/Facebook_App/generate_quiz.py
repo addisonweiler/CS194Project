@@ -16,6 +16,7 @@ from questions.photo_caption_question import PhotoCaptionQuestion
 from questions.photo_location_question import PhotoLocationQuestion
 from questions.status_question import StatusQuestion
 from questions.color_shirt_question import ColorShirtQuestion
+from questions.mutual_friends_question import MutualFriendsQuestion
 from utils import get_data
 
 logger = logging.getLogger(__name__)
@@ -23,13 +24,14 @@ logger = logging.getLogger(__name__)
 QUESTION_AMOUNTS = {
     AgeQuestion : 1,
     BirthdayQuestion : 1,
-    ColorShirtQuestion : 1,
+    ColorShirtQuestion : 0,
     LikedPagesQuestion : 1,
     LikedStatusQuestion : 1,
     MostUsedWordQuestion : 1,
     PhotoCaptionQuestion : 1,
     PhotoLocationQuestion : 1,
     StatusQuestion : 1,
+    MutualFriendsQuestion : 0,
 } 
 
 def generate_quiz(request, friend_id):
@@ -44,6 +46,8 @@ def generate_quiz(request, friend_id):
             'likes.limit(%s){name}',
             'name',
             'statuses.limit(500){message}',
+            'context.limit(500){mutual_friends}',
+            'friends',
             'photos.limit(500){'
                 + 'images,'
                 + 'name,'

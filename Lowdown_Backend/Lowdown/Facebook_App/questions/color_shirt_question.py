@@ -10,7 +10,7 @@ import point_cluster
 from questions import MultipleChoiceQuestion
 from utils import get_paged_data, get_captions, get_caption
 
-NUM_PICTURES = 100
+NUM_PICTURES = 50
 
 logger = logging.getLogger(__name__)
 
