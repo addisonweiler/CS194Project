@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block main %}
+<link rel="stylesheet" type="text/css" href="{% static 'quiz.css' %}" />
+<div>
+	<h2> Who We Are</h2>
+	<p>
+		Thanks for using Lowdown! This is a CS194 Project created by Addison Weiler, April Yu, and Sean Scott for Winter Quarter 2014-2015. Lowdown 
+	</p>
+
+	<h2> Our Mission </h2>
+	<p>
+		While social media is great, we believe that it's hard for people to get to know one another on a deeper level. Our goal with Lowdown is to help people on Facebook learn more about their friends in a fun, challenging way. 
+	</p>
+
+	<h2> How Lowdown Works </h2>
+	<p>
+		When you select a friend to be quizzed on, Lowdown goes to their timeline and pulls down all information, which is why we request so much data. <b> LOWDOWN DOESN'T STORE DATA ON OUR SERVER: EACH QUIZ IS GENERATED ON THE FLY. </b> 
+	</p>
+
+	<h2> Privacy Concerns </h2>
+	<p>
+		We know that the amount of data we request seems daunting. However, we want to assure you that we're not evil, and dont store ANY of your data on our servers. This means that each quiz is generated on the fly, 
+	</p>
+
+</div>
+{% endblock %}
