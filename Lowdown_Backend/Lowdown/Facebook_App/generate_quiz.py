@@ -22,16 +22,16 @@ from utils import get_data
 logger = logging.getLogger(__name__)
 
 QUESTION_AMOUNTS = {
-    AgeQuestion : 1,
-    BirthdayQuestion : 1,
-    ColorShirtQuestion : 0,
-    LikedPagesQuestion : 1,
-    LikedStatusQuestion : 1,
-    MostUsedWordQuestion : 1,
-    PhotoCaptionQuestion : 1,
-    PhotoLocationQuestion : 1,
-    StatusQuestion : 1,
-    MutualFriendsQuestion : 0,
+    AgeQuestion : (1, "default.html"),
+    BirthdayQuestion : (1, "default.html"),
+    ColorShirtQuestion : (0, "default.html"),
+    LikedPagesQuestion : (1, "default.html"),
+    LikedStatusQuestion : (1, "default.html"),
+    MostUsedWordQuestion : (1, "default.html"),
+    PhotoCaptionQuestion : (1, "default.html"),
+    PhotoLocationQuestion : (1, "default.html"),
+    StatusQuestion : (1, "status_question.html"),
+    MutualFriendsQuestion : (0, "default.html"),
 } 
 
 def generate_quiz(request, friend_id):
@@ -71,10 +71,13 @@ def generate_quiz(request, friend_id):
                  round(1000 * (time_self_data - time_friend_data)))
 
     questions = []
-    for question_class, amt in QUESTION_AMOUNTS.iteritems():
+    for question_class, data in QUESTION_AMOUNTS.iteritems():
+        amt, template = data
         for i in range(amt):
             try:
-                questions.append(question_class.gen(self_data, friend_data))
+                question = question_class.gen(self_data, friend_data)
+                question.set_template(template)
+                questions.append(question)
             except Exception as e:
                 logger.warning(traceback.format_exc())
 

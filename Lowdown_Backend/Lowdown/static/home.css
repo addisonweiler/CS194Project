@@ -34,13 +34,17 @@
 	font: normal 100% 'Cambria', Times, serif;
 	padding: 10px 10px 10px 10px;
 	text-align: center;
-
 }
 
 #friendcell a {
 	text-decoration: none;
 	font-weight: bold;
 	color:black;
+}
+
+#friendcell:hover {
+	background-color: gray;
+	cursor: pointer;
 }
 
 #loader {

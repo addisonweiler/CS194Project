@@ -1,0 +1,6 @@
+<h2>{{forloop.counter}}. {{ q.question_text }}</h2>
+{% with question_number=forloop.counter0 %}
+{% for answer in q.questionArr %}
+<input type="radio" name="question_{{ question_number }}" value="{{ forloop.counter0 }}">{{ answer }}<br>
+{% endfor %}
+{% endwith %}

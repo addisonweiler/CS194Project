@@ -6,7 +6,7 @@
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1">
      {% url 'Facebook_App.views.home' as home_url %}
-     <title>{% block title %}Lowdown Quiz Application{% endblock %}</title>
+     <title>{% block title %}Lowdown - The Facebook Friend Quiz{% endblock %}</title>
 
      <!-- Bootstrap -->
 <!--      <link href="/static/css/bootstrap.min.css" rel="stylesheet">
@@ -21,10 +21,16 @@
 
   </head>
   <body>
-     <div id="header"><a href="{{ home_url }}">The Lowdown Friend Quiz</a></div>
+     <div id="header">Lowdown - The Facebook Friend Quiz!</div>
+     <div id='navBar'>
+        <ul>
+           <li><a href='{{ home_url }}'><span>Home</span></a></li>
+           <li><a href='#'><span>About Lowdown</span></a></li>
+
+        </ul>
+    </div>
 
     {% block main %}{% endblock %}
   </body>
 
 </html>
-
