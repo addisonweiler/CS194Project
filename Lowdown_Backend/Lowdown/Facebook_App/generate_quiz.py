@@ -41,31 +41,27 @@ def generate_quiz(request, friend_id):
     friend_data = get_data(
         request,
         friend_id,
-        ','.join([
-            'birthday',
-            'first_name',
-            'id',
+        [
+            'birthday,first_name,name,friends',
             'likes.limit(%s){name}',
-            'name',
-            'statuses.limit(500){message}',
-            'context.limit(500){mutual_friends}',
-            'friends',
-            'photos.limit(500){'
-                + 'comments.limit(500){message,from},'
+            'statuses.limit(%s){message}',
+            'context.limit(%s){mutual_friends}',
+            'photos.limit(%s){'
+                + 'comments.limit(%s){message,from},'
                 + 'images,'
                 + 'name,'
                 + 'place{name,location{latitude,longitude}},'
                 + 'tags'
             + '}',
-        ])
+        ]
     )
     time_friend_data = time()
     self_data = get_data(
         request,
         'me',
-        ','.join([
+        [
             'statuses.limit(%s){message,likes.limit(%s)}',
-        ])
+        ]
     )
     time_self_data = time()
     logger.debug("TIME: friend_data fetch: %sms" %
