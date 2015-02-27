@@ -20,6 +20,23 @@
 
   </head>
   <body>
+    <header>
+      <div class="wrapper">
+        <a href="{{home_url}}" class="title">Lowdown</a>
+
+        <div class="menu-header-menu-container">
+          <ul id="menu-header-menu" class="menu">
+            <li id="menu-item-132" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-132">
+              <a href="{{ home_url }}">Home</a>
+            </li>
+            <li id="menu-item-13" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13">
+              <a href="/Facebook_App/about_us">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <!---
      <div id="header">Lowdown - The Facebook Friend Quiz!</div>
      <div id='navBar'>
         <ul>
@@ -28,6 +45,7 @@
 
         </ul>
     </div>
+  -->
 
     {% block main %}{% endblock %}
   </body>
