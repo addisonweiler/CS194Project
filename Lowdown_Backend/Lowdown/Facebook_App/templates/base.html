@@ -16,19 +16,26 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/static/js/bootstrap.min.js"></script>
      {% block scripts %}{% endblock %}
 
   </head>
   <body>
-     <div id="header">Lowdown - The Facebook Friend Quiz!</div>
-     <div id='navBar'>
-        <ul>
-           <li><a href='{{ home_url }}'><span>Home</span></a></li>
-           <li><a href='/Facebook_App/about_us'><span>About Lowdown</span></a></li>
+    <header>
+      <div class="wrapper">
+        <a href="{{home_url}}" class="title">Lowdown</a>
 
-        </ul>
-    </div>
+        <div class="menu-header-menu-container">
+          <ul id="menu-header-menu" class="menu">
+            <li id="home">
+              <a href="{{ home_url }}">Home</a>
+            </li>
+            <li id="about">
+              <a href="/Facebook_App/about_us">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
 
     {% block main %}{% endblock %}
   </body>

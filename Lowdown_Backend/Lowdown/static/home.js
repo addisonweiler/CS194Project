@@ -6,7 +6,7 @@
 	    	$.get($(this).attr("data-href"), function(data){
 	      		document.write(data);
 	    	});
-		$("#loader").removeClass("hidden")
-	  })
-  });
+			$("#loader").removeClass("hidden")
+	  	})
+  	});
 }());
