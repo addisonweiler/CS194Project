@@ -5,7 +5,8 @@
      <meta charset="utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
      <meta name="viewport" content="width=device-width, initial-scale=1">
-     {% url 'Facebook_App.views.home' as home_url %}
+     {% url 'home' as home_url %}
+     {% url 'about' as about_url %}
      <title>{% block title %}Lowdown - The Facebook Friend Quiz{% endblock %}</title>
 
      <!-- Bootstrap -->
@@ -22,7 +23,7 @@
   <body>
     <header>
       <div class="wrapper">
-        <a href="{{home_url}}" class="title">Lowdown</a>
+        <a href="{{ home_url }}" class="title">Lowdown</a>
 
         <div class="menu-header-menu-container">
           <ul id="menu-header-menu" class="menu">
@@ -30,7 +31,7 @@
               <a href="{{ home_url }}">Home</a>
             </li>
             <li id="about">
-              <a href="/Facebook_App/about_us">About</a>
+              <a href="{{ about_url }}">About</a>
             </li>
             {% if request.user and not request.user.is_anonymous %}
               <li id="logout">
@@ -38,7 +39,7 @@
               </li>
             {% else %}
               <li id="login">
-                <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login</a>
+                <a href="{% url 'social:begin' 'facebook' %}?next=/">Login</a>
               </li>
             {% endif %}
           </ul>
