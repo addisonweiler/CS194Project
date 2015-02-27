@@ -29,17 +29,9 @@
    </tr>
 </table>
 
-
-<div id="logout">
-   All done? <a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a> here!
-</div>
-
 {% else %}
 <div>
     <p id="explanation"> Hello, and welcome to Lowdown! Lowdown is an quiz application that allows you to take a quiz on your Facebook friends. It works by automatically generating questions based on your friend's Facebook Profile, and then quizzing you to see how well you know them! </p>
-</div>
-<div>
-    <p id="login"> Simply <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a> to get started! </p>
 </div>
 
 {% endif %}

@@ -14,22 +14,6 @@
 	text-align: center;
 }
 
-#login{
-	font: italic normal 100% 'Cambria', Times, serif;
-	width: 100%;
-	margin: 0px 0px 20px 5px;
-	padding: 10px 10px 10px 10px;
-	text-align: center;
-}
-
-#logout{
-	font: italic normal 100% 'Cambria', Times, serif;
-	width: 100%;
-	margin: 0px 0px 20px 5px;
-	padding: 10px 10px 10px 10px;
-	text-align: center;
-}
-
 #friendcell{
 	font: normal 100% 'Cambria', Times, serif;
 	padding: 10px 10px 10px 10px;

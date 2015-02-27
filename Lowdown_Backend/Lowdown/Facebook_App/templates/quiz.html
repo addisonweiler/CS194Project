@@ -12,7 +12,7 @@
                 <div id="question">
                     {% with template_name=q.template|stringformat:"s"%}
                         {% include "questions/"|add:template_name %}
-                    {% endwith %}   
+                    {% endwith %}
                 </div>
             {% endfor %}
 
