@@ -2,6 +2,7 @@ body {
   background-color: #fff;
   font-size: 19px;
   line-height: 1.3em;
+  margin-top: 55px;
 }
 * {
   -webkit-box-sizing: border-box;
@@ -16,6 +17,10 @@ a,
   -moz-transition: all 0.3s linear;
   -o-transition: all 0.3s linear;
   transition: all 0.3s linear;
+}
+ul {
+  margin: 0;
+  padding: 0;
 }
 a:hover,
 .anchor-standard:hover {
@@ -116,5 +121,32 @@ header a:hover {
     margin-left: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.2);
     padding: 0;
+  }
+}
+
+.wrapper {
+  width: 1200px;
+  margin: 0 auto;
+  *zoom: 1;
+  position: relative;
+}
+.wrapper:before,
+.wrapper:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.wrapper:after {
+  clear: both;
+}
+@media all and (max-width: 960px) {
+  .wrapper {
+    width: 100%;
+    padding: 0 2%;
+  }
+}
+@media all and (max-width: 500px) {
+  .wrapper {
+    padding: 0 4%;
   }
 }
