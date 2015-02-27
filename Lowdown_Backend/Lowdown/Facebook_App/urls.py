@@ -7,7 +7,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
    url(r'^$', 'Facebook_App.views.home', name='home'),
-   url(r'^quiz/(\d+)$', 'Facebook_App.views.quiz', name='quiz'),
+   url(r'^quiz/(\d+)$', 'Facebook_App.views.blank_quiz', name='blank_quiz'),
+   url(r'^quiz/(\d+)/content$', 'Facebook_App.views.quiz', name='quiz'),
    url(r'^quiz_grade', 'Facebook_App.views.quiz_grade', name='quiz_grade'),
    url(r'^about$', TemplateView.as_view(template_name='about.html'), name='about'),
    url('', include('social.apps.django_app.urls', namespace='social')),

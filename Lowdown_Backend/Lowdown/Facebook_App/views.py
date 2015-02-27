@@ -28,6 +28,9 @@ def quiz(request, friend_id):
   request.session['friend_id'] = friend_id
   return generate_quiz(request, friend_id)
 
+def blank_quiz(request, friend_id):
+  return render_to_response('blank_quiz.html', context_instance=RequestContext(request, {'request': request}))
+
 def quiz_grade(request):
   correctAnswers = 0
   answers = request.session.get('answers')
