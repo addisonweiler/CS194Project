@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block scripts %}
-   <script type="text/javascript" src="/static/home.js"></script>
+   <!--<script type="text/javascript" src="/static/home.js"></script>-->
 {% endblock %}
 {% block main %}
 <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}" />
@@ -18,11 +18,11 @@
  <table>
   <tr> 
      {% for friend in friends %}
-     {% url 'Facebook_App.views.quiz' friend.id as friend_quiz_url %}
+     {% url 'Facebook_App.views.blank_quiz' friend.id as friend_quiz_url %}
      <td id="friendcell">
-         <a class="quiz_btn" data-href="{{ friend_quiz_url }}"><img src="{{ friend.picture.data.url }}" alt="testing"></a> 
+         <a class="quiz_btn" href="{{ friend_quiz_url }}"><img src="{{ friend.picture.data.url }}" alt="testing"></a> 
          <br>
-         <a class="quiz_btn" data-href="{{ friend_quiz_url }}">{{ friend.name }}</a>
+         <a class="quiz_btn" href="{{ friend_quiz_url }}">{{ friend.name }}</a>
        </td>
        {% endfor %}
 
