@@ -4,6 +4,8 @@ import threading
 
 logger = logging.getLogger(__name__)
 
+PARALLEL = True
+
 def _make_request(url, payload, results):
     result = requests.get(url, params=payload)
     # TODO: is this thread-safe?
@@ -29,7 +31,11 @@ def get_data(request, target, fields):
         threads.append(threading.Thread(
             target=_make_request, args=(url, payload, results,)))
     for thread in threads:
-        thread.start()
-    for thread in threads:
-        thread.join()
+        if PARALLEL:
+            thread.start()
+        else:
+            thread.run()
+    if PARALLEL:
+        for thread in threads:
+            thread.join()
     return results
