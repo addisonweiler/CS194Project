@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 def home(request):
   friends = []
   try:
-    r = get_data(request, None, 'friends.limit(500){name,id,picture}')
+    r = get_data(request, None, ['friends.limit(500){name,id,picture}'])
     friends = r['friends']['data']
   except AttributeError:
     logger.debug('Anonymous user')
