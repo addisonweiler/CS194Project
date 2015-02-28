@@ -2,6 +2,7 @@ from datetime import date, datetime
 from random import randint
 
 from questions import MultipleChoiceQuestion
+from utils import QuestionNotFeasibleException
 
 class BirthdayQuestion(MultipleChoiceQuestion):
     FORMAT = '%B %d'
@@ -17,6 +18,9 @@ class BirthdayQuestion(MultipleChoiceQuestion):
     def gen(cls, self_data, friend_data):
         try:
             born = datetime.strptime(friend_data['birthday'], '%m/%d/%Y').date()
-        except ValueError as e:
-            born = datetime.strptime(friend_data['birthday'], '%m/%d').date()
+        except ValueError:
+            try:
+                born = datetime.strptime(friend_data['birthday'], '%m/%d').date()
+            except ValueError:
+                raise QuestionNotFeasibleException('Birthday not provided.')
         return cls(born)
