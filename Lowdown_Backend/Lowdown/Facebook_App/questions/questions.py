@@ -34,10 +34,7 @@ class MultipleChoiceQuestion(Question):
         return cls.TEMPLATE_NAME
 
     def question_text(self):
-        if "%s" in self.QUESTION_TEXT:
-            return self.QUESTION_TEXT % self.name
-        else:
-            return self.QUESTION_TEXT
+        return self.QUESTION_TEXT.replace('%s', self.name)
 
 class PhotoMultipleChoiceQuestion(MultipleChoiceQuestion):
     TEMPLATE_NAME = 'photo_question.html'
