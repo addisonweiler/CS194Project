@@ -82,12 +82,7 @@ def generate_quiz(request, friend_id):
     # Mix up the questions.
     random.shuffle(questions)
 
-    '''Save answers'''
-    answers = []
-    for q in questions:
-      answers.append(q.correct_index)
-
-    request.session['answers'] = answers
+    request.session['answers'] = [q.correct_index for q in questions]
     request.session['questions'] = [pickle.dumps(q) for q in questions]
 
     context = RequestContext(request,
