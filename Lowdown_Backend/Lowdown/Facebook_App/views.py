@@ -1,5 +1,5 @@
 import logging
-import pickle
+import jsonpickle
 
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
@@ -34,7 +34,7 @@ def about(request):
   return _template_with_context(request, 'about.html')
 
 def quiz(request, friend_id):
-  request.session['friend_id'] = friend_id
+  request.session['friend_id'] = str(friend_id)
   return generate_quiz(request, friend_id)
 
 def blank_quiz(request, friend_id):
@@ -44,7 +44,7 @@ def quiz_grade(request):
   correctAnswers = 0
   answers = request.session.get('answers')
 
-  questions = [pickle.loads(q) for q in request.session.get('questions')]
+  questions = [jsonpickle.decode(q) for q in request.session.get('questions')]
   arr = []
   for field in request.POST:
     if "question" in str(field):

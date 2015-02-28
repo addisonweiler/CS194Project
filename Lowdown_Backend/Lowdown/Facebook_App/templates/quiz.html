@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-
+{% block scripts %}
+   <script type="text/javascript" src="/static/quiz.js"></script>
+{% endblock %}
 
 {% block main %}
 <link rel="stylesheet" type="text/css" href="{% static 'quiz.css' %}" />
@@ -9,7 +11,7 @@
         {% if questions %}
         <form action="/Facebook_App/quiz_grade" method="post"> {%csrf_token%}
             {% for q in questions %}
-                <div id="question">
+                <div id="question" name="{{forloop.counter}}">
                     {% with template_name=q.template|stringformat:"s"%}
                         {% include "questions/"|add:template_name %}
                     {% endwith %}
