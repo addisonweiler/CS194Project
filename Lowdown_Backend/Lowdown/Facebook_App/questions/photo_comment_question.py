@@ -1,6 +1,6 @@
 import random
 
-from questions import MultipleChoiceQuestion
+from questions import PhotoMultipleChoiceQuestion
 from utils import get_paged_data, get_photo_comments, get_sized_photo, QuestionNotFeasibleException
 
 def get_commented_photo(photos):  
@@ -19,12 +19,9 @@ def get_all_comments(photos):
         all_comments.extend(get_photo_comments(photo))
     return all_comments
 
-class PhotoCommentQuestion(MultipleChoiceQuestion): 
+class PhotoCommentQuestion(PhotoMultipleChoiceQuestion): 
     QUESTION_TEXT = "Which of the following is the correct comment for the " \
             + "above picture?"
-    def __init__(self, image, comments, other_comments): 
-        self.image = image 
-        super(PhotoCommentQuestion, self).__init__(comments, other_comments) 
 
     @classmethod
     def gen(cls, self_data, friend_data):

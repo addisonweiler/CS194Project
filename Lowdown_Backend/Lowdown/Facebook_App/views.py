@@ -10,6 +10,12 @@ from django.conf import settings
 
 logger = logging.getLogger(__name__)
 
+def _template_with_context(request, template_name):
+    return render_to_response(
+        template_name,
+        context_instance=RequestContext(request, {'request': request}),
+    )
+
 def home(request):
   friends = []
   try:
@@ -24,12 +30,15 @@ def home(request):
   })
   return render_to_response('home.html', context_instance=context)
 
+def about(request):
+  return _template_with_context(request, 'about.html')
+
 def quiz(request, friend_id):
   request.session['friend_id'] = friend_id
   return generate_quiz(request, friend_id)
 
 def blank_quiz(request, friend_id):
-  return render_to_response('blank_quiz.html', context_instance=RequestContext(request, {'request': request}))
+    return _template_with_context(request, 'blank_quiz.html')
 
 def quiz_grade(request):
   correctAnswers = 0

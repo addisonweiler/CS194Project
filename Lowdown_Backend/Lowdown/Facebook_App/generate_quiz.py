@@ -23,17 +23,17 @@ from utils import get_data
 logger = logging.getLogger(__name__)
 
 QUESTION_AMOUNTS = {
-    AgeQuestion : (1, "default.html"),
-    BirthdayQuestion : (1, "default.html"),
-    ColorShirtQuestion : (0, "default.html"),
-    LikedPagesQuestion : (1, "default.html"),
-    LikedStatusQuestion : (1, "default.html"),
-    MostUsedWordQuestion : (1, "default.html"),
-    PhotoCaptionQuestion : (1, "default.html"),
-    PhotoCommentQuestion : (1, "default.html"),
-    PhotoLocationQuestion : (1, "default.html"),
-    StatusQuestion : (1, "status_question.html"),
-    MutualFriendsQuestion : (0, "default.html"),
+    AgeQuestion : 1,
+    BirthdayQuestion : 1,
+    ColorShirtQuestion : 0,
+    LikedPagesQuestion : 1,
+    LikedStatusQuestion : 1,
+    MostUsedWordQuestion : 1,
+    PhotoCaptionQuestion : 1,
+    PhotoCommentQuestion : 1,
+    PhotoLocationQuestion : 1,
+    StatusQuestion : 1,
+    MutualFriendsQuestion : 0,
 } 
 
 def generate_quiz(request, friend_id):
@@ -70,28 +70,21 @@ def generate_quiz(request, friend_id):
                  round(1000 * (time_self_data - time_friend_data)))
 
     questions = []
-    for question_class, data in QUESTION_AMOUNTS.iteritems():
-        amt, template = data
+    for question_class, amt in QUESTION_AMOUNTS.iteritems():
         for i in range(amt):
             try:
                 question = question_class.gen(self_data, friend_data)
-                question.set_template(template)
+                question.set_name(friend_data['first_name'])
                 questions.append(question)
+            except QuestionNotFeasibleException as qnfe:
+                logger.debug(question_class.__name__ + ': ' + qnfe.message)
             except Exception as e:
                 logger.warning(traceback.format_exc())
 
     # Mix up the questions.
     random.shuffle(questions)
 
-    for q in questions:
-        q.set_name(friend_data['first_name'])
-
-    '''Save answers'''
-    answers = []
-    for q in questions:
-      answers.append(q.correct_index)
-
-    request.session['answers'] = answers
+    request.session['answers'] = [q.correct_index for q in questions]
     request.session['questions'] = [pickle.dumps(q) for q in questions]
 
     context = RequestContext(request,

@@ -1,6 +1,6 @@
 import random
 
-from questions import MultipleChoiceQuestion
+from questions import PhotoMultipleChoiceQuestion
 from utils import get_paged_data, get_captions, get_caption, get_sized_photo, QuestionNotFeasibleException
 
 def get_captioned_photo(photos):  
@@ -10,11 +10,8 @@ def get_captioned_photo(photos):
             return photo 
     raise QuestionNotFeasibleException()
 
-class PhotoCaptionQuestion(MultipleChoiceQuestion): 
+class PhotoCaptionQuestion(PhotoMultipleChoiceQuestion): 
     QUESTION_TEXT = "Which of the following is the caption for the above picture?" 
-    def __init__(self, image, caption, other_captions): 
-        self.image = image 
-        super(PhotoCaptionQuestion, self).__init__([caption], other_captions) 
 
     @classmethod
     def gen(cls, self_data, friend_data):
@@ -24,6 +21,6 @@ class PhotoCaptionQuestion(MultipleChoiceQuestion):
 
         return cls(
             get_sized_photo(photo),
-            caption,
+            [caption],
             get_captions(photos, caption),
         )
