@@ -1,5 +1,5 @@
 import logging
-import pickle
+import jsonpickle
 import random
 from time import time
 import traceback
@@ -85,8 +85,13 @@ def generate_quiz(request, friend_id):
     # Mix up the questions.
     random.shuffle(questions)
 
-    request.session['answers'] = [q.correct_index for q in questions]
-    request.session['questions'] = [pickle.dumps(q) for q in questions]
+    '''Save answers'''
+    answers = []
+    for q in questions:
+      answers.append(q.correct_index)
+
+    request.session['answers'] = answers
+    request.session['questions'] = [jsonpickle.encode(q) for q in questions]
 
     context = RequestContext(request,
                              {'request': request,

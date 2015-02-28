@@ -2,14 +2,23 @@ body {
   background-color: #fff;
   font-size: 19px;
   line-height: 1.3em;
-  margin-top: 55px;
+  margin-left:0;
+  margin-right:0;
+  margin-top:55px;
+  padding:0;
 }
+
+img {
+  max-height: 25px;
+}
+
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   text-decoration: none;
 }
+
 a,
 .anchor-standard {
   color: #b2b2b2;
@@ -18,10 +27,12 @@ a,
   -o-transition: all 0.3s linear;
   transition: all 0.3s linear;
 }
+
 ul {
   margin: 0;
   padding: 0;
 }
+
 a:hover,
 .anchor-standard:hover {
   color: #fa7348;
@@ -41,9 +52,7 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 106;
   background-color: #3c3c3c;
-  *zoom: 1;
 }
 header:before,
 header:after {
@@ -54,15 +63,7 @@ header:after {
 header:after {
   clear: both;
 }
-header:before,
-header:after {
-  display: table;
-  content: "";
-  line-height: 0;
-}
-header:after {
-  clear: both;
-}
+
 header * {
   -webkit-transition: none;
   -moz-transition: none;
@@ -71,14 +72,13 @@ header * {
 }
 header .title {
   float: left;
+  margin-left:10px;
 }
 
 header .menu-header-menu-container {
   float: right;
 }
-header .menu-header-menu-container ul {
-  *zoom: 1;
-}
+
 header .menu-header-menu-container ul:before,
 header .menu-header-menu-container ul:after {
   display: table;
@@ -88,10 +88,13 @@ header .menu-header-menu-container ul:after {
 header .menu-header-menu-container ul:after {
   clear: both;
 }
+
 header .menu-header-menu-container ul li {
   list-style: none;
   float: left;
+  margin-right:10px;
 }
+
 header .menu-header-menu-container ul li:first-child {
   margin: 0;
 }
@@ -104,49 +107,13 @@ header a{
 header a:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
-@media all and (max-width: 500px) {
-  header {
-    text-align: center;
-  }
-  header .title {
-    font-size: 1.2em;
-  }
-  header .menu-header-menu-container {
-    float: none;
-  }
-  header .menu-header-menu-container ul li {
-    display: none;
-    clear: both;
-    float: none !important;
-    margin-left: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
-    padding: 0;
-  }
-}
 
 .wrapper {
-  width: 1200px;
-  margin: 0 auto;
-  *zoom: 1;
-  position: relative;
+  width: 100%;
 }
 .wrapper:before,
 .wrapper:after {
   display: table;
   content: "";
   line-height: 0;
-}
-.wrapper:after {
-  clear: both;
-}
-@media all and (max-width: 960px) {
-  .wrapper {
-    width: 100%;
-    padding: 0 2%;
-  }
-}
-@media all and (max-width: 500px) {
-  .wrapper {
-    padding: 0 4%;
-  }
 }
