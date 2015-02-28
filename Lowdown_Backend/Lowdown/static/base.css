@@ -8,6 +8,10 @@ body {
   padding:0;
 }
 
+img {
+  max-height: 25px;
+}
+
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

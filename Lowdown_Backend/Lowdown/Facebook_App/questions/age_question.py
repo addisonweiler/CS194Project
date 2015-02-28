@@ -9,7 +9,10 @@ class AgeQuestion(MultipleChoiceQuestion):
 
     @classmethod
     def gen(cls, self_data, friend_data):
-        born = datetime.strptime(friend_data['birthday'], '%m/%d/%Y').date()
+        try:
+            born = datetime.strptime(friend_data['birthday'], '%m/%d/%Y').date()
+        except ValueError:
+            raise QuestionNotFeasibleException('Birthday or year not provided.')
         today = date.today()
         return cls(today.year - born.year -
                    ((today.month, today.day) < (born.month, born.day)))
