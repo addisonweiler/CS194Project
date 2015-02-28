@@ -4,6 +4,10 @@ body {
   line-height: 1.3em;
   margin-top: 55px;
 }
+
+img {
+  max-height: 25px;
+}
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

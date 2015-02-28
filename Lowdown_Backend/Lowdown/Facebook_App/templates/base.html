@@ -18,11 +18,13 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
      {% block scripts %}{% endblock %}
 
+     <link rel="shortcut icon" type="image/png" href="{% static 'logo.png' %}"/>
+
   </head>
   <body>
     <header>
       <div class="wrapper">
-        <a href="{{home_url}}" class="title">Lowdown</a>
+        <a href="{{home_url}}" class="title"><img src="{% static 'logo.png' %}"></a>
 
         <div class="menu-header-menu-container">
           <ul id="menu-header-menu" class="menu">
