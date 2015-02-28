@@ -44,7 +44,7 @@ def get_caption(photo):
 def get_sized_photo(photo):
     """Returns a photo url appropriate for the quiz window size."""
     for img in photo['images']:
-        if img['height'] < 400 and img['width'] < 600:
+        if img['height'] < 900 and img['width'] < 600:
             return img['source']
     return ''
 

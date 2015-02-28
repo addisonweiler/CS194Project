@@ -1,7 +1,7 @@
 import random
 
 from fake_statuses import FAKE_STATUSES
-from questions import MultipleChoiceQuestion
+from questions import PhotoMultipleChoiceQuestion
 from utils import get_paged_data, get_sized_photo
 
 def get_geotagged_photo(photos):
@@ -11,11 +11,8 @@ def get_geotagged_photo(photos):
             return photo
     raise QuestionNotFeasibleException()
 
-class PhotoLocationQuestion(MultipleChoiceQuestion):
+class PhotoLocationQuestion(PhotoMultipleChoiceQuestion):
     QUESTION_TEXT = "Where was this picture taken?"
-    def __init__(self, image, location, wrong_locations):
-        self.image = image
-        super(PhotoLocationQuestion, self).__init__([location], wrong_locations)
 
     @classmethod
     def gen(cls, self_data, friend_data):
@@ -25,4 +22,4 @@ class PhotoLocationQuestion(MultipleChoiceQuestion):
         photo = get_geotagged_photo(photos)
         location = photo['place']['name']
         # TODO: eliminate locations within 15 miles of the photo location.
-        return cls(get_sized_photo(photo), location, all_locations)
+        return cls(get_sized_photo(photo), [location], all_locations)

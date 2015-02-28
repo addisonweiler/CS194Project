@@ -9,8 +9,10 @@ class Question(object):
         raise NotImplementedError()
 
 class MultipleChoiceQuestion(Question):
-    QUESTION_TEXT = "Must override this class and field"
+    QUESTION_TEXT = 'Must override this class and field'
     NUM_WRONG_ANSWERS = 3
+    TEMPLATE_NAME = 'default.html'
+
     def __init__(self, correct_answers, wrong_answers):
         wrong_answers = list(set(filter(
             lambda a: a not in correct_answers, wrong_answers)))
@@ -23,16 +25,24 @@ class MultipleChoiceQuestion(Question):
         self.correct_index = random.randint(0, self.NUM_WRONG_ANSWERS)
         self.questionArr = random.sample(wrong_answers, self.NUM_WRONG_ANSWERS)
         self.questionArr.insert(self.correct_index, correct_answer)
-        self.template = "default.html"
 
     def set_name(self, name):
         self.name = name
 
-    def set_template(self, template):
-        self.template = template
+    @classmethod
+    def template(cls):
+        return cls.TEMPLATE_NAME
 
     def question_text(self):
         if "%s" in self.QUESTION_TEXT:
             return self.QUESTION_TEXT % self.name
         else:
-            return self.QUESTION_TEXT    
+            return self.QUESTION_TEXT
+
+class PhotoMultipleChoiceQuestion(MultipleChoiceQuestion):
+    TEMPLATE_NAME = 'photo_question.html'
+    
+    def __init__(self, photo_url, correct_answers, wrong_answers):
+        self.image = photo_url
+        super(PhotoMultipleChoiceQuestion, self).__init__(
+                correct_answers, wrong_answers)

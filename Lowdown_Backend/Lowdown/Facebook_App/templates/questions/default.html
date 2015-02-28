@@ -1,6 +1,3 @@
-{% if q.image %}
-<img src="{{q.image}}" alt="image" style="max-width: 50%;">
-{% endif %}
 <h2>{{forloop.counter}}. {{ q.question_text }}</h2>
 {% with question_number=forloop.counter0 %}
 {% for answer in q.questionArr %}
