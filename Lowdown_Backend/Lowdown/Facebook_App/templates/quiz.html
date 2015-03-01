@@ -2,25 +2,34 @@
 {% load staticfiles %}
 {% block scripts %}
    <script type="text/javascript" src="/static/quiz.js"></script>
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 {% endblock %}
 
 {% block main %}
 <link rel="stylesheet" type="text/css" href="{% static 'quiz.css' %}" />
 <div>
     <div>
+      <div id="buttons">
+            <button type="button" id="previousButton" disabled>Previous Question</button>
+            <button type="button" id="nextButton">Next Question</button>
+        </div>
         {% if questions %}
         <form action="/Facebook_App/quiz_grade" method="post"> {%csrf_token%}
+             <div id="submit"> 
+                <input type="submit" id="submitbutton" disabled value="Get the Lowdown on {{questions.0.name}}!" />     
+            </div>  
             {% for q in questions %}
-                <div id="question" name="{{forloop.counter}}">
+                {%if forloop.counter == 1%}
+                <div class="question" id="question_{{forloop.counter}}" name="question">
+                {%else%}
+                <div class="question" style="display:none" id="question_{{forloop.counter}}" name="question">
+                {%endif%}
                     {% with template_name=q.template|stringformat:"s"%}
                         {% include "questions/"|add:template_name %}
                     {% endwith %}
                 </div>
             {% endfor %}
-
-            <div id="submit"> 
-                <input type="submit" value="Get the Lowdown on {{questions.0.name}}!" />          
-            </div>  
+        
         </form>
         {% else %}
         <p>

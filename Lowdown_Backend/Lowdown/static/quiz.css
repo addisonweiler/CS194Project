@@ -1,17 +1,23 @@
-#question {
+.question {
 	border-bottom: double 2px black;
 	border-left: solid 2px black;
 	border-right: solid 2px black;
 	border-top: solid 2px black;
 	font: normal 'Cambria';
-	margin: 0px 0px 20px 0px;
+	margin: 0px 10px 20px 10px;
 	padding: 10px 10px 15px 15px;
 	border-radius: 5px;
 }
 
 #submit{
 	width:100%;
-	padding: 50px 0px 50px 20px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	text-align:center;
+}
+
+#buttons{
+	width:100%;
 	text-align:center;
 }
 
@@ -20,7 +26,7 @@ input[type=submit]{
     height: 35px;
     line-height: 35px;
     font: normal 'Cambria';
-    font-size:8000%;
+    font-size:800%;
 }
 
 
