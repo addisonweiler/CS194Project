@@ -1,5 +1,5 @@
 import logging
-import pickle
+import jsonpickle
 import random
 from time import time
 import traceback
@@ -9,15 +9,16 @@ from django.template.context import RequestContext
 
 from questions.age_question import AgeQuestion
 from questions.birthday_question import BirthdayQuestion
+from questions.color_shirt_question import ColorShirtQuestion
 from questions.liked_pages_question import LikedPagesQuestion
 from questions.liked_status_question import LikedStatusQuestion
 from questions.most_used_word_question import MostUsedWordQuestion
+from questions.mutual_friends_question import MutualFriendsQuestion
 from questions.photo_caption_question import PhotoCaptionQuestion
 from questions.photo_comment_question import PhotoCommentQuestion
 from questions.photo_location_question import PhotoLocationQuestion
 from questions.status_question import StatusQuestion
-from questions.color_shirt_question import ColorShirtQuestion
-from questions.mutual_friends_question import MutualFriendsQuestion
+from questions.utils import QuestionNotFeasibleException
 from utils import get_data
 
 logger = logging.getLogger(__name__)
@@ -84,8 +85,13 @@ def generate_quiz(request, friend_id):
     # Mix up the questions.
     random.shuffle(questions)
 
-    request.session['answers'] = [q.correct_index for q in questions]
-    request.session['questions'] = [pickle.dumps(q) for q in questions]
+    '''Save answers'''
+    answers = []
+    for q in questions:
+      answers.append(q.correct_index)
+
+    request.session['answers'] = answers
+    request.session['questions'] = [jsonpickle.encode(q) for q in questions]
 
     context = RequestContext(request,
                              {'request': request,
