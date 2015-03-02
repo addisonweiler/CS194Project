@@ -5,7 +5,7 @@ body {
   margin-top: 55px;
 }
 
-img {
+header img {
   max-height: 25px;
 }
 * {
@@ -28,7 +28,7 @@ ul {
 }
 a:hover,
 .anchor-standard:hover {
-  color: #fa7348;
+  color: #f26522;
 }
 
 header {
