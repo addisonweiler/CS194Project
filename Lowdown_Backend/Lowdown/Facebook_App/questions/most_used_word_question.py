@@ -30,7 +30,7 @@ def get_freq_word(word_count):
 
 
 class MostUsedWordQuestion(MultipleChoiceQuestion):
-    QUESTION_TEXT = "Of of the following, what is %s's most used word?"
+    QUESTION_TEXT = "Out of the following, what is %s's most used word?"
     def __init__(self, max_word, other_words):
         super(MostUsedWordQuestion, self).__init__([max_word], other_words)
 
