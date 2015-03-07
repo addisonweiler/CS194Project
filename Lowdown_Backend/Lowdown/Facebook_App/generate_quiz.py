@@ -96,6 +96,7 @@ def generate_quiz(request, friend_id):
     context = RequestContext(request,
                              {'request': request,
                               'questions': questions,
+                              'answers': answers,
                              })
 
     logger.debug("TIME: all preprocessing: %sms"

@@ -3,29 +3,41 @@
 
 {% block main %}
 <link rel="stylesheet" type="text/css" href="{% static 'quiz.css' %}" />
-<div>
+<input type="hidden" id="answers" value="{{ answers }}">
+
+<div id="popup_box_correct">
+    <h1>Correct!</h1> 
+</div>
+<div id="popup_box_incorrect">
+    <h1>Incorrect</h1> 
+</div>
+
+<div id="container">
     <div>
-      <div id="buttons">
+        <div id="score">
+            SCORE: 0
+        </div>
+   <!--      <div id="buttons">
             <button type="button" id="previousButton" disabled>Previous Question</button>
             <button type="button" id="nextButton">Next Question</button>
-        </div>
+        </div> -->
         {% if questions %}
-        <form action="/Facebook_App/quiz_grade" method="post"> {%csrf_token%}
-             <div id="submit"> 
-                <input type="submit" id="submitbutton" disabled value="Get the Lowdown on {{questions.0.name}}!" />     
-            </div>  
-            {% for q in questions %}
-                {%if forloop.counter == 1%}
-                <div class="question" id="question_{{forloop.counter}}" name="question">
-                {%else%}
-                <div class="question" style="display:none" id="question_{{forloop.counter}}" name="question">
+        <form id="form" action="/Facebook_App/quiz_grade" method="post"> {%csrf_token%}
+   <!--       <div id="submit"> 
+            <input type="submit" id="submitbutton" disabled value="Get the Lowdown on {{questions.0.name}}!" />     
+        </div>   -->
+        {% for q in questions %}
+        {%if forloop.counter == 1%}
+        <div class="question" id="question_{{forloop.counter}}" name="question">
+            {%else%}
+            <div class="question" style="display:none" id="question_{{forloop.counter}}" name="question">
                 {%endif%}
-                    {% with template_name=q.template|stringformat:"s"%}
-                        {% include "questions/"|add:template_name %}
-                    {% endwith %}
-                </div>
+                {% with template_name=q.template|stringformat:"s"%}
+                {% include "questions/"|add:template_name %}
+                {% endwith %}
+            </div>
             {% endfor %}
-        
+
         </form>
         {% else %}
         <p>
