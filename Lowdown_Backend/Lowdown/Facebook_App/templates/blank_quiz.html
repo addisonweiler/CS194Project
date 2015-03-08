@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block scripts %}
-  <script type="text/javascript" src="/static/blank_quiz.js"></script>
+<script type="text/javascript" src="/static/blank_quiz.js"></script>
 {% endblock %}
 {% block main %}
 <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}" />
 <div id="loader">
-  <h1>Generating Quiz...</h1>
+	<h1>Generating Quiz...</h1>
+	<div class="loader"></div>
 </div>
 {% endblock %}
+
