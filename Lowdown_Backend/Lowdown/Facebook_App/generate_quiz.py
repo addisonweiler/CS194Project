@@ -37,63 +37,61 @@ QUESTION_AMOUNTS = {
     PhotoLocationQuestion : 1,
     StatusQuestion : 1,
     MutualFriendsQuestion : 0,
-} 
+}
 
-def generate_quiz(request, friend_id):
-    time_start = time()
-    friend_data = get_data(
-        request,
-        friend_id,
-        [
-            'birthday,first_name,name,friends',
-            'likes.limit(%s){name}',
-            'statuses.limit(%s){message}',
-            'context.limit(%s){mutual_friends}',
-            'photos.limit(%s){'
-                + 'comments.limit(%s){message,from},'
-                + 'images,'
-                + 'name,'
-                + 'place{name,location{latitude,longitude}},'
-                + 'tags'
-            + '}',
-        ]
-    )
-    time_friend_data = time()
-    self_data = get_data(
-        request,
-        'me',
-        [
-            'statuses.limit(%s){message,likes.limit(%s)}',
-        ]
-    )
-    time_self_data = time()
-    logger.debug("TIME: friend_data fetch: %sms" %
-                 round(1000 * (time_friend_data - time_start)))
-    logger.debug("TIME: self_data fetch: %sms" %
-                 round(1000 * (time_self_data - time_friend_data)))
+# Fields to fetch for friend.
+FRIEND_FIELDS = [
+    'birthday,first_name,name,friends',
+    'likes.limit(%s){name}',
+    'statuses.limit(%s){message}',
+    'context.limit(%s){mutual_friends}',
+    'photos.limit(%s){'
+        + 'comments.limit(%s){message,from},'
+        + 'images,'
+        + 'name,'
+        + 'place{name,location{latitude,longitude}},'
+        + 'tags'
+    + '}',
+]
 
+# Fields to fetch for self.
+SELF_FIELDS = [
+    'statuses.limit(%s){message,likes.limit(%s)}',
+]
+
+def get_questions(self_data, friend_data):
     questions = []
     for question_class, amt in QUESTION_AMOUNTS.iteritems():
-        for i in range(amt):
+        for _ in range(amt):
             try:
                 question = question_class.gen(self_data, friend_data)
                 question.name = friend_data['first_name']
                 questions.append(question)
             except QuestionNotFeasibleException as qnfe:
                 logger.debug(question_class.__name__ + ': ' + qnfe.message)
-            except Exception as e:
+            except Exception:
                 logger.warning(traceback.format_exc())
-
-    # Mix up the questions.
     random.shuffle(questions)
+    return questions
 
-    '''Save answers'''
-    answers = []
-    for q in questions:
-      answers.append(q.correct_index)
+def generate_quiz(request, friend_id):
+    time_start = time()
+    friend_data = get_data(request, friend_id, FRIEND_FIELDS)
+    time_friend_data = time()
+    self_data = get_data(request, 'me', SELF_FIELDS)
+    time_self_data = time()
 
+    logger.debug("TIME: friend_data fetch: %sms",
+                 round(1000 * (time_friend_data - time_start)))
+    logger.debug("TIME: self_data fetch: %sms",
+                 round(1000 * (time_self_data - time_friend_data)))
+
+    questions = get_questions(self_data, friend_data)
+
+    answers = [question.correct_index for question in questions]
     request.session['answers'] = answers
-    request.session['questions'] = [jsonpickle.encode(q) for q in questions]
+    request.session['questions'] = [jsonpickle.encode(question)
+                                    for question in questions]
 
     context = RequestContext(request,
                              {'request': request,
@@ -101,7 +99,7 @@ def generate_quiz(request, friend_id):
                               'answers': answers,
                              })
 
-    logger.debug("TIME: all preprocessing: %sms"
-                     % round(1000 * (time() - time_start)))
-    return render_to_response('quiz.html', context_instance=context)
+    logger.debug("TIME: all preprocessing: %sms",
+                 round(1000 * (time() - time_start)))
 
+    return render_to_response('quiz.html', context_instance=context)

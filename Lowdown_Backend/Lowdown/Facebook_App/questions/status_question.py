@@ -9,4 +9,4 @@ class StatusQuestion(MultipleChoiceQuestion):
     def gen(cls, self_data, friend_data):
         statuses = [status['message']
                     for status in get_paged_data(friend_data, 'statuses')]
-        return cls(statuses, FAKE_STATUSES)
+        return cls(FAKE_STATUSES, statuses)

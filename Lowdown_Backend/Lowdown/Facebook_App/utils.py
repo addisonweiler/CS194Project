@@ -16,7 +16,7 @@ def get_data(request, target, fields):
          provider='facebook',
     ).first()
     if target is None:
-         target = social_user.uid
+        target = social_user.uid
     # TODO: this sets the fetch limit to 500. Going forward we should check the
     # result and reduce this if the server denies the request.
     url = 'https://graph.facebook.com/%s' % target
