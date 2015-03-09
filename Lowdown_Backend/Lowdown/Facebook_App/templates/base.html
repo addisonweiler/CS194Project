@@ -37,7 +37,7 @@
             </li>
             {% if request.user and not request.user.is_anonymous %}
               <li id="logout">
-                <a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
+                <a href="{% url 'auth:logout' %}?next={{ home_url }}">Logout</a>
               </li>
             {% else %}
               <li id="login">
