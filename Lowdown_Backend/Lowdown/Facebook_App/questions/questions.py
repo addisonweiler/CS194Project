@@ -18,10 +18,12 @@ class MultipleChoiceQuestion(Question):
             lambda a: a not in correct_answers, wrong_answers)))
         if len(wrong_answers) < self.NUM_WRONG_ANSWERS:
             raise QuestionNotFeasibleException()
-        if type(correct_answers) is not list:
-            raise AssertionError()
+        if type(correct_answers) is not list \
+                and type(correct_answers) is not set:
+            raise AssertionError("First argument must be list or set of "
+                    + "correct answers; found %s." % str(type(correct_answers)))
         self.checked = -1
-        correct_answer = random.choice(correct_answers)
+        correct_answer = random.choice(tuple(correct_answers))
         self.correct_index = random.randint(0, self.NUM_WRONG_ANSWERS)
         self.questionArr = random.sample(wrong_answers, self.NUM_WRONG_ANSWERS)
         self.questionArr.insert(self.correct_index, correct_answer)
