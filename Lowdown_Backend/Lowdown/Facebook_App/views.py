@@ -63,6 +63,7 @@ def quiz_grade(request):
 
     friend_id = request.session['friend_id']
     context = RequestContext(request, {
+            'request': request,
             'results': request.POST,
             'answers': answers,
             'correct': correct_answers,
