@@ -23,47 +23,49 @@ def home(request):
         friends = r['friends']['data']
     except AttributeError:
         logger.debug('Anonymous user')
-    
+
     context = RequestContext(request, {
                                  'request': request,
                                  'friends': friends,
                              })
     return render_to_response('home.html', context_instance=context)
- 
+
 def about(request):
     return _template_with_context(request, 'about.html')
- 
+
 def quiz(request, friend_id):
     request.session['friend_id'] = str(friend_id)
     return generate_quiz(request, friend_id)
 
 def blank_quiz(request, friend_id):
     return _template_with_context(request, 'blank_quiz.html')
- 
+
 def quiz_grade(request):
-    correctAnswers = 0
+    correct_answers = 0
     answers = request.session.get('answers')
-  
+
     questions = [jsonpickle.decode(q) for q in request.session.get('questions')]
-    arr = []
     for field in request.POST:
         if "question" in str(field):
             index = int(str(field)[9:])
             if int(answers[index]) == int(request.POST[field]):
-                correctAnswers+=1
+                correct_answers += 1
             questions[index].checked = int(request.POST[field])
-  
+
     total_questions = len(questions)
-  
-    share_message = "Hey there, I just correctly answered {0} out of {1} questions about you on Lowdown! Want to take a quiz?".format(correctAnswers, total_questions)
-    if correctAnswers == 0:
-        share_message = "Welp, I just correctly answered {0} out of {1} questions about you on Lowdown. Oops! Want to take a quiz?".format(correctAnswers, total_questions)
-  
+
+    prefix = 'Welp' if correct_answers == 0 else 'Hey there'
+    share_message = (
+        '%s, I just correctly answered %s out of %s questions about you on '
+        'Lowdown! Want to take a quiz?' %
+        (prefix, correct_answers, total_questions)
+    )
+
     friend_id = request.session['friend_id']
     context = RequestContext(request, {
             'results': request.POST,
             'answers': answers,
-            'correct': correctAnswers,
+            'correct': correct_answers,
             'total_questions' : total_questions,
             'questions': questions,
             'share_message' : share_message,
