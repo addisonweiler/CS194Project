@@ -2,6 +2,7 @@ import logging
 import random
 import requests
 from time import time
+import threading
 
 from PIL import Image
 from StringIO import StringIO
@@ -10,7 +11,8 @@ import point_cluster
 from questions import MultipleChoiceQuestion
 from utils import get_paged_data, get_captions, get_caption
 
-NUM_PICTURES = 50
+NUM_PICTURES = 10
+PARALLEL = True
 
 logger = logging.getLogger(__name__)
 
@@ -47,8 +49,33 @@ def get_photo_arr_with_tags(photos, friend_id):
         photo_arr.append((photo_url, photo_tag))
     return photo_arr
 
+
+def _make_request(url, tag_coords, results):
+    response = requests.get(url)
+    img = Image.open(StringIO(response.content))
+    results.append((img, tag_coords))
+
+def get_photos_threaded(photos):
+    threads = []
+    results = []
+    for photo_url, tag_coords in photos:
+        if not tag_coords: continue
+        threads.append(threading.Thread(
+            target=_make_request, args=(photo_url, tag_coords, results,)))
+        
+    for thread in threads:
+        if PARALLEL:
+            thread.start()
+        else:
+            thread.run()
+    if PARALLEL:
+        for thread in threads:
+            thread.join()
+    return results
+
 class ColorShirtQuestion(MultipleChoiceQuestion): 
-    QUESTION_TEXT = "Of these colors, which is %s most likely to wear?" 
+    QUESTION_TEXT = "Of these colors, which color shirt is %s most likely to wear?" 
+    TEMPLATE_NAME = 'color_shirt.html'
     def __init__(self, caption, other_captions): 
         super(ColorShirtQuestion, self).__init__([caption], other_captions) 
 
@@ -63,12 +90,15 @@ class ColorShirtQuestion(MultipleChoiceQuestion):
         photo_arr = []
 
         #Pull down photos
-        session = requests.Session()
-        for photo_url, tag_coords in photos[:length]:
-            if not tag_coords: continue
-            response = session.get(photo_url)
-            img = Image.open(StringIO(response.content))
-            photo_arr.append((img, tag_coords))
+        if PARALLEL:
+            photo_arr = get_photos_threaded(photos[:length])
+        else:
+            session = requests.Session()
+            for photo_url, tag_coords in photos[:length]:
+                if not tag_coords: continue
+                response = session.get(photo_url)
+                img = Image.open(StringIO(response.content))
+                photo_arr.append((img, tag_coords))
 
         #Grab colors
         color_arr = []

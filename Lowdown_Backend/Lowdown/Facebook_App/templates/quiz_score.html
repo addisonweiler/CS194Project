@@ -2,39 +2,39 @@
 {% load staticfiles %}
 {% block scripts %}
 <script type="text/javascript">
-	window.fbAsyncInit = function() {
-		FB.init({
-			appId      : '{{app_id}}',
-			xfbml      : true,
-			version    : 'v2.1'
-		});
-	};
+window.fbAsyncInit = function() {
+	FB.init({
+		appId      : '{{app_id}}',
+		xfbml      : true,
+		version    : 'v2.1'
+	});
+};
 
-	(function(d, s, id){
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) {return;}
-		js = d.createElement(s); js.id = id;
-		js.src = "//connect.facebook.net/en_US/sdk.js";
-		fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
+(function(d, s, id){
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) {return;}
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/en_US/sdk.js";
+	fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
 </script>
 <script type="text/javascript">
-	(function(){
-		"use strict";
-		$(document).ready(function(){
-			$(".share_btn").click(function(){
-				FB.ui({
-					method: 'feed',
-					name: "Lowdown Friend Quiz",
-					link: '{{full_url}}',
-					caption: 'Lowdown: The auto-generated Facebook Quiz!',
-					to: '{{friend_id}}',
-					description: '{{share_message}}',
-					picture: 'http://revelationnow.net/wp-content/gallery/beyonce_demon_dance_face/01_angry_beyonce.jpg',
-				}, function(response){});
-			})
-		});
-	}());
+(function(){
+	"use strict";
+	$(document).ready(function(){
+		$(".share_btn").click(function(){
+			FB.ui({
+				method: 'feed',
+				name: "Lowdown Friend Quiz",
+				link: '{{full_url}}',
+				caption: 'Lowdown: The auto-generated Facebook Quiz!',
+				to: '{{friend_id}}',
+				description: '{{share_message}}',
+				picture: 'http://revelationnow.net/wp-content/gallery/beyonce_demon_dance_face/01_angry_beyonce.jpg',
+			}, function(response){});
+		})
+	});
+}());
 </script>
 {% endblock %}
 
@@ -43,13 +43,13 @@
 <div>
 	<div>
 		{% if correct == 0 %}
-			<h2> Oops! You've gotten {{ correct }} out of {{total_questions}}! </h2>
+		<h2> Oops! You've gotten {{ correct }} out of {{total_questions}}! </h2>
 		{%else %}
-			<h2> Congratulations! You've gotten {{ correct }} out of {{total_questions}}! </h2>
+		<h2> Congratulations! You've gotten {{ correct }} out of {{total_questions}}! </h2>
 		{%endif%}
 	</div>
 	<button class="share_btn"> Share Results </button> 
-    <div>
+	<div>
 	{% for q in questions %}
 		{% if q.image %}
 			<img src="{{ q.image }}" alt="image" style="max-width: 50%;">
@@ -66,7 +66,7 @@
 			{% endfor %}
 			<br>
 		{% endwith %}
-	{% endfor %}   
-</div>
+		{% endfor %}   
+	</div>
 </div>
 {% endblock %}

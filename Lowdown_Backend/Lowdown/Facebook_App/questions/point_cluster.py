@@ -19,7 +19,7 @@ def convertToInt(clusters):
 	return results
 
 def cluster(arr):
-	CLUSTERS = 4
+	CLUSTERS = 6
 	clusters = []
 	score = [0 for i in range(CLUSTERS)]
 	for point in arr:

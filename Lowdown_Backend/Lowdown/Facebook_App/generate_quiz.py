@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 QUESTION_AMOUNTS = {
     AgeQuestion : 1,
     BirthdayQuestion : 1,
-    ColorShirtQuestion : 0,
+    ColorShirtQuestion : 1,
     LikedPagesQuestion : 1,
     LikedStatusQuestion : 1,
     MostTaggedWithQuestion : 1,
@@ -36,7 +36,7 @@ QUESTION_AMOUNTS = {
     PhotoCommentQuestion : 1,
     PhotoLocationQuestion : 1,
     StatusQuestion : 1,
-    MutualFriendsQuestion : 0,
+    MutualFriendsQuestion : 1,
 } 
 
 def generate_quiz(request, friend_id):
