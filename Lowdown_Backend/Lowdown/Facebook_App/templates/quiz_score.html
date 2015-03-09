@@ -57,7 +57,7 @@
 		<h2>{{forloop.counter}}. {{ q.question_text }}</h2>
 		
 		{% with question_number=forloop.counter0 %}
-			{% for answer in q.questionArr %}
+			{% for answer in q.responses %}
 				{% if forloop.counter0 == q.correct_index %}
 					<div id="correct_answer"> <input type="radio" name="question_{{ question_number }}" disabled {% if forloop.counter0 == q.checked %} checked {% endif %} value="{{ forloop.counter0 }}">{{ answer }} <br> </div>
 				{% else %}

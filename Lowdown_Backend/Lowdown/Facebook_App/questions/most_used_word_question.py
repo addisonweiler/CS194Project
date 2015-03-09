@@ -1,7 +1,5 @@
-from collections import defaultdict, OrderedDict
-import operator
+from collections import defaultdict
 import re
-import random
 
 from extreme_amount_question import HighestAmountQuestion
 from stopwords import STOPWORDS

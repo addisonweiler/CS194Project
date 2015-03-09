@@ -1,5 +1,4 @@
 import random
-import json
 
 from utils import QuestionNotFeasibleException
 
@@ -25,8 +24,8 @@ class MultipleChoiceQuestion(Question):
         self.checked = -1
         correct_answer = random.choice(tuple(correct_answers))
         self.correct_index = random.randint(0, self.NUM_WRONG_ANSWERS)
-        self.questionArr = random.sample(wrong_answers, self.NUM_WRONG_ANSWERS)
-        self.questionArr.insert(self.correct_index, correct_answer)
+        self.responses = random.sample(wrong_answers, self.NUM_WRONG_ANSWERS)
+        self.responses.insert(self.correct_index, correct_answer)
 
     def set_name(self, name):
         self.name = name
@@ -40,7 +39,7 @@ class MultipleChoiceQuestion(Question):
 
 class PhotoMultipleChoiceQuestion(MultipleChoiceQuestion):
     TEMPLATE_NAME = 'photo_question.html'
-    
+
     def __init__(self, photo_url, correct_answers, wrong_answers):
         self.image = photo_url
         super(PhotoMultipleChoiceQuestion, self).__init__(
