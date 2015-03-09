@@ -26,9 +26,7 @@ class MultipleChoiceQuestion(Question):
         self.correct_index = random.randint(0, self.NUM_WRONG_ANSWERS)
         self.responses = random.sample(wrong_answers, self.NUM_WRONG_ANSWERS)
         self.responses.insert(self.correct_index, correct_answer)
-
-    def set_name(self, name):
-        self.name = name
+        self.name = 'Must set this field'
 
     @classmethod
     def template(cls):

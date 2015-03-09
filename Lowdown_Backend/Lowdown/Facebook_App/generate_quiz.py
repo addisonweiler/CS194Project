@@ -77,7 +77,7 @@ def generate_quiz(request, friend_id):
         for i in range(amt):
             try:
                 question = question_class.gen(self_data, friend_data)
-                question.set_name(friend_data['first_name'])
+                question.name = friend_data['first_name']
                 questions.append(question)
             except QuestionNotFeasibleException as qnfe:
                 logger.debug(question_class.__name__ + ': ' + qnfe.message)
