@@ -10,7 +10,7 @@ class ExtremeAmountQuestion(MultipleChoiceQuestion):
             amount_responses[amount].add(response)
         amount_list = amount_responses.keys()
         amount_list.sort(reverse=highest_amount_desired_flag)
-        correct_index = random.randint(0, len(amount_list) / 2)
+        correct_index = random.randint(0, min(5, len(amount_list) / 2))
         wrong_responses = []
         for i in range(correct_index + 1, len(amount_list)):
             wrong_responses.extend(amount_responses[amount_list[i]])
