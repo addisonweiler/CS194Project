@@ -12,6 +12,7 @@ from questions.birthday_question import BirthdayQuestion
 from questions.color_shirt_question import ColorShirtQuestion
 from questions.liked_pages_question import LikedPagesQuestion
 from questions.liked_status_question import LikedStatusQuestion
+from questions.most_tagged_with_question import MostTaggedWithQuestion
 from questions.most_used_word_question import MostUsedWordQuestion
 from questions.mutual_friends_question import MutualFriendsQuestion
 from questions.photo_caption_question import PhotoCaptionQuestion
@@ -29,6 +30,7 @@ QUESTION_AMOUNTS = {
     ColorShirtQuestion : 0,
     LikedPagesQuestion : 1,
     LikedStatusQuestion : 1,
+    MostTaggedWithQuestion : 1,
     MostUsedWordQuestion : 1,
     PhotoCaptionQuestion : 1,
     PhotoCommentQuestion : 1,
