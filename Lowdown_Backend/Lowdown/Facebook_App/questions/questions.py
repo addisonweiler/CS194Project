@@ -13,14 +13,14 @@ class MultipleChoiceQuestion(Question):
     TEMPLATE_NAME = 'default.html'
 
     def __init__(self, correct_answers, wrong_answers):
-        wrong_answers = list(set(filter(
-            lambda a: a not in correct_answers, wrong_answers)))
-        if len(wrong_answers) < self.NUM_WRONG_ANSWERS:
-            raise QuestionNotFeasibleException()
         if type(correct_answers) is not list \
                 and type(correct_answers) is not set:
             raise AssertionError("First argument must be list or set of "
                     + "correct answers; found %s." % str(type(correct_answers)))
+        wrong_answers = list(set([a for a in wrong_answers
+                                  if a not in correct_answers]))
+        if len(wrong_answers) < self.NUM_WRONG_ANSWERS:
+            raise QuestionNotFeasibleException()
         self.checked = -1
         correct_answer = random.choice(tuple(correct_answers))
         self.correct_index = random.randint(0, self.NUM_WRONG_ANSWERS)

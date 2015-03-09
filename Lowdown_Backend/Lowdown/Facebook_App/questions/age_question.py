@@ -1,5 +1,6 @@
 from datetime import date, datetime
 from questions import MultipleChoiceQuestion
+from utils import QuestionNotFeasibleException
 
 class AgeQuestion(MultipleChoiceQuestion):
     QUESTION_TEXT = "How old is %s?"

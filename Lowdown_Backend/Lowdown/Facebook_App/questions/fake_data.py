@@ -6,3 +6,8 @@ FAKE_STATUSES = [
     'This sucks...',
     'Ugh...so stressed!',
 ]
+
+FAKE_LIKES = [
+    'Tennis',
+    'Soccer',
+]

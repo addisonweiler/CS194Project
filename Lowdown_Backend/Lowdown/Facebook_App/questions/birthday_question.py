@@ -20,7 +20,8 @@ class BirthdayQuestion(MultipleChoiceQuestion):
             born = datetime.strptime(friend_data['birthday'], '%m/%d/%Y').date()
         except ValueError:
             try:
-                born = datetime.strptime(friend_data['birthday'], '%m/%d').date()
+                born = datetime.strptime(friend_data['birthday'], '%m/%d') \
+                        .date()
             except ValueError:
                 raise QuestionNotFeasibleException('Birthday not provided.')
         return cls(born)

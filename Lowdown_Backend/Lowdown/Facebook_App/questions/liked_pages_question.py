@@ -1,4 +1,4 @@
-from fake_likes import FAKE_LIKES
+from fake_data import FAKE_LIKES
 from questions import MultipleChoiceQuestion
 from utils import get_paged_data
 

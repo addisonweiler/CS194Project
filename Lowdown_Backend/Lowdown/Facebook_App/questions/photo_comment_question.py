@@ -3,14 +3,14 @@ import random
 from questions import PhotoMultipleChoiceQuestion
 from utils import get_paged_data, get_photo_comments, get_sized_photo, QuestionNotFeasibleException
 
-def get_commented_photo(photos):  
+def get_commented_photo(photos):
     for _ in range(100):
-        photo = random.choice(photos) 
+        photo = random.choice(photos)
         comments = get_photo_comments(photo)
         # We don't want photos with more than 4 comments because then they tend
         # to be conversational and perhaps unrelated to the picture.
         if comments and len(comments) <= 4:
-            return photo 
+            return photo
     raise QuestionNotFeasibleException()
 
 def get_all_comments(photos):
@@ -19,7 +19,7 @@ def get_all_comments(photos):
         all_comments.extend(get_photo_comments(photo))
     return all_comments
 
-class PhotoCommentQuestion(PhotoMultipleChoiceQuestion): 
+class PhotoCommentQuestion(PhotoMultipleChoiceQuestion):
     QUESTION_TEXT = "Which of the following is the correct comment for the " \
             + "above picture?"
 

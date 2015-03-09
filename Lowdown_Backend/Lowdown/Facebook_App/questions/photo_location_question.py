@@ -1,8 +1,7 @@
 import random
 
-from fake_statuses import FAKE_STATUSES
 from questions import PhotoMultipleChoiceQuestion
-from utils import get_paged_data, get_sized_photo
+from utils import get_paged_data, get_sized_photo, QuestionNotFeasibleException
 
 def get_geotagged_photo(photos):
     for _ in range(100):

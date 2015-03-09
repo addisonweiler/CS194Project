@@ -1,6 +1,4 @@
-import random
-
-from fake_statuses import FAKE_STATUSES
+from fake_data import FAKE_STATUSES
 from questions import MultipleChoiceQuestion
 from utils import get_paged_data
 

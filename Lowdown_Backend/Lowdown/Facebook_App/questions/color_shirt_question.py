@@ -9,7 +9,7 @@ from StringIO import StringIO
 
 import point_cluster
 from questions import MultipleChoiceQuestion
-from utils import get_paged_data, get_captions, get_caption
+from utils import get_paged_data
 
 NUM_PICTURES = 10
 PARALLEL = True
@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 def get_shirt_color(photo, tag_coords):
     x, y = tag_coords
     PERCENT_OFFSET_Y = 15
-    
+
     img = photo.convert('RGB', palette=Image.ADAPTIVE, colors=256)
     rows, cols = img.size
     x = (x / 100) * cols
@@ -27,18 +27,18 @@ def get_shirt_color(photo, tag_coords):
 
     return img.getpixel((y, x))
 
-def get_photo_arr_with_tags(photos, friend_id): 
-    """Returns a photo url appropriate for the quiz window size.""" 
+def get_photo_arr_with_tags(photos, friend_id):
+    """Returns a photo url appropriate for the quiz window size."""
     photo_arr = [] #Url, tags
 
     for photo in photos:
         photo_url = ""
         found = False
-        for img in photo['images']: 
+        for img in photo['images']:
             if not found and img['height'] < 300:
-                photo_url = img['source'] 
+                photo_url = img['source']
                 found = True
-            
+
         photo_tag = None
         found = False
         for tag in photo['tags']['data']:
@@ -59,10 +59,11 @@ def get_photos_threaded(photos):
     threads = []
     results = []
     for photo_url, tag_coords in photos:
-        if not tag_coords: continue
+        if not tag_coords:
+            continue
         threads.append(threading.Thread(
             target=_make_request, args=(photo_url, tag_coords, results,)))
-        
+
     for thread in threads:
         if PARALLEL:
             thread.start()
@@ -73,11 +74,12 @@ def get_photos_threaded(photos):
             thread.join()
     return results
 
-class ColorShirtQuestion(MultipleChoiceQuestion): 
-    QUESTION_TEXT = "Of these colors, which color shirt is %s most likely to wear?" 
+class ColorShirtQuestion(MultipleChoiceQuestion):
+    QUESTION_TEXT = \
+            "Of these colors, which color shirt is %s most likely to wear?"
     TEMPLATE_NAME = 'color_shirt.html'
-    def __init__(self, caption, other_captions): 
-        super(ColorShirtQuestion, self).__init__([caption], other_captions) 
+    def __init__(self, caption, other_captions):
+        super(ColorShirtQuestion, self).__init__([caption], other_captions)
 
     @classmethod
     def gen(cls, self_data, friend_data):
@@ -95,7 +97,8 @@ class ColorShirtQuestion(MultipleChoiceQuestion):
         else:
             session = requests.Session()
             for photo_url, tag_coords in photos[:length]:
-                if not tag_coords: continue
+                if not tag_coords:
+                    continue
                 response = session.get(photo_url)
                 img = Image.open(StringIO(response.content))
                 photo_arr.append((img, tag_coords))
@@ -108,12 +111,13 @@ class ColorShirtQuestion(MultipleChoiceQuestion):
                 color_arr.append(color)
 
         colors, score = point_cluster.cluster(color_arr)
-        correctAnswer = colors[score.index(max(score))]
-        colors.remove(correctAnswer)
-        incorrectAnswers = colors
+        correct_answer = colors[score.index(max(score))]
+        colors.remove(correct_answer)
+        incorrect_answers = colors
 
-        logger.debug("TIME: Pictures fetch: %sms" %round(1000 * (time() - time_start)))
+        logger.debug("TIME: Pictures fetch: %sms",
+                round(1000 * (time() - time_start)))
         return cls(
-            correctAnswer,
-            incorrectAnswers,
+            correct_answer,
+            incorrect_answers,
         )

@@ -11,7 +11,8 @@ def get_word_count(phrases):
         words = re.findall(r"[\w']+", phrases)
         for w in words:
             w = w.lower()
-            if w in STOPWORDS or len(w) < 2: continue
+            if w in STOPWORDS or len(w) < 2:
+                continue
             word_count[w] += 1
     return word_count
 
