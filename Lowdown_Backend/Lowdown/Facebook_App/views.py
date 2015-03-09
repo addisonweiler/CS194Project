@@ -49,7 +49,6 @@ def quiz_grade(request):
     for field in request.POST:
         if "question" in str(field):
             index = int(str(field)[9:])
-            logger.warning(request.POST[field])
             if int(answers[index]) == int(request.POST[field]):
                 correctAnswers+=1
             questions[index].checked = int(request.POST[field])

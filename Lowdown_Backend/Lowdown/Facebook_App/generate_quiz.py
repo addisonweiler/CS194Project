@@ -36,7 +36,7 @@ QUESTION_AMOUNTS = {
     PhotoCommentQuestion : 1,
     PhotoLocationQuestion : 1,
     StatusQuestion : 1,
-    MutualFriendsQuestion : 1,
+    MutualFriendsQuestion : 0,
 } 
 
 def generate_quiz(request, friend_id):
