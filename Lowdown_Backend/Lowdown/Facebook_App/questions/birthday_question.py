@@ -19,7 +19,7 @@ class BirthdayQuestion(MultipleChoiceQuestion):
             except ValueError:
                 raise QuestionNotFeasibleException('Birthday not provided.')
         fake_dates = [date.fromordinal(randint(1, 365) + 711750)
-                          .strftime(self.FORMAT)
+                          .strftime(cls.FORMAT)
                       for _ in range(5)]
-        birthday = birthday.strftime(self.FORMAT)
+        birthday = birthday.strftime(cls.FORMAT)
         return cls([birthday], fake_dates)
