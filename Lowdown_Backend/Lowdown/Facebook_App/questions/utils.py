@@ -26,7 +26,8 @@ def get_paged_data(user_data, field_name):
 
 def get_captions(photos):
     """Retrns all the captions on the photos, possibly with duplicates."""
-    return [get_caption(photo) for photo in photos]
+    return [get_caption(photo) for photo in photos
+            if get_caption(photo) is not None]
 
 def get_photo_comments(photo):
     if 'comments' not in photo:

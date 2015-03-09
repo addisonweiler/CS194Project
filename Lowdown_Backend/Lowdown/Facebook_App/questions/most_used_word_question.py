@@ -7,8 +7,8 @@ from utils import get_paged_data, get_captions
 
 def get_word_count(phrases):
     word_count = defaultdict(int)
-    for phrases in phrases:
-        words = re.findall(r"[\w']+", phrases)
+    for phrase in phrases:
+        words = re.findall(r"[\w']+", phrase)
         for w in words:
             w = w.lower()
             if w in STOPWORDS or len(w) < 2:
@@ -21,7 +21,7 @@ class MostUsedWordQuestion(HighestAmountQuestion):
 
     @classmethod
     def gen(cls, self_data, friend_data):
-        words = [status['message']
+        phrases = [status['message']
             for status in get_paged_data(friend_data, 'statuses')]
-        words.extend(get_captions(get_paged_data(friend_data, 'photos')))
-        return cls(get_word_count(words))
+        phrases.extend(get_captions(get_paged_data(friend_data, 'photos')))
+        return cls(get_word_count(phrases))
