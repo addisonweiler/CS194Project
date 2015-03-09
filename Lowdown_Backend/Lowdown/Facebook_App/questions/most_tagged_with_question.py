@@ -11,4 +11,6 @@ class MostTaggedWithQuestion(HighestAmountQuestion):
         tags = []
         for photo in get_paged_data(friend_data, 'photos'):
             tags.extend([tag['name'] for tag in get_paged_data(photo, 'tags')])
-        return cls(Counter(tags))
+        tag_counts = Counter(tags)
+        del tag_counts[self_data['name']]
+        return cls(tag_counts)
