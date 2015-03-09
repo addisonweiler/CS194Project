@@ -20,7 +20,7 @@ class MultipleChoiceQuestion(Question):
         wrong_answers = list(set([a for a in wrong_answers
                                   if a not in correct_answers]))
         if len(wrong_answers) < self.NUM_WRONG_ANSWERS:
-            raise QuestionNotFeasibleException()
+            raise QuestionNotFeasibleException("Not enough wrong answers")
         self.checked = -1
         correct_answer = random.choice(tuple(correct_answers))
         self.correct_index = random.randint(0, self.NUM_WRONG_ANSWERS)

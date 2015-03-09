@@ -116,6 +116,6 @@ class ColorShirtQuestion(MultipleChoiceQuestion):
         logger.debug("TIME: Pictures fetch: %sms",
                 round(1000 * (time() - time_start)))
         return cls(
-            correct_answer,
+            [correct_answer],
             incorrect_answers,
         )

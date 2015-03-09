@@ -21,5 +21,5 @@ class BirthdayQuestion(MultipleChoiceQuestion):
         fake_dates = [date.fromordinal(randint(1, 365) + 711750)
                           .strftime(cls.FORMAT)
                       for _ in range(5)]
-        birthday = birthday.strftime(cls.FORMAT)
+        birthday = born.strftime(cls.FORMAT)
         return cls([birthday], fake_dates)
