@@ -12,10 +12,6 @@ class MutualFriendsQuestion(MultipleChoiceQuestion):
     QUESTION_TEXT = \
             "Of the following, which is not a mutual friend of you and %s?"
 
-    def __init__(self, mutual_friends, only_my_friends):
-        super(MutualFriendsQuestion, self) \
-               .__init__(mutual_friends, only_my_friends)
-
     @classmethod
     def gen(cls, self_data, friend_data):
         mutual_friends = [context for context in

@@ -76,10 +76,8 @@ def get_photos_threaded(photos):
 
 class ColorShirtQuestion(MultipleChoiceQuestion):
     QUESTION_TEXT = \
-            "Of these colors, which color shirt is %s most likely to wear?"
+            'Of these colors, which color shirt is %s most likely to wear?'
     TEMPLATE_NAME = 'color_shirt.html'
-    def __init__(self, caption, other_captions):
-        super(ColorShirtQuestion, self).__init__([caption], other_captions)
 
     @classmethod
     def gen(cls, self_data, friend_data):
