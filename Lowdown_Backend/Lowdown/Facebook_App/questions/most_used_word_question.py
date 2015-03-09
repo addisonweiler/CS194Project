@@ -24,4 +24,6 @@ class MostUsedWordQuestion(HighestAmountQuestion):
         phrases = [status['message']
             for status in get_paged_data(friend_data, 'statuses')]
         phrases.extend(get_captions(get_paged_data(friend_data, 'photos')))
-        return cls(get_word_count(phrases))
+        # We deduplicate phrases because an album of pictures can produce
+        # hundreds of the same exact caption.
+        return cls(get_word_count(set(phrases)))
