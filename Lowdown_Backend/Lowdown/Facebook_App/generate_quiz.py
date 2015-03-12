@@ -56,6 +56,7 @@ FRIEND_FIELDS = [
 
 # Fields to fetch for self.
 SELF_FIELDS = [
+    'first_name,name',
     'statuses.limit(%s){message,likes.limit(%s)}',
 ]
 
