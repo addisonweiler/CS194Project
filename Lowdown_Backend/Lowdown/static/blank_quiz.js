@@ -14,12 +14,12 @@ function init(){
   form = document.getElementById("form")
 }
 
-function loadPopupBoxCorrect() {    // To Load the Popupbox
+function loadPopupBoxCorrect() {    // To Load the Popupbox (Correct)
   $('#popup_box_correct').fadeIn(FADE_TIME);
   $('#popup_box_correct').fadeOut(FADE_TIME, ScoreAndNextQuestion());
 }
 
-function loadPopupBoxIncorrect() {    // To Load the Popupbox
+function loadPopupBoxIncorrect() {    // To Load the Popupbox (Incorrect)
   $('#popup_box_incorrect').fadeIn(FADE_TIME);
   $('#popup_box_incorrect').fadeOut(FADE_TIME, ScoreAndNextQuestion());
 } 
@@ -41,7 +41,6 @@ function ScoreAndNextQuestion(){
   $("#" + nextQuestionId).delay( FADE_TIME ).fadeIn(FADE_TIME);
 }
 
-
 (function(){
  "use strict";
 
@@ -55,17 +54,24 @@ function ScoreAndNextQuestion(){
      var answers = document.getElementById("answers").value;
      var answerArr = answers.substring(1, answers.length-1).split(',');
      var scoreDiv = document.getElementById("score");
-     var score = 0
+     var score = 0;
 
      var $radiobuttons = $('input[type=radio]');
      $radiobuttons.click(function(){
       var index = currentQuestion - 1;
-      if (Number(answerArr[index]) == Number(this.value)){
+      var correctAnswer = Number(answerArr[index]);
+      var correctElem = document.getElementsByName("question_" + index)[correctAnswer];
+
+      if (Number(correctAnswer) == Number(this.value)){
         score++;
         scoreDiv.innerHTML = "SCORE: " + score;
+        $(correctElem).parent().css("background-color", "green").delay(FADE_TIME*5);
         loadPopupBoxCorrect();
       }
       else{
+        //Highlight correct answer and make bad answer red
+        $(this).parent().css("background-color", "red");
+        $(correctElem).parent().css("background-color", "green");
         loadPopupBoxIncorrect();
       }
     });

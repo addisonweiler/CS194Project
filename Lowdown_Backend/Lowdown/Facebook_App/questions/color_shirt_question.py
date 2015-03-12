@@ -35,7 +35,7 @@ def get_photo_arr_with_tags(photos, friend_id):
         photo_url = ""
         found = False
         for img in photo['images']:
-            if not found and img['height'] < 300:
+            if not found and img['height'] < 1200:
                 photo_url = img['source']
                 found = True
 
@@ -84,6 +84,7 @@ class ColorShirtQuestion(MultipleChoiceQuestion):
         time_start = time()
         photos = get_paged_data(friend_data, 'photos')
         photos = get_photo_arr_with_tags(photos, friend_data['id'])
+        logger.debug(photos)
 
         random.shuffle(photos)
         length = min(len(photos), NUM_PICTURES)

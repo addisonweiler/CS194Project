@@ -50,23 +50,7 @@ window.fbAsyncInit = function() {
 	</div>
 	<button class="share_btn"> Share Results </button> 
 	<div>
-	{% for q in questions %}
-		{% if q.image %}
-			<img src="{{ q.image }}" alt="image" style="max-width: 50%;">
-		{% endif %}
-		<h2>{{forloop.counter}}. {{ q.question_text }}</h2>
-		
-		{% with question_number=forloop.counter0 %}
-			{% for answer in q.responses %}
-				{% if forloop.counter0 == q.correct_index %}
-					<div id="correct_answer"> <input type="radio" name="question_{{ question_number }}" disabled {% if forloop.counter0 == q.checked %} checked {% endif %} value="{{ forloop.counter0 }}">{{ answer }} <br> </div>
-				{% else %}
-					<div {% if forloop.counter0 == q.checked %} id="incorrect_answer" {% endif %}> <input type="radio" name="question_{{ question_number }}" disabled {% if forloop.counter0 == q.checked %} checked {% endif %} value="{{ forloop.counter0 }}">{{ answer }}<br> </div>
-				{% endif %}
-			{% endfor %}
-			<br>
-		{% endwith %}
-		{% endfor %}   
+		<a href="{{home_url}}">Take Another Quiz</a>
 	</div>
 </div>
 {% endblock %}

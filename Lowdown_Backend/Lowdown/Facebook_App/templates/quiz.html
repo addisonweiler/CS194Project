@@ -23,9 +23,7 @@
         </div> -->
         {% if questions %}
         <form id="form" action="/Facebook_App/quiz_grade" method="post"> {%csrf_token%}
-   <!--       <div id="submit"> 
-            <input type="submit" id="submitbutton" disabled value="Get the Lowdown on {{questions.0.name}}!" />     
-        </div>   -->
+        
         {% for q in questions %}
         {%if forloop.counter == 1%}
         <div class="question" id="question_{{forloop.counter}}" name="question">
