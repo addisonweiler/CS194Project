@@ -32,11 +32,11 @@ QUESTION_AMOUNTS = {
     LikedStatusQuestion : 1,
     MostTaggedWithQuestion : 1,
     MostUsedWordQuestion : 1,
+    MutualFriendsQuestion : 0,
     PhotoCaptionQuestion : 1,
     PhotoCommentQuestion : 1,
     PhotoLocationQuestion : 1,
     StatusQuestion : 1,
-    MutualFriendsQuestion : 0,
 }
 
 # Fields to fetch for friend.
