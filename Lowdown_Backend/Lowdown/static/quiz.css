@@ -38,10 +38,15 @@ input[type=submit]{
 	background-color:red;
 }
 
+.question_option {
+	max-width: 50%;
+}
+
 .question_option:hover {
 	background-color: gray;
 	cursor: pointer;
 	max-width: 50%;
+	min-width:10%;
 }
 
 
@@ -55,9 +60,10 @@ input[type=submit]{
 	top: 30%;
 	left: 35%;
 	z-index:100; 
+	text-align: center;
 
 	/* additional features, can be omitted */
-	border:2px solid #ff0000;      
+	border:2px solid #00ff00;      
 	padding:15px;  
 	font-size:15px;  
 }
@@ -72,6 +78,7 @@ input[type=submit]{
 	top: 30%;
 	left: 35%;
 	z-index:100; 
+	text-align: center;
 
 	/* additional features, can be omitted */
 	border:2px solid #ff0000;      
