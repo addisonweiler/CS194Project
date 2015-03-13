@@ -63,7 +63,7 @@ input[type=submit]{
 	text-align: center;
 
 	/* additional features, can be omitted */
-	border:2px solid #00ff00;      
+	border:2px solid green;      
 	padding:15px;  
 	font-size:15px;  
 }
@@ -81,7 +81,7 @@ input[type=submit]{
 	text-align: center;
 
 	/* additional features, can be omitted */
-	border:2px solid #ff0000;      
+	border:2px solid red;      
 	padding:15px;  
 	font-size:15px;  
 }
