@@ -26,17 +26,17 @@ logger = logging.getLogger(__name__)
 
 QUESTION_AMOUNTS = {
     AgeQuestion : 1,
-    BirthdayQuestion : 1,
-    ColorShirtQuestion : 1,
-    LikedPagesQuestion : 1,
-    LikedStatusQuestion : 1,
-    MostTaggedWithQuestion : 1,
-    MostUsedWordQuestion : 1,
-    MutualFriendsQuestion : 0,
-    PhotoCaptionQuestion : 1,
-    PhotoCommentQuestion : 1,
-    PhotoLocationQuestion : 1,
-    StatusQuestion : 1,
+    # BirthdayQuestion : 1,
+    # ColorShirtQuestion : 1,
+    # LikedPagesQuestion : 1,
+    # LikedStatusQuestion : 1,
+    # MostTaggedWithQuestion : 1,
+    # MostUsedWordQuestion : 1,
+    # MutualFriendsQuestion : 0,
+    # PhotoCaptionQuestion : 1,
+    # PhotoCommentQuestion : 1,
+    # PhotoLocationQuestion : 1,
+    # StatusQuestion : 1,
 }
 
 # Fields to fetch for friend.
