@@ -15,7 +15,7 @@
   <tr> 
      {% for friend in friends %}
      {% url 'Facebook_App.views.blank_quiz' friend.id as friend_quiz_url %}
-     <td id="friendcell">
+     <td id="friendcell" onClick="document.location.href='{{ friend_quiz_url }}'">
          <a class="quiz_btn" href="{{ friend_quiz_url }}"><img src="{{ friend.picture.data.url }}" alt="testing"></a> 
          <br>
          <a class="quiz_btn" href="{{ friend_quiz_url }}">{{ friend.name }}</a>

@@ -31,18 +31,17 @@
 	cursor: pointer;
 }
 
-#loader {
+#loading {
 	opacity:0.8;
 	background-color:#ccc;
-	position:fixed;
+	position:absolute;
 	width:100%;
-	height:100%;
-	top:0px;
-	left:0px;
+	height:90%;
+  margin-top: -5px;
 	z-index:1000;
 }
 
-#loader h1 {
+#loading h1 {
 	left: 0;
 	line-height: 200px;
 	margin: auto;
