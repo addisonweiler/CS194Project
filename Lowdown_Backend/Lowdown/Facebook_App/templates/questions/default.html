@@ -2,20 +2,12 @@
 {% with question_number=forloop.counter0 %}
 {% for answer in q.responses %}
 
-<!-- <label>
-	<input type="radio" name="question_{{ question_number }}" value="{{ forloop.counter0 }}" style="visibility:hidden">
-	<div class="question-option"> 
-		{{answer}}
+<label>
+	<div class="question-option">
+		<input type="radio" name="question_{{ question_number }}" value="{{ forloop.counter0 }}" style="visibility:hidden">{{answer}}
 	</div>
-</label> -->
-
-<label class="question-option">
-	<input type="radio" name="question_{{ question_number }}" value="{{ forloop.counter0 }}" style="visibility:hidden">{{answer}}
 </label>
 <br>
 
-<!-- <div class="question-option">
-	<input type="radio" name="question_{{ question_number }}" value="{{ forloop.counter0 }}" style="visibility:hidden;">{{ answer }}<br>
-</div> -->
 {% endfor %}
 {% endwith %}

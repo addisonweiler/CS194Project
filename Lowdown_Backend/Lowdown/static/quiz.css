@@ -57,6 +57,10 @@ input[type=submit]{
 	cursor: pointer;
 }
 
+label:hover {
+	cursor: pointer;
+}
+
 .color-shirt-option {
 	border: 1px solid black;
 	height:100px;

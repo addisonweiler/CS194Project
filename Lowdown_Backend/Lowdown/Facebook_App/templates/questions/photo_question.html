@@ -2,8 +2,11 @@
 <h2>{{forloop.counter}}. {{ q.question_text }}</h2>
 {% with question_number=forloop.counter0 %}
 {% for answer in q.responses %}
-<div>
-<input type="radio" name="question_{{ question_number }}" value="{{ forloop.counter0 }}">{{ answer }}<br>
-</div>
+<label>
+	<div class="question-option">
+		<input type="radio" name="question_{{ question_number }}" value="{{ forloop.counter0 }}" style="visibility:hidden">{{answer}}
+	</div>
+</label>
+<br>
 {% endfor %}
 {% endwith %}
