@@ -3,7 +3,7 @@ var numQuestions = -1
 var prevButton;
 var nextButton;
 var submit;
-var FADE_TIME = 1000;
+var FADE_TIME = 2500;
 
 function init(){
   numQuestions = document.getElementsByName("question").length
