@@ -10,6 +10,7 @@ from django.template.context import RequestContext
 from questions.age_question import AgeQuestion
 from questions.birthday_question import BirthdayQuestion
 from questions.color_shirt_question import ColorShirtQuestion
+from questions.education_question import CollegeQuestion, DegreeQuestion, HighSchoolQuestion
 from questions.liked_pages_question import LikedPagesQuestion
 from questions.liked_status_question import LikedStatusQuestion
 from questions.most_tagged_with_question import MostTaggedWithQuestion
@@ -27,7 +28,10 @@ logger = logging.getLogger(__name__)
 QUESTION_AMOUNTS = {
     AgeQuestion : 1,
     BirthdayQuestion : 1,
+    CollegeQuestion : 1,
     ColorShirtQuestion : 1,
+    DegreeQuestion : 1,
+    HighSchoolQuestion : 1,
     LikedPagesQuestion : 1,
     LikedStatusQuestion : 1,
     MostTaggedWithQuestion : 1,
@@ -41,7 +45,7 @@ QUESTION_AMOUNTS = {
 
 # Fields to fetch for friend.
 FRIEND_FIELDS = [
-    'birthday,first_name,name,friends',
+    'birthday,education,first_name,friends,name',
     'likes.limit(%s){name}',
     'statuses.limit(%s){message}',
     'context.limit(%s){mutual_friends}',

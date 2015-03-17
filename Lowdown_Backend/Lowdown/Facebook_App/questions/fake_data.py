@@ -11,3 +11,29 @@ FAKE_LIKES = [
     'Tennis',
     'Soccer',
 ]
+
+FAKE_HIGH_SCHOOLS = [
+    'Bridgewater Academy',
+    'Cheshire High School',
+    'Fairview High School',
+    'Oakdale Senior High School',
+]
+
+FAKE_COLLEGES = [
+    'Brown University',
+    'George Washington University',
+    'Rice University',
+    'University of Miami',
+    'University of Wisconsin',
+]
+
+FAKE_DEGREES = [
+    'Art History',
+    'Biology',
+    'Computer Science',
+    'English',
+    'History',
+    'Human Biology',
+    'Mathematics',
+    'Mechanical Engineering',
+]
