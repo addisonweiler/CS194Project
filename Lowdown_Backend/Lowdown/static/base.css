@@ -54,7 +54,7 @@ header {
   top: 0;
   width: 100%;
   background-color: #3c3c3c;
-  height:10%;
+  height:65px;
 }
 header:before,
 header:after {
