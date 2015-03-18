@@ -6,9 +6,15 @@ from django.template.context import RequestContext
 
 from generate_quiz import generate_quiz
 from utils import get_data
+from questions.utils import get_paged_data
 from django.conf import settings
 
 logger = logging.getLogger(__name__)
+
+SELF_DATA_FIELDS = [
+    'friends.limit(500){name,id,picture.width(200).height(200)}',
+    'picture.width(100).height(100)',
+]
 
 def _template_with_context(request, template_name):
     return render_to_response(
@@ -20,9 +26,9 @@ def home(request):
     friends = []
     profile_pic = None
     try:
-        r = get_data(request, None, ['friends.limit(500){name,id,picture.width(500).height(500)}'])
-        friends = r['friends']['data']
-        profile_pic = get_data(request, None, ['picture.width(500).height(500)'])['picture']['data']['url']
+        self_data = get_data(request, None, SELF_DATA_FIELDS)
+        friends = get_paged_data(self_data, 'friends')
+        profile_pic = get_paged_data(self_data, 'picture')['url']
     except AttributeError:
         logger.debug('Anonymous user')
 
