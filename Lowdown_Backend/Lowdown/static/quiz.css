@@ -83,7 +83,7 @@ label:hover {
 	width: 90%;
 	height: 30px;
 	position:absolute;
-	bottom:40px;
+	top:100px;
 	margin-left:5%;
 	margin-right:5%;
 	background: #f80;

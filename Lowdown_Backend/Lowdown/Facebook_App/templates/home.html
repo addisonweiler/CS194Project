@@ -11,7 +11,7 @@
  <p id="greeting"> Hello {{ request.user.get_full_name.split.0 |default:request.user.username }}, thanks for using Lowdown! Here are the available friends you can be quizzed on:</p>
 
  <table>
-{% with num_cols=5 %}
+{% with num_cols=4 %}
   <tr> 
    {% for friend in friends %}
    {% url 'Facebook_App.views.blank_quiz' friend.id as friend_quiz_url %}
