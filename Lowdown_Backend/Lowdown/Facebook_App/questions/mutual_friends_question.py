@@ -14,12 +14,10 @@ class MutualFriendsQuestion(MultipleChoiceQuestion):
 
     @classmethod
     def gen(cls, self_data, friend_data):
-        mutual_friends = [context for context in
+        mutual_friends = [(context['id'], context['name']) for context in
                           get_paged_data(friend_data['context'],
                                          'mutual_friends')]
-        non_mutual_friends = [friends for friends in
+        non_mutual_friends = [(friends['id'], friends['name']) for friends in
                               get_paged_data(friend_data, 'friends')]
-
-        #TODO: Get more users so this quetsion becomes feasible.
-
+        logger.debug(mutual_friends)
         return cls(mutual_friends, non_mutual_friends)

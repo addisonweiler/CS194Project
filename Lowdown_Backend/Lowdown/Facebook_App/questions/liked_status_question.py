@@ -22,12 +22,13 @@ def get_liked_and_unliked_statuses(self_data, friend_id):
     return list(liked_statuses), list(unliked_statuses)
 
 class LikedStatusQuestion(MultipleChoiceQuestion):
-    QUESTION_TEXT = "Which of the following statuses you posted did %s like?"
+    QUESTION_TEXT = 'Which of the following statuses you posted did %s like?'
 
     @classmethod
     def gen(cls, self_data, friend_data):
         liked_statuses, unliked_statuses = \
             get_liked_and_unliked_statuses(self_data, friend_data['id'])
         if len(liked_statuses) == 0 or len(unliked_statuses) == 0:
-            raise QuestionNotFeasibleException()
+            raise QuestionNotFeasibleException(
+                    'Not enough liked/unliked statuses')
         return cls(liked_statuses, unliked_statuses)
