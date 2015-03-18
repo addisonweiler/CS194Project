@@ -45,7 +45,7 @@
 	left: 0;
 	line-height: 200px;
 	margin: auto;
-	margin-top: -100px;
+	margin-top: -150px;
 	position: absolute;
 	text-align: center;
 	top: 30%;
@@ -60,7 +60,7 @@
 .loader,
 .loader:before,
 .loader:after {
-  top: 25%;
+  top: 15%;
   background: #f56130;
   -webkit-animation: load1 1s infinite ease-in-out;
   animation: load1 1s infinite ease-in-out;

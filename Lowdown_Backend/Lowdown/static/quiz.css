@@ -1,14 +1,3 @@
-.score {
-	border-bottom: double 2px black;
-	border-left: solid 2px black;
-	border-right: solid 2px black;
-	border-top: solid 2px black;
-
-	border-radius: 5px;
-
-	font: normal 'Cambria';
-}
-
 .question {
 	font: normal 'Cambria';
 	padding: 10px 10px 15px 15px;
@@ -17,9 +6,9 @@
 	margin: 0px 10px 20px 10px;
 
 	position: fixed;
-  	top: 45%;
-  	left: 50%;
-  	transform: translate(-50%, -50%);
+	top: 45%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
 .question-image {
@@ -88,3 +77,26 @@ label:hover {
 .color-shirt-option:hover {
 	cursor: pointer;
 }
+
+/* Progress bar */
+.progress-wrap {
+	width: 90%;
+	height: 30px;
+	position:absolute;
+	bottom:40px;
+	margin-left:5%;
+	margin-right:5%;
+	background: #f80;
+	overflow: hidden;
+}
+
+.progress-bar {
+	width: 100%;
+	height: 30px;
+	position:absolute;
+	overflow: hidden;
+
+	background: #ddd;
+
+}
+

@@ -4,6 +4,7 @@ var numQuestions = -1;
 var form;
 var FADE_TIME = 1500; //Controls fade from question to question
 var TIMEOUT_TIME = 30000;
+var PROGRESS_ANIMATION_TIME = 1500;
 
 /* Initializes variables */
 function init(){
@@ -28,15 +29,30 @@ function nextQuestion(){
   $("#" + nextQuestionId).delay( FADE_TIME ).fadeIn(FADE_TIME);
 }
 
+// SIGNATURE PROGRESS
+function moveProgressBar() {
+  var getPercent = ((currentQuestion - 1) / numQuestions);
+  console.log(getPercent)
+  var getProgressWrapWidth = $('.progress-wrap').width();
+  var progressTotal = getPercent * getProgressWrapWidth;
+  var animationLength = PROGRESS_ANIMATION_TIME;
+  
+  $('.progress-bar').stop().animate({
+    left: progressTotal
+  }, animationLength);
+  console.log(progressTotal)
+}
+
+
 /* 
 * Main function 
 */
 (function(){
  "use strict";
-var timeout = setTimeout(function(){alert("Oops, it looks like something timed out. Please try reloading the quiz!")}, TIMEOUT_TIME);
+ var timeout = setTimeout(function(){alert("Oops, it looks like something timed out. Please try reloading the quiz!")}, TIMEOUT_TIME);
  $(document).ready(function(){
   try {
-   $.get(window.location.href + "/content", function(data){
+    $.get(window.location.href + "/content", function(data){
      document.write(data);
      init();
      clearTimeout(timeout);
@@ -54,12 +70,14 @@ var timeout = setTimeout(function(){alert("Oops, it looks like something timed o
       if (Number(correctAnswer) == Number(this.value)){ //Correct?
         $(correctElem).parent().css("background-color", "green").delay(FADE_TIME*5);
         nextQuestion();
+        moveProgressBar();
       }
       else{
         //Highlight correct answer and make bad answer red
         $(this).parent().css("background-color", "red");
         $(correctElem).parent().css("background-color", "green");
         nextQuestion();
+        moveProgressBar();
       }
     });
    })
