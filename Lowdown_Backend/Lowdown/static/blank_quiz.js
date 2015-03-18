@@ -3,6 +3,7 @@ var currentQuestion = -1;
 var numQuestions = -1;
 var form;
 var FADE_TIME = 2500; //Controls fade from question to question
+var TIMEOUT_TIME = 30000;
 
 /* Initializes variables */
 function init(){
@@ -40,15 +41,17 @@ function nextQuestion(){
 }
 
 /* 
- * Main function 
- */
+* Main function 
+*/
 (function(){
  "use strict";
+var timeout = setTimeout(function(){alert("Oops, it looks like something timed out. Please try reloading the quiz!")}, TIMEOUT_TIME);
  $(document).ready(function(){
   try {
    $.get(window.location.href + "/content", function(data){
      document.write(data);
      init();
+     clearTimeout(timeout);
 
      //Instant feedback on right or wrong
      var answers = document.getElementById("answers").value;
@@ -71,9 +74,14 @@ function nextQuestion(){
         loadPopupBoxIncorrect();
       }
     });
-   });
- } catch(e) {
-   alert("Your quiz failed to load.  Please try again.");
- }
+   })
+.fail(function() {
+  alert( "Loading Error, please try reloading the page!" );
+});
+} catch(e) {
+  alert("Your quiz failed to load.  Please try again.");
+  document.clear();
+}
+
 });
 }());

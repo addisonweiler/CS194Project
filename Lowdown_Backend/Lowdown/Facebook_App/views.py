@@ -35,7 +35,6 @@ def about(request):
 
 def quiz(request, friend_id):
     if not request.user or request.user.is_anonymous():
-        logger.debug("HI")
         return redirect('Facebook_App.views.home')
         
     request.session['friend_id'] = str(friend_id)
@@ -44,12 +43,10 @@ def quiz(request, friend_id):
 def blank_quiz(request, friend_id):
     if not request.user or request.user.is_anonymous():
         return redirect('Facebook_App.views.home')
-
     return _template_with_context(request, 'blank_quiz.html')
 
 def quiz_grade(request):
     if not request.user or request.user.is_anonymous():
-        logger.debug("HI")
         return redirect('Facebook_App.views.home')
 
     correct_answers = 0
