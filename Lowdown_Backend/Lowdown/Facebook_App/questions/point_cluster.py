@@ -18,12 +18,25 @@ def convertToInt(clusters):
         results.append((int(point[0]), int(point[1]), int(point[2])))
     return results
 
-def cluster(arr):
-    CLUSTERS = 6
+def removeClosestColor(clusters, point):
+    closestPoint = None
+    distance = float("inf")
+    index = 0
+    count = 0
+    for cluster in clusters:
+        if getDistance(point, cluster) < distance:
+            distance = getDistance(point, cluster)
+            closestPoint = cluster
+            index = count
+        count += 1
+    clusters.remove(closestPoint)
+    return (clusters, index)
+
+def cluster(arr, num_clusters):
     clusters = []
-    score = [0 for i in range(CLUSTERS)]
+    score = [0 for i in range(num_clusters)]
     for point in arr:
-        if len(clusters) < CLUSTERS:
+        if len(clusters) < num_clusters:
             clusters.append(point)
         else:
             closestPoint = -1
