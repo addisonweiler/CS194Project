@@ -21,7 +21,6 @@ def get_paged_data(user_data, field_name):
             },
         ]
     """
-    # TODO: actually implement paging.
     return user_data[field_name]['data']
 
 def get_captions(photos):

@@ -18,9 +18,10 @@ class MutualFriendsQuestion(MultipleChoiceQuestion):
                           get_context_data(friend_data, 'context')]
         non_mutual_friends = [friends['name'] for friends in
                               get_paged_data(self_data, 'friends')]
+        
         results = []
         for friend in non_mutual_friends:
-          if not friend in mutual_friends:
+          if not friend in mutual_friends and friend != friend_data['name']:
             results.append(friend)
-        
+          
         return cls(results, mutual_friends)
