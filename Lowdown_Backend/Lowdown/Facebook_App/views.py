@@ -18,15 +18,19 @@ def _template_with_context(request, template_name):
 
 def home(request):
     friends = []
+    profilePic = None
     try:
-        r = get_data(request, None, ['friends.limit(500){name,id,picture.width(800).height(800)}'])
+        r = get_data(request, None, ['friends.limit(500){name,id,picture.width(500).height(500)}'])
         friends = r['friends']['data']
+
+        profilePic = get_data(request, None, ['picture.width(800).height(500)'])['picture']['data']['url']
     except AttributeError:
         logger.debug('Anonymous user')
 
     context = RequestContext(request, {
                                  'request': request,
                                  'friends': friends,
+                                 'profilePic': profilePic,
                              })
     return render_to_response('home.html', context_instance=context)
 
