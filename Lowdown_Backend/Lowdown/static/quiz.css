@@ -6,7 +6,7 @@
 	margin: 0px 10px 20px 10px;
 
 	position: fixed;
-  	top: 50%;
+  	top: 45%;
   	left: 50%;
   	transform: translate(-50%, -50%);
 }
@@ -49,7 +49,6 @@ input[type=submit]{
 	margin-bottom: 10px;
 	border-radius: 5px;
 
-	max-width: 50%;
 	text-align: center;
 }
 
