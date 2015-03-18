@@ -1,55 +1,49 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 <html lang="en">
-  <head>
-     <meta charset="utf-8">
-     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     <meta name="viewport" content="width=device-width, initial-scale=1">
-     {% url 'home' as home_url %}
-     {% url 'about' as about_url %}
-     <title>{% block title %}Lowdown - The Facebook Friend Quiz{% endblock %}</title>
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ {% url 'home' as home_url %}
+ {% url 'about' as about_url %}
+ <title>{% block title %}Lowdown - The Facebook Friend Quiz{% endblock %}</title>
 
-     <!-- Bootstrap -->
-<!--      <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-     <link href="/static/css/bootstrap-theme.min.css" rel="stylesheet">
-     <link href="/static/css/fbposter.css" rel="stylesheet"> -->
-     <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}" />
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-     {% block scripts %}{% endblock %}
+ <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}" />
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+ {% block scripts %}{% endblock %}
 
-     <link rel="shortcut icon" type="image/png" href="{% static 'square_logo.png' %}"/>
+ <link rel="shortcut icon" type="image/png" href="{% static 'square_logo.png' %}"/>
 
-  </head>
-  <body>
-    <header>
-      <div class="wrapper">
-        <a href="{{home_url}}" class="title"><img src="{% static 'header_logo.png' %}"></a>
+</head>
+<body>
+  <header>
+    <div class="wrapper">
+      <a href="{{home_url}}" class="title"><img src="{% static 'header_logo.png' %}"></a>
 
-        <div class="menu-header-menu-container">
-          <ul id="menu-header-menu" class="menu">
-            <li id="home">
-              <a href="{{ home_url }}">Home</a>
-            </li>
-            <li id="about">
-              <a href="{{ about_url }}">About</a>
-            </li>
-            {% if request.user and not request.user.is_anonymous %}
-              <li id="logout">
-                <a href="{% url 'auth:logout' %}?next={{ home_url }}">Logout</a>
-              </li>
-            {% else %}
-              <li id="login">
-                <a href="{% url 'social:begin' 'facebook' %}?next=/">Login</a>
-              </li>
-            {% endif %}
-          </ul>
-        </div>
+      <div class="menu-header-menu-container">
+        <ul id="menu-header-menu" class="menu">
+          <li id="home">
+            <a href="{{ home_url }}">Home</a>
+          </li>
+          <li id="about">
+            <a href="{{ about_url }}">About</a>
+          </li>
+          {% if request.user and not request.user.is_anonymous %}
+          <li id="logout">
+            <a href="{% url 'auth:logout' %}?next={{ home_url }}">Logout</a>
+          </li>
+          {% else %}
+          <li id="login">
+            <a href="{% url 'social:begin' 'facebook' %}?next=/">Login</a>
+          </li>
+          {% endif %}
+        </ul>
       </div>
-    </header>
+    </div>
+  </header>
 
-    {% block main %}{% endblock %}
-  </body>
+  {% block main %}{% endblock %}
+</body>
 
 </html>

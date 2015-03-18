@@ -39,18 +39,24 @@ window.fbAsyncInit = function() {
 {% endblock %}
 
 {% block main %}
-<link rel="stylesheet" type="text/css" href="{% static 'quiz.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'quiz_score.css' %}" />
 <div>
-	<div>
+	<div id="congrats">
 		{% if correct == 0 %}
-		<h2> Oops! You've gotten {{ correct }} out of {{total_questions}}! </h2>
+		<h2> Oops! You've gotten {{ correct }} out of {{total_questions}} questions correct! </h2>
 		{%else %}
-		<h2> Congratulations! You've gotten {{ correct }} out of {{total_questions}}! </h2>
+		<h2> Congratulations! You've gotten {{ correct }} out of {{total_questions}} questions correct! </h2>
 		{%endif%}
 	</div>
-	<button class="share_btn"> Share Results </button> 
-	<div>
+	<div id="share">
+		<img class="share_btn" src="{% static 'Share.png' %}">
+	</div>
+	<div id="Another_Quiz">
 		<a href="{{home_url}}">Take Another Quiz</a>
 	</div>
+</div>
+
+<div class="progress-wrap">
+	<div class="progress-bar progress"></div>
 </div>
 {% endblock %}

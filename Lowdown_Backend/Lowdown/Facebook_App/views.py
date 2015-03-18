@@ -21,6 +21,8 @@ def home(request):
     try:
         r = get_data(request, None, ['friends.limit(500){name,id,picture}'])
         friends = r['friends']['data']
+        for f in friends:
+            friends.append(f)
     except AttributeError:
         logger.debug('Anonymous user')
 
