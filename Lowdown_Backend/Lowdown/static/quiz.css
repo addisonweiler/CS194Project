@@ -22,6 +22,12 @@
   	transform: translate(-50%, -50%);
 }
 
+.question-image {
+	padding-top: 100px;
+	display:block;
+	margin: auto;
+}
+
 #submit{
 	width:100%;
 	padding-top: 20px;
