@@ -23,8 +23,12 @@
   margin-right: auto;
 }
 
+table{
+  margin: 0 auto;
+}
+
 #greeting{
-	font: normal 110% 'Cambria', Times, serif;
+	font: normal 110% 'Cambria', serif;
 	margin:20px;
 	padding: 30px;
 	line-height: 150%;
@@ -32,9 +36,10 @@
 }
 
 #friendcell{
-	font: normal 100% 'Cambria', Times, serif;
+	font: normal 110% 'Cambria', serif;
 	padding: 15px;
 	text-align: center;
+  width: 200px;
 }
 
 #friendcell a {
@@ -47,6 +52,12 @@
 	background-color: gray;
 	cursor: pointer;
 }
+
+#cellimage{
+  width: 150px;
+  height: 150px;
+}
+
 
 #loading {
 	opacity:0.8;

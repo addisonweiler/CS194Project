@@ -19,10 +19,8 @@ def _template_with_context(request, template_name):
 def home(request):
     friends = []
     try:
-        r = get_data(request, None, ['friends.limit(500){name,id,picture}'])
+        r = get_data(request, None, ['friends.limit(500){name,id,picture.width(800).height(800)}'])
         friends = r['friends']['data']
-        for f in friends:
-            friends.append(f)
     except AttributeError:
         logger.debug('Anonymous user')
 

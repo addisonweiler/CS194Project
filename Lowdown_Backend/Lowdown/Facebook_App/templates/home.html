@@ -11,17 +11,23 @@
  <p id="greeting"> Hello {{ request.user.get_full_name.split.0 |default:request.user.username }}, thanks for using Lowdown! Here are the available friends you can be quizzed on:</p>
 
  <table>
+{% with num_cols=5 %}
   <tr> 
    {% for friend in friends %}
    {% url 'Facebook_App.views.blank_quiz' friend.id as friend_quiz_url %}
    <td id="friendcell" onClick="document.location.href='{{ friend_quiz_url }}'">
-     <a class="quiz_btn" href="{{ friend_quiz_url }}"><img src="{{ friend.picture.data.url }}" alt="testing"></a> 
+     <a class="quiz_btn" href="{{ friend_quiz_url }}"><img id="cellimage" src="{{ friend.picture.data.url }}" alt="testing"></a> 
      <br>
      <a class="quiz_btn" href="{{ friend_quiz_url }}">{{ friend.name }}</a>
    </td>
+   {%if forloop.counter|divisibleby:num_cols %}
+      </tr>
+      <tr>
+   {%endif%}
    {% endfor %}
 
  </tr>
+{% endwith %}
 </table>
 
 {% else %}
