@@ -2,3 +2,4 @@ django
 python-social-auth
 numpy
 pillow
+django_mobile
