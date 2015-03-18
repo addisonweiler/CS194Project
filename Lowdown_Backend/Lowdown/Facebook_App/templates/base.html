@@ -29,9 +29,12 @@
           <li id="about">
             <a href="{{ about_url }}">About</a>
           </li>
+          <li>
+            <div id="line"> </div>
+          </li>
           {% if request.user and not request.user.is_anonymous %}
-          <li id="profile_pic_wrapper">
-            <a href="{{profile_url}}"> <img id="profile_pic" src="{{profile_pic}}"> </img> </a>
+          <li class="profile_pic_wrapper">
+            <a id= "profile-link" href="{{profile_url}}"> <img id="profile_pic" src="{{profile_pic}}"> </img> </a>
           </li>
           <li id="logout">
             <a href="{% url 'auth:logout' %}?next={{ home_url }}">Logout</a>
