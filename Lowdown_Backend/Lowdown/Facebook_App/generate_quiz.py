@@ -102,6 +102,7 @@ def generate_quiz(request, friend_id):
                              {'request': request,
                               'questions': questions,
                               'answers': answers,
+                              'profilePic': request.session['profilePic'],
                              })
 
     logger.debug("TIME: all preprocessing: %sms",

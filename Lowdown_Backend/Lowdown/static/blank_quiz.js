@@ -7,10 +7,11 @@ var TIMEOUT_TIME = 30000;
 var PROGRESS_ANIMATION_TIME = 1500;
 
 /* Initializes variables */
-function init(){
-  currentQuestion = 1
-  numQuestions = document.getElementsByName("question").length
-  form = document.getElementById("form")
+function init() {
+    "use strict";
+    currentQuestion = 1
+    numQuestions = document.getElementsByName("question").length
+    form = document.getElementById("form")
 }
 
 /* Goes to next question, fades out current one */

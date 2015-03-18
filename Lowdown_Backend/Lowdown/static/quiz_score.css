@@ -1,0 +1,51 @@
+#congrats{
+	font: normal 120% 'Cambria', serif;
+	margin-top:20px;
+	padding: 10px 10px 10px 10px;
+	line-height: 150%;
+	text-align: center;
+}
+
+#share{
+	text-align: center;
+	margin-top:20px;
+	padding-bottom: 10px;
+}
+
+#share:hover{
+	cursor: pointer;
+}
+
+#Another_Quiz{
+	text-align: center;
+	margin-top: 20px;
+}
+
+#Another_Quiz a{
+	font-size: 20px;
+}
+
+#Another_Quiz a:hover{
+	cursor: pointer;
+}
+
+/* Progress bar */
+.progress-wrap {
+	width: 90%;
+	height: 30px;
+	position:absolute;
+	bottom:40px;
+	margin-left:5%;
+	margin-right:5%;
+	background: #f80;
+	overflow: hidden;
+}
+
+.progress-bar {
+	width: 0%;
+	height: 30px;
+	position:absolute;
+	overflow: hidden;
+	background: #ddd;
+
+}

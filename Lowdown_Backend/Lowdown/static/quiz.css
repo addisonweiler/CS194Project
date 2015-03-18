@@ -1,6 +1,6 @@
 .question {
 	font: normal 'Cambria';
-	padding: 10px 10px 15px 15px;
+	padding: 65px 10px 15px 15px;
 	border-radius: 5px;
 
 	margin: 0px 10px 20px 10px;
@@ -12,7 +12,7 @@
 }
 
 .question-image {
-	padding-top: 100px;
+	/*padding-top: 100px;*/
 	display:block;
 	margin: auto;
 }
@@ -83,7 +83,7 @@ label:hover {
 	width: 90%;
 	height: 30px;
 	position:absolute;
-	bottom:40px;
+	top:100px;
 	margin-left:5%;
 	margin-right:5%;
 	background: #f80;
@@ -100,3 +100,13 @@ label:hover {
 
 }
 
+.progress-wrap {
+	position:absolute;
+	bottom: 50px;
+}
+
+/*.progress-bar {
+	position: fixed;
+	bottom:0;
+	width: 100%
+}*/
