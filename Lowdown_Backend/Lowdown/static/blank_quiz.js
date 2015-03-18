@@ -2,7 +2,7 @@
 var currentQuestion = -1;
 var numQuestions = -1;
 var form;
-var FADE_TIME = 2500; //Controls fade from question to question
+var FADE_TIME = 1500; //Controls fade from question to question
 var TIMEOUT_TIME = 30000;
 
 /* Initializes variables */
@@ -11,18 +11,6 @@ function init(){
   numQuestions = document.getElementsByName("question").length
   form = document.getElementById("form")
 }
-
-/* Loads correct popup */
-function loadPopupBoxCorrect() {    // To Load the Popupbox (Correct)
-  $('#popup_box_correct').fadeIn(FADE_TIME);
-  $('#popup_box_correct').fadeOut(FADE_TIME, nextQuestion());
-}
-
-/* Loads incorrect popup */
-function loadPopupBoxIncorrect() {    // To Load the Popupbox (Incorrect)
-  $('#popup_box_incorrect').fadeIn(FADE_TIME);
-  $('#popup_box_incorrect').fadeOut(FADE_TIME, nextQuestion());
-} 
 
 /* Goes to next question, fades out current one */
 function nextQuestion(){
@@ -65,13 +53,13 @@ var timeout = setTimeout(function(){alert("Oops, it looks like something timed o
 
       if (Number(correctAnswer) == Number(this.value)){ //Correct?
         $(correctElem).parent().css("background-color", "green").delay(FADE_TIME*5);
-        loadPopupBoxCorrect();
+        nextQuestion();
       }
       else{
         //Highlight correct answer and make bad answer red
         $(this).parent().css("background-color", "red");
         $(correctElem).parent().css("background-color", "green");
-        loadPopupBoxIncorrect();
+        nextQuestion();
       }
     });
    })
