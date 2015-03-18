@@ -1,18 +1,20 @@
 .question {
 	font: normal 'Cambria';
-	padding: 65px 10px 15px 15px;
+	padding: 95px 100px 15px 100px;
 	border-radius: 5px;
 
-	margin: 0px 10px 20px 10px;
+	margin: 10px 10px 20px 10px;
 
-	position: fixed;
+	margin-right: auto;
+	margin-left: auto;
+
+	/*position: fixed;
 	top: 45%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	left: 50%;*/
+	/*transform: translate(-50%, -50%);*/
 }
 
 .question-image {
-	/*padding-top: 100px;*/
 	display:block;
 	margin: auto;
 }
@@ -99,14 +101,3 @@ label:hover {
 	background: #ddd;
 
 }
-
-.progress-wrap {
-	position:absolute;
-	bottom: 50px;
-}
-
-/*.progress-bar {
-	position: fixed;
-	bottom:0;
-	width: 100%
-}*/
