@@ -105,6 +105,8 @@ header .menu-header-menu-container ul li:first-child {
 #profile_pic_wrapper{
     border-left: 1px solid white;
     padding-left: 10px;
+    margin-top: -10px;
+    height: 65px;
 }
 
 #profile_pic{
@@ -118,6 +120,7 @@ header .menu-header-menu-container ul li:first-child {
 #logout{
   padding-left: 5px;
 }
+
 
 #login{
   border-left: 1px solid white;
