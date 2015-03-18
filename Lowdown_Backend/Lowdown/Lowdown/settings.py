@@ -29,9 +29,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -105,6 +103,7 @@ LOGIN_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_FACEBOOK_KEY = idconfig.FACEBOOK_APP_ID
 SOCIAL_AUTH_FACEBOOK_SECRET = idconfig.FACEBOOK_APP_SECRET
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_FACEBOOK_SCOPE = [
     'email',
