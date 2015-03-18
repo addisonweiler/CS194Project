@@ -1,6 +1,6 @@
 #congrats{
 	font: normal 120% 'Cambria', serif;
-	margin-top:20px;
+	margin-top:120px;
 	padding: 10px 10px 10px 10px;
 	line-height: 150%;
 	text-align: center;
@@ -34,7 +34,7 @@
 	width: 90%;
 	height: 30px;
 	position:absolute;
-	bottom:40px;
+	top:100px;
 	margin-left:5%;
 	margin-right:5%;
 	background: #f80;

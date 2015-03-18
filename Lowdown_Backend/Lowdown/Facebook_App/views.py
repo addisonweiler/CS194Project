@@ -22,7 +22,6 @@ def home(request):
     try:
         r = get_data(request, None, ['friends.limit(500){name,id,picture.width(500).height(500)}'])
         friends = r['friends']['data']
-
         profile_pic = get_data(request, None, ['picture.width(500).height(500)'])['picture']['data']['url']
     except AttributeError:
         logger.debug('Anonymous user')
