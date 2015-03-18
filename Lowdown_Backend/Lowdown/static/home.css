@@ -35,27 +35,32 @@ table{
 	text-align: center;
 }
 
-#friendcell{
+.friendcell{
 	font: normal 110% 'Cambria', serif;
 	padding: 15px;
 	text-align: center;
   width: 200px;
 }
 
-#friendcell a {
+.friendcell a {
 	text-decoration: none;
 	font-weight: bold;
 	color:black;
 }
 
-#friendcell:hover {
+.friendcell:hover {
 	background-color: gray;
 	cursor: pointer;
 }
 
-#cellimage{
+.cellimage{
   width: 150px;
   height: 150px;
+}
+
+.cellimage-mobile {
+  width: 75px;
+  height: 75px;
 }
 
 
