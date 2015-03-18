@@ -31,7 +31,7 @@
           </li>
           {% if request.user and not request.user.is_anonymous %}
           <li id="profile_pic_wrapper">
-            <img id="profile_pic" src="{{profilePic}}"> </img>
+            <img id="profile_pic" src="{{profile_pic}}"> </img>
           </li>
           <li id="logout">
             <a href="{% url 'auth:logout' %}?next={{ home_url }}">Logout</a>
