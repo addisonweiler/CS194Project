@@ -10,4 +10,4 @@ class LikedPagesQuestion(MultipleChoiceQuestion):
         likes = [like['name'] for like in get_paged_data(friend_data, 'likes')]
         fake_likes = [fake_like for fake_like in FAKE_LIKES
                           if fake_like not in likes]
-        return cls(likes, fake_likes)
+        return cls(fake_likes, likes)
