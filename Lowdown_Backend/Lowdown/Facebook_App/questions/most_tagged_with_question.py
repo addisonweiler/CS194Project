@@ -1,16 +1,26 @@
-from collections import Counter
+from datetime import datetime
+from collections import defaultdict
+from math import exp
 
 from extreme_amount_question import HighestAmountQuestion
 from utils import get_paged_data
 
+def weight(photo):
+    taken = datetime.strptime(photo['created_time'][:10], '%Y-%m-%d')
+    days_elapsed = (datetime.now() - taken).days + 1
+    if days_elapsed < 0:
+        raise Exception('Picture is dated ahead of today')
+    return int(10 * exp((-0.002) * days_elapsed))
+
 class MostTaggedWithQuestion(HighestAmountQuestion):
-    QUESTION_TEXT = "Out of the following, who has %s been tagged most with?"
+    QUESTION_TEXT =
+            'Out of the following, who has %s been tagged most with recently?'
 
     @classmethod
     def gen(cls, self_data, friend_data):
-        tags = []
+        tags = defaultdict(int)
         for photo in get_paged_data(friend_data, 'photos'):
-            tags.extend([tag['name'] for tag in get_paged_data(photo, 'tags')])
-        tag_counts = Counter(tags)
-        del tag_counts[friend_data['name']]
-        return cls(tag_counts)
+            for tag in get_paged_data(photo, 'tags'):
+                tags[tag['name']] += weight(photo)
+        del tags[friend_data['name']]
+        return cls(tags)
