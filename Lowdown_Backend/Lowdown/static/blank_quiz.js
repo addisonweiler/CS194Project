@@ -75,8 +75,10 @@ var timeout = setTimeout(function(){alert("Oops, it looks like something timed o
       }
     });
    })
-.fail(function() {
-  alert( "Loading Error, please try reloading the page!" );
+.fail(function(jqXHR, textStatus, errorThrown) {
+  if (jqXHR.status == 500){
+    alert( "Loading Error, please try reloading the page!" );
+  }
 });
 } catch(e) {
   alert("Your quiz failed to load.  Please try again.");
