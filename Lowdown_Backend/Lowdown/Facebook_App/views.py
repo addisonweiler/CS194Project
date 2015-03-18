@@ -14,29 +14,35 @@ logger = logging.getLogger(__name__)
 SELF_DATA_FIELDS = [
     'friends.limit(500){name,id,picture.width(200).height(200)}',
     'picture.width(100).height(100)',
+    'link',
 ]
 
 def _template_with_context(request, template_name):
     return render_to_response(
         template_name,
-        context_instance=RequestContext(request, {'request': request, 'profile_pic': request.session['profile_pic']}),
+        context_instance=RequestContext(request, 
+            {'request': request, 'profile_pic': request.session['profile_pic'], 'profile_url': request.session['profile_url']}),
     )
 
 def home(request):
     friends = []
     profile_pic = None
+    profile_url = None
     try:
         self_data = get_data(request, None, SELF_DATA_FIELDS)
         friends = get_paged_data(self_data, 'friends')
         profile_pic = get_paged_data(self_data, 'picture')['url']
+        profile_url = self_data['link']
     except AttributeError:
         logger.debug('Anonymous user')
 
     request.session['profile_pic'] = profile_pic
+    request.session['profile_url'] = profile_url
     context = RequestContext(request, {
                                  'request': request,
                                  'friends': friends,
                                  'profile_pic': profile_pic,
+                                 'profile_url': profile_url,
                              })
     return render_to_response('home.html', context_instance=context)
 
@@ -92,5 +98,6 @@ def quiz_grade(request):
             'friend_id' : friend_id,
             'app_id' : settings.SOCIAL_AUTH_FACEBOOK_KEY,
             'profile_pic': request.session['profile_pic'],
+            'profile_url': request.session['profile_url'],
     })
     return render_to_response('quiz_score.html', context_instance=context)

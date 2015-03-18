@@ -60,7 +60,7 @@ FRIEND_FIELDS = [
 
 # Fields to fetch for self.
 SELF_FIELDS = [
-    'first_name,name',
+    'first_name,name,link',
     'statuses.limit(%s){message,likes.limit(%s)}',
     'friends.limit(%s)',
 ]
@@ -104,6 +104,7 @@ def generate_quiz(request, friend_id):
                               'questions': questions,
                               'answers': answers,
                               'profile_pic': request.session['profile_pic'],
+                              'profile_url': request.session['profile_url'],
                              })
 
     logger.debug("TIME: all preprocessing: %sms",
