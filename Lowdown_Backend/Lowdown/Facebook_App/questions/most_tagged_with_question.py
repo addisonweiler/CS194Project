@@ -13,7 +13,7 @@ def weight(photo):
     return int(10 * exp((-0.002) * days_elapsed))
 
 class MostTaggedWithQuestion(HighestAmountQuestion):
-    QUESTION_TEXT =
+    QUESTION_TEXT = \
             'Out of the following, who has %s been tagged most with recently?'
 
     @classmethod
