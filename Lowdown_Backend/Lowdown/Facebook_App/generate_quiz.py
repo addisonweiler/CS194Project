@@ -62,6 +62,7 @@ FRIEND_FIELDS = [
 SELF_FIELDS = [
     'first_name,name',
     'statuses.limit(%s){message,likes.limit(%s)}',
+    'friends.limit(%s)',
 ]
 
 def get_questions(self_data, friend_data):
