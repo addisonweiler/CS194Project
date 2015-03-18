@@ -54,7 +54,8 @@ input[type=submit]{
 	border-right: solid 2px black;
 	border-top: solid 2px black;
 
-	margin-bottom: 10px;
+	margin-bottom: 2px;
+	padding: 10px;
 	border-radius: 5px;
 
 	text-align: center;
