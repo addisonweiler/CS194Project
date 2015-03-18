@@ -1,0 +1,24 @@
+#about_div{
+	margin-left:30px;
+	margin-right: 30px;
+	margin-top:100px;
+}
+
+#paragraph{
+	font-family: Cambria;
+	border: double 2px black;
+	padding: 0px 0px 15px 15px;
+	border-radius: 5px;
+	margin-bottom: 15px;
+}
+
+h2{
+	font-size: 30px;
+	font-style: italic;
+
+}
+
+p {
+	font-size: 18px;
+
+}
