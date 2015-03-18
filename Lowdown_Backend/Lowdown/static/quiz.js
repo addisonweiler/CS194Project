@@ -30,7 +30,7 @@ function nextQuestion(){
   $("#" + nextQuestionId).delay( FADE_TIME ).fadeIn(FADE_TIME);
 }
 
-// SIGNATURE PROGRESS
+/* Moves the progess bar */
 function moveProgressBar() {
   var getPercent = ((currentQuestion - 1) / numQuestions);
   console.log(getPercent)
@@ -43,7 +43,6 @@ function moveProgressBar() {
   }, animationLength);
   console.log(progressTotal)
 }
-
 
 /* 
 * Main function 
