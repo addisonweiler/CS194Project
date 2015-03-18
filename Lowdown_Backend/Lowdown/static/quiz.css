@@ -1,13 +1,14 @@
 .question {
-	/*border-bottom: double 2px black;
-	border-left: solid 2px black;
-	border-right: solid 2px black;
-	border-top: solid 2px black;
 	font: normal 'Cambria';
 	padding: 10px 10px 15px 15px;
-	border-radius: 5px;*/
+	border-radius: 5px;
 
 	margin: 0px 10px 20px 10px;
+
+	position: fixed;
+  	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
 }
 
 #submit{
