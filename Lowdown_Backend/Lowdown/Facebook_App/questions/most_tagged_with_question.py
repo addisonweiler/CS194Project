@@ -21,6 +21,8 @@ class MostTaggedWithQuestion(HighestAmountQuestion):
         tags = defaultdict(int)
         for photo in get_paged_data(friend_data, 'photos'):
             for tag in get_paged_data(photo, 'tags'):
+                if 'id' not in tag:
+                    continue        # Ignore tags of non-fb objects
                 tags[tag['name']] += weight(photo)
         del tags[friend_data['name']]
         return cls(tags)
