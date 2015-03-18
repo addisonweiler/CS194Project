@@ -34,7 +34,7 @@ FAKE_LIKES = [
     'Taylor Swift',
     'Lady Gaga',
     'Linkin Park',
-    'Beyoncé'
+    'Beyonce'
 ]
 
 FAKE_HIGH_SCHOOLS = [
