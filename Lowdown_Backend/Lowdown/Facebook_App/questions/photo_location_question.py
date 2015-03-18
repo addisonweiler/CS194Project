@@ -4,10 +4,12 @@ import random
 from questions import PhotoMultipleChoiceQuestion
 from utils import get_paged_data, get_sized_photo, QuestionNotFeasibleException
 
+DIST_THRESH = 5.0
+
 def get_geotagged_photo(photos):
     for _ in range(100):
         photo = random.choice(photos)
-        if 'place' in photo:
+        if 'place' in photo and type(photo['place']['location']) is dict:
             return photo
     raise QuestionNotFeasibleException()
 
@@ -21,10 +23,10 @@ def _distance_miles(loc1, loc2):
     return sqrt(lat_diff(loc1, loc2) ** 2 + lon_diff(loc1, loc2) ** 2) * 60.0
 
 def distance_miles(photo1, photo2):
-    return _distance_miles(
-        photo1['place']['location'],
-        photo2['place']['location']
-    )
+     return _distance_miles(
+         photo1['place']['location'],
+         photo2['place']['location']
+     )
 
 def get_unique_locations(photos):
     """Gets the names of all locations that are not within 60 miles of each
@@ -37,12 +39,13 @@ def get_unique_locations(photos):
     prevent.
     """
     locations = []
+    photos = [photo for photo in photos
+              if type(photo['place']['location']) is dict]
     for i in range(len(photos)):
         for j in range(i + 1, len(photos) + 1):
             if j == len(photos):
                 locations.append(photos[i]['place']['name'])
-            elif distance_miles(photos[i], photos[j]) < 10.0:
-                # debug += [photos[i]['place']['name'] + photos[j]['place']['name'] + str(distance_miles(photos[i], photos[j]))]
+            elif distance_miles(photos[i], photos[j]) < DIST_THRESH:
                 break
     return locations
 
