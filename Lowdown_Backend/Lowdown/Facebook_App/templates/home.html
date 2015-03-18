@@ -8,7 +8,8 @@
 <div id="select_friends">
  {% if request.user and not request.user.is_anonymous %}
 
- <p id="greeting"> Hello {{ request.user.get_full_name.split.0 |default:request.user.username }}, thanks for using Lowdown! Here are the available friends you can be quizzed on:</p>
+ <!-- <p id="greeting"> Hello {{ request.user.get_full_name.split.0 |default:request.user.username }}, thanks for using Lowdown! Here are the available friends you can be quizzed on:</p> -->
+ <p id="greeting"> </p>
 
  <table>
 {% with num_cols=4 %}
