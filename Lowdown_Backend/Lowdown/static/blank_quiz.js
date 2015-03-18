@@ -53,8 +53,8 @@ function ScoreAndNextQuestion(){
      //Instant feedback
      var answers = document.getElementById("answers").value;
      var answerArr = answers.substring(1, answers.length-1).split(',');
-     var scoreDiv = document.getElementById("score");
-     var score = 0;
+     // var scoreDiv = document.getElementById("score");
+      var score = 0;
 
      var $radiobuttons = $('input[type=radio]');
      $radiobuttons.click(function(){
@@ -64,7 +64,7 @@ function ScoreAndNextQuestion(){
 
       if (Number(correctAnswer) == Number(this.value)){
         score++;
-        scoreDiv.innerHTML = "SCORE: " + score;
+        // scoreDiv.innerHTML = "SCORE: " + score;
         $(correctElem).parent().css("background-color", "green").delay(FADE_TIME*5);
         loadPopupBoxCorrect();
       }

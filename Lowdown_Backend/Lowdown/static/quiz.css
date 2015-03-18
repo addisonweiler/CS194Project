@@ -1,3 +1,14 @@
+.score {
+	border-bottom: double 2px black;
+	border-left: solid 2px black;
+	border-right: solid 2px black;
+	border-top: solid 2px black;
+
+	border-radius: 5px;
+
+	font: normal 'Cambria';
+}
+
 .question {
 	font: normal 'Cambria';
 	padding: 10px 10px 15px 15px;
