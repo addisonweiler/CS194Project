@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import Counter
 import re
 
 from extreme_amount_question import HighestAmountQuestion
@@ -6,15 +6,11 @@ from stopwords import STOPWORDS
 from utils import get_paged_data, get_captions
 
 def get_word_count(phrases):
-    word_count = defaultdict(int)
+    count = Counter()
     for phrase in phrases:
-        words = re.findall(r"[\w']+", phrase)
-        for w in words:
-            w = w.lower()
-            if w in STOPWORDS or len(w) < 2:
-                continue
-            word_count[w] += 1
-    return word_count
+        count += Counter([word.lower() for word in re.findall(r"[\w']+", phrase)
+                      if word not in STOPWORDS and len(word) > 2])
+    return count
 
 class MostUsedWordQuestion(HighestAmountQuestion):
     QUESTION_TEXT = "Out of the following, what is %s's most used word?"
@@ -26,4 +22,6 @@ class MostUsedWordQuestion(HighestAmountQuestion):
         phrases.extend(get_captions(get_paged_data(friend_data, 'photos')))
         # We deduplicate phrases because an album of pictures can produce
         # hundreds of the same exact caption.
-        return cls(get_word_count(set(phrases)))
+        word_count = get_word_count(set(phrases))
+        del word_count[friend_data['first_name'].lower()]
+        return cls(word_count)
