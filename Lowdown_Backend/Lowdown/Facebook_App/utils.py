@@ -8,7 +8,6 @@ PARALLEL = True
 
 def _make_request(url, payload, results):
     result = requests.get(url, params=payload)
-    # TODO: is this thread-safe?
     results.update(result.json())
 
 def get_data(request, target, fields):
@@ -17,8 +16,6 @@ def get_data(request, target, fields):
     ).first()
     if target is None:
         target = social_user.uid
-    # TODO: this sets the fetch limit to 500. Going forward we should check the
-    # result and reduce this if the server denies the request.
     url = 'https://graph.facebook.com/%s' % target
     threads = []
     results = {}
