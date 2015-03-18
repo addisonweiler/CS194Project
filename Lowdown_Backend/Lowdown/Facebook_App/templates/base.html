@@ -19,19 +19,28 @@
 <body>
   <header>
     <div class="wrapper">
+        {% if flavour == "full" %}
       <a href="{{home_url}}" class="title"><img id="Lowdown_Logo" src="{% static 'header_logo.png' %}"></a>
+        {% else %}
+      <a href="{{home_url}}" class="title"><img id="Lowdown_Logo" src="{% static 'square_logo.png' %}"></a>
+        {% endif %}
 
       <div class="menu-header-menu-container">
         <ul id="menu-header-menu" class="menu">
+        {% if flavour == "full" %}
           <li id="home">
             <a href="{{ home_url }}">Home</a>
           </li>
+        {% endif %}
           <li id="about">
             <a href="{{ about_url }}">About</a>
           </li>
+          <li>
+            <div id="line"> </div>
+          </li>
           {% if request.user and not request.user.is_anonymous %}
-          <li id="profile_pic_wrapper">
-            <a href="{{profile_url}}"> <img id="profile_pic" src="{{profile_pic}}"> </img> </a>
+          <li class="profile_pic_wrapper">
+            <a id= "profile-link" href="{{profile_url}}"> <img id="profile_pic" src="{{profile_pic}}"> </img> </a>
           </li>
           <li id="logout">
             <a href="{% url 'auth:logout' %}?next={{ home_url }}">Logout</a>

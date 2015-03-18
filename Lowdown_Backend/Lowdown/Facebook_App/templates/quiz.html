@@ -15,11 +15,7 @@
         <form id="form" action="/Facebook_App/quiz_grade" method="post"> {%csrf_token%}
 
             {% for q in questions %}
-            {%if forloop.counter == 1%}
-            <div class="question" id="question_{{forloop.counter}}" name="question">
-                {%else%}
-                <div class="question" style="display:none" id="question_{{forloop.counter}}" name="question">
-                    {%endif%}
+                <div class={% if flavour == "full" %}"question"{% else %}"question-mobile" {% endif %} {% if forloop.counter != 1 %} style="display:none" {% endif %} id="question_{{forloop.counter}}" name="question">
                     {% with template_name=q.template|stringformat:"s"%}
                     {% include "questions/"|add:template_name %}
                     {% endwith %}

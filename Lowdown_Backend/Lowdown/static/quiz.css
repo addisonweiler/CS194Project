@@ -14,6 +14,17 @@
 	/*transform: translate(-50%, -50%);*/
 }
 
+.question-mobile {
+	font: normal 'Cambria';
+	padding: 75px 20px 15px 20px;
+	border-radius: 5px;
+
+	margin: 10px 10px 20px 10px;
+
+	margin-right: auto;
+	margin-left: auto;
+}
+
 .question-image {
 	display:block;
 	margin: auto;

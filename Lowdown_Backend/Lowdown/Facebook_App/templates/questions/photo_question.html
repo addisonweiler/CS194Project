@@ -1,5 +1,5 @@
-<img class="question-image" src="{{q.image}}" alt="image" style="max-width: 50%;">
-<h2>{{forloop.counter}}. {{ q.question_text }}</h2>
+<img class="question-image" src="{{q.image}}" alt="image" style="max-width: 80%;">
+<h2>{{ q.question_text }}</h2>
 {% with question_number=forloop.counter0 %}
 {% for answer in q.responses %}
 <label>
