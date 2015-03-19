@@ -4,11 +4,11 @@ Addison Weiler, April Yu, Sean Scott
 
 Instructions
 ------------
-As the app is still in development mode (since it has not been fully checked for security), new users must be registered by us as app testers. Currently only Alex on the teaching staff is. Unfortunately, XiaoSong (who I believe is his only friend on the app right now) has too restrictive security permissions to allow us to generate a quiz for him.
+As the app is still in development mode (since it has not been fully checked for security), new users must be registered by us as app testers. Currently only Alex on the teaching staff is. Of Alex's friends on the app, I know XiaoSong has too restrictive security settings to allow quiz generation; the quiz on Sean should work however.
 
 After being added as a tester, a user needs to confirm his/her role as a tester, and then log in to the app without a current active Facebook session (e.g. in incognito). Then the home screen will appear.
 
-The main url is lowdownquiz.me
+The main url is http://lowdownquiz.me
 
 Packages Used
 -------------
