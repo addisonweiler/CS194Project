@@ -33,7 +33,6 @@ function nextQuestion(){
 /* Moves the progess bar */
 function moveProgressBar() {
   var getPercent = ((currentQuestion - 1) / numQuestions);
-  console.log(getPercent)
   var getProgressWrapWidth = $('.progress-wrap').width();
   var progressTotal = getPercent * getProgressWrapWidth;
   var animationLength = PROGRESS_ANIMATION_TIME;
