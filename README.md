@@ -12,21 +12,21 @@ The main url is http://lowdownquiz.me
 
 Packages Used
 -------------
-0. Pillow
+0. **Pillow:**
 Pillow, a fork of the Python Image Library (PIL), was used for image processing. Pillow was used to process images pulled down from Facebook, and specifically was used to getting individual pixels and their RGB values for use in color_shirt_question.py. It was also used for debugging, as it provided sufficient drawing functionality. 
 
-0. Django
+0. **Django:**
 We used the web framework Django for our project. Django, combined with Amazon AWS servers, provided the framework we needed for Lowdown, and allowed us to use Python for our backend processing. 
 
-0. Python Social Auth
+0. **Python Social Auth:**
 We used the Python Social Auth package to authenticate Facebook users and pull data from their profiles.  This package provided an easy framework to use to accomplish this essential component of our final product.
 
 User Testing
 ------------
-0. Design
+0. **Design:**
 We used the storyboarding technique taught in CS147 to get user feedback on different design options we imagined.  These ideas were sketched out onto index cards, which allowed for easy viewing by the test users and rapid change and iteration by us.
 
-0. Workflow
+0. **Workflow:**
 Similarly, we took the final design (based on our own aesthetic opinions and user feedback) and implemented it in our prototype.  After implementing this alpha version, we had users step through the workflow again on the computer.  This allowed them to see the transitions from one page to another, along with the fade time between pages.  From here, we gathered more feedback and used it to iterate on the design until we arrived at the final product.
 
 
@@ -87,7 +87,7 @@ These files together are responsible for creating the color_shirt question. Phot
 
     ./Facebook_App/questions/most_used_word.py
     ./Facebook_App/questions/stopwords.py
-A list of common words in English that should not be considered as “most used” words for users.
+A list of common words in English that should not be considered as “most used” words for users are contained in stopwords.py. Most_used_work.py makes use of this list to generate a question that processes all posts from a user and determines their most used word on Facebook.
 
     ./Facebook_App/questions/fake_data.py
 This file contains “fake” data used in a variety of questions to either provide correct or incorrect answers to the questions. We had considered generating this data dynamically, for example by pulling in data from other friends in the user’s network. This would be an important extension, but even if such an extension is implemented, fake data is still very necessary for the common case of the user that only has one friend on the app.
